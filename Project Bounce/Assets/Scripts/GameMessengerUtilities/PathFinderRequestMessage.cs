@@ -1,4 +1,6 @@
-﻿namespace GameMessengerUtilities
+﻿using Controllers;
+
+namespace GameMessengerUtilities
 {
     public struct PathFinderRequestMessage
     {

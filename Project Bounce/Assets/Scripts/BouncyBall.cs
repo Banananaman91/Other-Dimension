@@ -29,14 +29,14 @@ public class BouncyBall : MonoBehaviour
             _rb.AddForce(Vector3.down * Mathf.Sqrt(_bounce * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             Debug.Log(Vector3.Distance(_terrain.transform.position, transform.position));
         }
-        if (Vector3.Distance(_terrain.transform.position, transform.position) > _jumpHeight)
-        {
-            Bounce.bounceCombine = PhysicMaterialCombine.Minimum;
-        }
-        else
-        {
-            Bounce.bounceCombine = PhysicMaterialCombine.Maximum;
-        }
+//        if (Vector3.Distance(_terrain.transform.position, transform.position) > _jumpHeight)
+//        {
+//            Bounce.bounceCombine = PhysicMaterialCombine.Minimum;
+//        }
+//        else
+//        {
+//            Bounce.bounceCombine = PhysicMaterialCombine.Maximum;
+//        }
         transform.rotation = Quaternion.Euler(0, _camera.transform.eulerAngles.y, 0);
 
     }
