@@ -9,7 +9,6 @@ public class BouncyBall : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private Camera _camera;
-    [SerializeField] private Terrain _terrain;
     [SerializeField] private float _bounce;
     [SerializeField] private float _directionForce;
     [SerializeField] private float _jumpHeight;
@@ -27,15 +26,6 @@ public class BouncyBall : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _rb.AddForce(Vector3.down * Mathf.Sqrt(_bounce * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-            Debug.Log(Vector3.Distance(_terrain.transform.position, transform.position));
-        }
-        if (Vector3.Distance(_terrain.transform.position, transform.position) > _jumpHeight)
-        {
-            Bounce.bounceCombine = PhysicMaterialCombine.Minimum;
-        }
-        else
-        {
-            Bounce.bounceCombine = PhysicMaterialCombine.Maximum;
         }
         transform.rotation = Quaternion.Euler(0, _camera.transform.eulerAngles.y, 0);
 
