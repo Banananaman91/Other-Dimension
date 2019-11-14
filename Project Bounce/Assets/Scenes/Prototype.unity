@@ -602,6 +602,7 @@ MonoBehaviour:
   _bounce: 5
   _directionForce: 50
   _antiBlackHole: {fileID: 556545585}
+  _rotateSpeed: 15
 --- !u!1001 &1340627857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -702,7 +703,6 @@ GameObject:
   - component: {fileID: 1432396509}
   - component: {fileID: 1432396512}
   - component: {fileID: 1432396511}
-  - component: {fileID: 1432396510}
   m_Layer: 0
   m_Name: AntiBlackHole
   m_TagString: Untagged
@@ -724,19 +724,6 @@ Transform:
   m_Father: {fileID: 226258243}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1432396510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432396508}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d2dd4cb6319da4ebd4bc38846c573d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 565101720}
 --- !u!23 &1432396511
 MeshRenderer:
   m_ObjectHideFlags: 0

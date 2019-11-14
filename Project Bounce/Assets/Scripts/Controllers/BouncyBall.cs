@@ -14,6 +14,7 @@ namespace Controllers
         [SerializeField] private float _bounce;
         [SerializeField] private float _directionForce;
         [SerializeField] private GameObject _antiBlackHole;
+        [SerializeField] private int _rotateSpeed;
 
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
@@ -31,20 +32,22 @@ namespace Controllers
             {
                 _rb.AddForce(Vector3.down * Mathf.Sqrt(_bounce * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             }
-            
+            //transform.forward = new Vector3(0, 0, Input.GetAxis("Mouse X") * _rotateSpeed);
         }
 
         private void FixedUpdate()
         {
-            //transform.up = Direction;
+            transform.up = Direction;
+            //transform.Rotate(0, Input.GetAxis("Mouse X") * _rotateSpeed, 0, Space.Self);
             _directionVector = (RbTransform.right * _moveDirection.x) + (RbTransform.forward * _moveDirection.z);
             _rb.MovePosition(RbTransform.position + Time.fixedDeltaTime * _directionForce * _directionVector);
-            //ApplyGravity();
+            ApplyGravity();
         }
 
         private void ApplyGravity()
         {
-            _rb.AddForce(-transform.up * _gravity);
+            _rb.AddForce(-Direction * (_gravity / 60));
+            //_rb.AddForce(-transform.up * _gravity);
         }
     }
 }
