@@ -13,7 +13,7 @@ namespace Terrain
             transform.localScale = new Vector3(scale, scale, scale);
             var length = 1000;
             var direction = Random.onUnitSphere;
-            Physics.Raycast(transform.position, direction * length, out var hit, Mathf.Infinity);
+            Physics.Raycast(transform.position, direction * length, out var hit, Mathf.Infinity, 9);
             transform.position = hit.point;
             transform.rotation = Quaternion.FromToRotation(Vector3.up, _parent.transform.position);
         }
