@@ -1,5 +1,6 @@
 ﻿using GameMessengerUtilities;
 using Interface;
+using PathFinding;
 using UnityEngine;
 
 namespace Controllers
@@ -8,12 +9,10 @@ namespace Controllers
     public class Controller : MonoBehaviour, IObjectAvoidanceInitialisable
     {
         protected IPathfinder Pathfinder;
-        private ObjectAvoidance _avoidance;
+        protected ObjectAvoidance _avoidance;
         private Renderer _renderBounds;
-        [SerializeField] protected GameObject pathFinderTiles;
         [SerializeField] protected float movementSpeed;
-        [SerializeField] protected float rotationSpeed;
-        public Renderer RenderBounds => _renderBounds == null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
+        public Renderer RenderBounds => _renderBounds != null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
 
         public void Start()
         {
