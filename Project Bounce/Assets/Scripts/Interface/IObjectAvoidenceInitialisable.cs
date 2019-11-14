@@ -1,6 +1,4 @@
-﻿using PathFinding;
-
-namespace Interface
+﻿namespace Interface
 {
     public interface IObjectAvoidanceInitialisable
     {

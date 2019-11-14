@@ -12,12 +12,12 @@ namespace PathFinding
     public class PathFinder : IPathfinder, IObjectAvoidanceInitialisable
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
+        private float _2dMaxDistance = 1;
         private ObjectAvoidance _avoidance;
-        private float stepValue = 1;
 
-        public IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
+        public IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition, bool is3d, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {
-            MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
+            GameMessengerUtilities.MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
             List<Location> openList = new List<Location>();
             List<Location> closedList = new List<Location>();
             Location currentLocation;
@@ -36,15 +36,13 @@ namespace PathFinding
                 closedList.Add(currentLocation);
                 openList.Remove(currentLocation);
 
-                if (Vector3.Distance(currentLocation.PositionInWorld, targetPosition) < 1)
-                    targetPosition = currentLocation.PositionInWorld;
                 if (closedList.Any(x => x.PositionInWorld == targetPosition))
                 {
                     break;
                 }
 
                 adjacentSquares.Clear();
-                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving);
+                adjacentSquares = !is3d ? GetAdjacentSquares2D(currentLocation, targetPosition, isObjectMoving) : GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving);
 
                 foreach (var adjacentSquare in adjacentSquares)
                 {
@@ -72,23 +70,45 @@ namespace PathFinding
 
             _pathToFollow.Reverse();
 
-                onCompletion(_pathToFollow);
+            onCompletion(_pathToFollow);
         }
 
+        private List<Location> GetAdjacentSquares2D(Location point, Vector3 target, Controller isObjectMoving)
+        {
+            List<Location> returnList = new List<Location>();
+
+            for (float xIndex = point.PositionInWorld.x - 1; xIndex <= point.PositionInWorld.x + 1; xIndex++)
+            {
+                for (float zIndex = point.PositionInWorld.z - 1; zIndex <= point.PositionInWorld.z + 1; zIndex++)
+                {
+                    var adjacentVector =
+                        new Location(new Vector3(xIndex, point.PositionInWorld.y, zIndex), target, point);
+                    if (Vector3.Distance(point.PositionInWorld, adjacentVector.PositionInWorld) >
+                        _2dMaxDistance) continue;
+
+                    bool isIntersecting = _avoidance.Objects
+                        .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
+                                    Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
+                    if (!isIntersecting) returnList.Add(adjacentVector);
+                }
+            }
+            return returnList;
+        }
+        
         private List<Location> GetAdjacentSquares3D(Location point, Vector3 target, Controller isObjectMoving)
         {
             List<Location> returnList = new List<Location>();
 
-            for (var xIndex = point.PositionInWorld.x - stepValue; xIndex <= point.PositionInWorld.x + stepValue; xIndex+=stepValue)
+            for (float xIndex = point.PositionInWorld.x - 1; xIndex <= point.PositionInWorld.x + 1; xIndex++)
             {
-                for (var yIndex = point.PositionInWorld.y - stepValue; yIndex <= point.PositionInWorld.y + stepValue; yIndex+=stepValue)
+                for (float yIndex = point.PositionInWorld.y - 1; yIndex <= point.PositionInWorld.y + 1; yIndex++)
                 {
-                    for (var zIndex = point.PositionInWorld.z - stepValue; zIndex <= point.PositionInWorld.z + stepValue; zIndex+=stepValue)
+                    for (float zIndex = point.PositionInWorld.z - 1; zIndex <= point.PositionInWorld.z + 1; zIndex++)
                     {
                         var adjacentVector = new Location(new Vector3(xIndex, yIndex, zIndex), target,
                             point);
                         bool isIntersecting = _avoidance.Objects
-                            .Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
+                            .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
                                         Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
                         if (!isIntersecting) returnList.Add(adjacentVector);
                     }

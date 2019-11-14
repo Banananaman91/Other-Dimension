@@ -1,11 +1,10 @@
-﻿using PathFinding;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameMessengerUtilities
 {
     public class ObjectAvoidanceListener : MonoBehaviour
     {
-        [SerializeField] private ObjectAvoidance _avoidanceInstance;
+        private ObjectAvoidance _avoidanceInstance;
 
         private void Awake()
         {

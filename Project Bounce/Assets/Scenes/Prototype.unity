@@ -309,4 +309,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _clamp: {fileID: 0}
-  _rotateSpeed: 30
+  _rotateSpeed: 5
