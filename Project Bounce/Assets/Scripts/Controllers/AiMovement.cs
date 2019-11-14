@@ -26,7 +26,7 @@ namespace Controllers
             findingTarget
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             switch (state)
             {
@@ -57,8 +57,9 @@ namespace Controllers
         
         private Vector3 DetermineGoalPosition()
         {
+            bool isMoveable = false;
             var point = Random.insideUnitSphere * moveableRadius;
-            while (_avoidance.Objects.Any(x => x.RenderBounds.bounds.Contains(point)))
+            while (_avoidance.Objects.Where(x => Vector3.Distance(x.transform.position, transform.position) < moveableRadius).Any(x => x.RenderBounds.bounds.Contains(point)))
             {
                 point = Random.insideUnitSphere * moveableRadius;
             }
