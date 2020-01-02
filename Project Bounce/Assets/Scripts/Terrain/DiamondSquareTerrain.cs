@@ -9,7 +9,6 @@ namespace Terrain
         [SerializeField] private int _divisions;
         [SerializeField] private float _size;
         [SerializeField] private float _height;
-        
 
         private Vector3[] _verts;
         private int _vertCount;
@@ -22,7 +21,7 @@ namespace Terrain
         void CreateTerrain()
         {
             _vertCount = (_divisions + 1) * (_divisions + 1);
-            _verts = new Vector3[_vertCount];
+            _verts =  new Vector3[_vertCount];
             Vector2[] uvs = new Vector2[_vertCount];
             int[] tris = new int[_divisions*_divisions*6];
 
@@ -58,11 +57,6 @@ namespace Terrain
                     }
                 }
             }
-
-            _verts[0].y = Random.Range(-_height, _height);
-            _verts[_divisions].y = Random.Range(-_height, _height);
-            _verts[_verts.Length - 1].y = Random.Range(-_height, _height);
-            _verts[_verts.Length - 1 - _divisions].y = Random.Range(-_height, _height);
 
             int iterations = (int) Mathf.Log(_divisions, 2);
             int numberOfSquares = 1;
