@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
@@ -10,44 +11,68 @@ namespace Controllers
     public class BouncyBall : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rb;
-        [SerializeField] private Camera _camera;
-        [SerializeField] private float _bounce;
-        [SerializeField] private float _directionForce;
-        [SerializeField] private GameObject _antiBlackHole;
+        [SerializeField] private float _walk;
+        [SerializeField, Range(1,5)] private int _run;
         [SerializeField] private int _rotateSpeed;
-
+        [SerializeField] private int _jump;
+        [SerializeField] private int _dash;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
         private Transform RbTransform => _rb.transform;
+        public Transform PlayerTransform => transform;
         public Rigidbody Rb => _rb;
-        private Vector3 Direction => _antiBlackHole.transform.position - transform.position;
-        private float _gravity = 9.08f;
+        private bool _jumped;
+        private bool _dashed;
 
         private void Update()
         {
-            _moveDirection = Vector3.zero;
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");
-            if (Input.GetKeyDown(KeyCode.Space))
+
+            if(Input.GetKey (KeyCode.E))
             {
-                _rb.AddForce(Vector3.down * Mathf.Sqrt(_bounce * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+                transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
             }
-            //transform.forward = new Vector3(0, 0, Input.GetAxis("Mouse X") * _rotateSpeed);
+
+            if(Input.GetKey (KeyCode.Q))
+            {
+                transform.Rotate(-Vector3.up * _rotateSpeed * Time.deltaTime);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                _walk *= _run;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                _walk /= _run;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
+            {
+                _rb.AddForce(transform.up * _jump, ForceMode.VelocityChange);
+                if (!_jumped) _jumped = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && _jumped && !_dashed)
+            {
+                _rb.AddForce(transform.forward * _dash, ForceMode.VelocityChange);
+                if (!_dashed) _dashed = true;
+            }
         }
 
         private void FixedUpdate()
         {
-            transform.up = Direction;
-            //transform.Rotate(0, Input.GetAxis("Mouse X") * _rotateSpeed, 0, Space.Self);
             _directionVector = (RbTransform.right * _moveDirection.x) + (RbTransform.forward * _moveDirection.z);
-            _rb.MovePosition(RbTransform.position + Time.fixedDeltaTime * _directionForce * _directionVector);
-            ApplyGravity();
+            _rb.MovePosition(RbTransform.position + _directionVector * _walk * Time.deltaTime);
         }
 
-        private void ApplyGravity()
+        private void OnCollisionEnter(Collision other)
         {
-            _rb.AddForce(-Direction * (_gravity / 60));
-            //_rb.AddForce(-transform.up * _gravity);
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                if (_jumped) _jumped = false;
+                if (_dashed) _dashed = false;
+            }
         }
     }
 }
