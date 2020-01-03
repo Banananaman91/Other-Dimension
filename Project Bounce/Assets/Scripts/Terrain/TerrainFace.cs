@@ -1,4 +1,5 @@
 ﻿using System;
+using Terrain.Colour;
 using Terrain.Settings;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -33,6 +34,8 @@ namespace Terrain
             _vertices = new Vector3[_resolution * _resolution];
             _triangles = new int[(_resolution - 1) * (_resolution - 1) * 6];
             int triIndex = 0;
+            Vector2[] uv = _mesh.uv;
+            
             for (int i = 0; i < _resolution; i++)
             {
                 for (int j = 0; j < _resolution; j++)
@@ -63,6 +66,28 @@ namespace Terrain
             _mesh.vertices = _vertices;
             _mesh.triangles = _triangles;
             _mesh.RecalculateNormals();
+            _mesh.uv = uv;
+        }
+
+        public void UpdateUVs(ColourGenerator colourGenerator)
+        {
+            Vector2[] uv = new Vector2[_resolution * _resolution];
+
+            for (int i = 0; i < _resolution; i++)
+            {
+                for (int j = 0; j < _resolution; j++)
+                {
+                    int loop = i + j * _resolution;
+                    Vector2 percent = new Vector2(i, j) / (_resolution - 1);
+                    Vector3 pointOnUnitCube =
+                        _localUp + (percent.x - 0.5f) * 2 * _axisA + (percent.y - 0.5f) * 2 * _axisB;
+                    Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+                    
+                    uv[i] = new Vector2(colourGenerator.BiomePercentFromPoint(pointOnUnitSphere), 0);
+                }
+            }
+
+            _mesh.uv = uv;
         }
     }
 }

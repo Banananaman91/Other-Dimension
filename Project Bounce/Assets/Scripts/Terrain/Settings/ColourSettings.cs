@@ -5,7 +5,11 @@ namespace Terrain.Settings
     [CreateAssetMenu()]
     public class ColourSettings : ScriptableObject
     {
-        [SerializeField] private Color _planetColour;
-        public Color PlanetColour => _planetColour;
+        [SerializeField] private BiomeColourSettings _biomeColourSettings;
+        [SerializeField] private Material _planetMaterial;
+
+        public Material PlanetMaterial => _planetMaterial;
+
+        public BiomeColourSettings BiomeColourSettings => _biomeColourSettings;
     }
 }
