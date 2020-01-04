@@ -72,7 +72,7 @@ namespace PathFinding
 
             _pathToFollow.Reverse();
 
-                onCompletion(_pathToFollow);
+            onCompletion(_pathToFollow);
         }
 
         private List<Location> GetAdjacentSquares3D(Location point, Vector3 target, Controller isObjectMoving)
