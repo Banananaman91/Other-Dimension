@@ -41,7 +41,14 @@ namespace PathFinding
                 {
                     if (stepValue > 1)
                     {
-                        stepValue /= 2;
+                        while (distance < stepValue && stepValue > 1)
+                        {
+                            stepValue /= 2;
+                        }
+                        if (distance < 1)
+                        {
+                            targetPosition = currentLocation.PositionInWorld;
+                        }
                     }
                     else
                     {
@@ -76,8 +83,11 @@ namespace PathFinding
             
             do
             {
-                _pathToFollow.Add(current.Parent.PositionInWorld);
-                current = current.Parent;
+                if (current.Parent.PositionInWorld != null)
+                {
+                    _pathToFollow.Add(current.Parent.PositionInWorld);
+                    current = current.Parent;
+                }
             } while (!_pathToFollow.Contains(startPosition));
 
             _pathToFollow.Reverse();

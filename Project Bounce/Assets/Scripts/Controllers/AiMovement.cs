@@ -48,7 +48,7 @@ namespace Controllers
                     {
                         _element++;
                     }
-                    MoveCharacterAcrossPath(_path.ElementAt(_element));
+                    if (_element < _path.Count()) MoveCharacterAcrossPath(_path.ElementAt(_element));
                     break;
                 case AiState.FindingPath:
                     if (_gdi != null && !_isFindingPath)

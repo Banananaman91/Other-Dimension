@@ -6,6 +6,7 @@ namespace Controllers
     public class StalkerAi : AiMovement
     {
         [SerializeField] SphereCollider _sphere;
+        [SerializeField] int _stalkDistance = 1;
 
         public List<GameObject> _others = new List<GameObject>();
 
@@ -31,7 +32,7 @@ namespace Controllers
             if (_others.Count != 0)
             {
                 var num = Random.Range(0, _others.Count);
-                return point = _others[num].transform.position;
+                return point = _others[num].transform.position - _others[num].transform.forward * _stalkDistance;
             }
             else
             {
