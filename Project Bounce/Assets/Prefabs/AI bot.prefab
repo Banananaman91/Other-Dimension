@@ -107,5 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  _goalPosition: {x: 0, y: 0, z: 0}
-  moveableRadius: 25
+  moveableRadius: 20
+  stepValue: 5
+  _state: 0

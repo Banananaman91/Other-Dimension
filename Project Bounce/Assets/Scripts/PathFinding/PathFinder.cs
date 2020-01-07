@@ -13,7 +13,6 @@ namespace PathFinding
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
         private ObjectAvoidance _avoidance;
-        //private float stepValue = 1;
 
         public IEnumerator FindPath(float stepValue, Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {

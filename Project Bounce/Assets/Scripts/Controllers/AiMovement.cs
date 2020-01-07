@@ -10,17 +10,17 @@ namespace Controllers
 {
     public class AiMovement : Controller
     {
-        [SerializeField] private float moveableRadius;
-        [SerializeField, Range(1, 10)] private int stepValue = 1;
-        private float StepValue => stepValue;
-        private Vector3 _goalPosition;
-        private IEnumerable<Vector3> _path = new List<Vector3>();
+        [SerializeField] protected float moveableRadius;
+        [SerializeField, Range(1, 10)] protected int stepValue = 1;
+        protected float StepValue => stepValue;
+        protected Vector3 _goalPosition;
+        protected IEnumerable<Vector3> _path = new List<Vector3>();
         public bool PathFinderReady => Pathfinder != null;
-        private Coroutine _gdi;
-        private bool _isMoving;
-        private bool _isFindingPath;
+        protected Coroutine _gdi;
+        protected bool _isMoving;
+        protected bool _isFindingPath;
         public AiState _state = AiState.Waiting;
-        private int _element = 0;
+        protected int _element = 0;
 
 
         public enum AiState
@@ -81,20 +81,13 @@ namespace Controllers
             }
         }
 
-        private Vector3 DetermineGoalPosition()
+        protected virtual Vector3 DetermineGoalPosition()
         {
             var point = Random.insideUnitSphere * moveableRadius;
-            while (_avoidance.Objects
-                .Where(x => Vector3.Distance(x.transform.position, transform.position) < moveableRadius)
-                .Any(x => x.RenderBounds.bounds.Contains(point)))
-            {
-                point = Random.insideUnitSphere * moveableRadius;
-            }
-
             return point;
         }
 
-        private void MoveCharacterAcrossPath(Vector3 location)
+        protected virtual void MoveCharacterAcrossPath(Vector3 location)
         {
             _isMoving = true;
 

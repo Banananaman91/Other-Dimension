@@ -14,7 +14,7 @@ namespace Controllers
         [SerializeField] protected float movementSpeed;
         public Renderer RenderBounds => _renderBounds != null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
 
-        public void Awake()
+        public void Start()
         {
             GetPathfinder();
             AddToObjectAvoidance();
