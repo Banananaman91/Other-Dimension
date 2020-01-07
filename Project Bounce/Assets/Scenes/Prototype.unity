@@ -765,6 +765,11 @@ PrefabInstance:
       propertyPath: moveableRadius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8481394229851360628, guid: 1df86f7975669f747a2be8cda9a4c4cc,
+        type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8481394229851360520, guid: 1df86f7975669f747a2be8cda9a4c4cc,
         type: 3}
       propertyPath: m_LocalPosition.x

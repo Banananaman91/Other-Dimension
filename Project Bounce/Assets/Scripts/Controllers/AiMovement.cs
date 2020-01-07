@@ -16,8 +16,11 @@ namespace Controllers
         private Vector3 _previousLocation, _previousDistance;
         public bool PathFinderReady => Pathfinder != null;
         private Coroutine _gdi;
-        private bool _isMoving = true; //we'll clean this up later just getting it working for now
-        private bool _isFindingPath = true;
+        private Coroutine _pathCoroutine;
+        private bool _isMoving;
+        private bool _isFindingPath;
+        public AiState _state = AiState.Waiting;
+        private int _element = 0;
 
 
         public enum AiState
@@ -28,41 +31,54 @@ namespace Controllers
             FindingTarget
         }
 
-        private void Start()
+        private void Update()
         {
-            State(AiState.Waiting);
-        }
-
-        public void State(AiState state)
-        {
-            switch (state)
+            switch (_state)
             {
                 case AiState.Waiting:
-                    if (PathFinderReady) State(AiState.FindingTarget);
+                    if (PathFinderReady) _state = AiState.FindingTarget;
                     break;
                 case AiState.Moving:
-                    if(_gdi != null) StopCoroutine(_gdi);
-                    _gdi = StartCoroutine(MoveCharacterAcrossPath());
+                    if (_gdi != null && !_isMoving)
+                    {
+                        StopCoroutine(_gdi);
+                        _element = 0;
+                    }
+                    if (Vector3.Distance(transform.position, _path.ElementAt(_element)) < float.Epsilon)
+                    {
+                        _element++;
+                    }
+                    MoveCharacterAcrossPath(_path.ElementAt(_element));
                     break;
                 case AiState.FindingPath:
-                    if(_gdi != null) StopCoroutine(_gdi);
-                    _gdi = StartCoroutine(VisualisePath());
+                    if (_gdi != null && !_isFindingPath)
+                    {
+                        StopCoroutine(_gdi);
+                    }
+                    if (!_isFindingPath)
+                    {
+                        _gdi = StartCoroutine(VisualisePath());
+                    }
                     break;
                 case AiState.FindingTarget:
                     _goalPosition = DetermineGoalPosition();
-                    State(AiState.FindingPath);
+                    _state = AiState.FindingPath;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+                    throw new ArgumentOutOfRangeException(nameof(_state), _state, null);
             }
         }
 
-
         private IEnumerator VisualisePath()
         {
-            yield return StartCoroutine(routine: Pathfinder.FindPath(transform.position, _goalPosition, moveableRadius,
+            _isFindingPath = true;
+            yield return _pathCoroutine = StartCoroutine(routine: Pathfinder.FindPath(transform.position, _goalPosition, moveableRadius,
                 newPath => _path = newPath));
-            State(AiState.Moving);
+            if (Vector3.Distance(_goalPosition, _path.Last()) < 1)
+            {
+                _state = AiState.Moving;
+                _isFindingPath = false;
+            }
         }
 
         private Vector3 DetermineGoalPosition()
@@ -78,14 +94,17 @@ namespace Controllers
             return point;
         }
 
-        private IEnumerator MoveCharacterAcrossPath()
+        private void MoveCharacterAcrossPath(Vector3 location)
         {
-            foreach (var location in _path)
+            _isMoving = true;
+
+            transform.position = Vector3.MoveTowards(transform.position, location, movementSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, _goalPosition) < 1)
             {
-                transform.position = Vector3.MoveTowards(transform.position, location, movementSpeed * Time.deltaTime);
-                yield return null; //this has to be here for your deltaTime calculation to work correctly
+                _state = AiState.FindingTarget;
+                _isMoving = false;
             }
-            State(AiState.FindingTarget);
         }
     }
 }
