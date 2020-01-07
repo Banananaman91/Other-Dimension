@@ -13,9 +13,9 @@ namespace PathFinding
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
         private ObjectAvoidance _avoidance;
-        private float stepValue = 1;
+        //private float stepValue = 1;
 
-        public IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
+        public IEnumerator FindPath(float stepValue, Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {
             MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
             List<Location> openList = new List<Location>();
@@ -36,15 +36,26 @@ namespace PathFinding
                 closedList.Add(currentLocation);
                 openList.Remove(currentLocation);
 
-                if (Vector3.Distance(currentLocation.PositionInWorld, targetPosition) < 1)
-                    targetPosition = currentLocation.PositionInWorld;
+                var distance = Vector3.Distance(currentLocation.PositionInWorld, targetPosition);
+
+                if (distance < stepValue || distance < 1)
+                {
+                    if (stepValue > 1)
+                    {
+                        stepValue /= 2;
+                    }
+                    else
+                    {
+                        targetPosition = currentLocation.PositionInWorld;
+                    }
+                }
                 if (closedList.Any(x => x.PositionInWorld == targetPosition))
                 {
                     break;
                 }
 
                 adjacentSquares.Clear();
-                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving);
+                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving, stepValue);
 
                 foreach (var adjacentSquare in adjacentSquares)
                 {
@@ -75,7 +86,7 @@ namespace PathFinding
             onCompletion(_pathToFollow);
         }
 
-        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target, Controller isObjectMoving)
+        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target, Controller isObjectMoving, float stepValue)
         {
             List<Location> returnList = new List<Location>();
 

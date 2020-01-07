@@ -10,13 +10,13 @@ namespace Controllers
 {
     public class AiMovement : Controller
     {
-        [SerializeField] private Vector3 _goalPosition;
-        public float moveableRadius;
+        [SerializeField] private float moveableRadius;
+        [SerializeField, Range(1, 10)] private int stepValue = 1;
+        private float StepValue => stepValue;
+        private Vector3 _goalPosition;
         private IEnumerable<Vector3> _path = new List<Vector3>();
-        private Vector3 _previousLocation, _previousDistance;
         public bool PathFinderReady => Pathfinder != null;
         private Coroutine _gdi;
-        private Coroutine _pathCoroutine;
         private bool _isMoving;
         private bool _isFindingPath;
         public AiState _state = AiState.Waiting;
@@ -72,7 +72,7 @@ namespace Controllers
         private IEnumerator VisualisePath()
         {
             _isFindingPath = true;
-            yield return _pathCoroutine = StartCoroutine(routine: Pathfinder.FindPath(transform.position, _goalPosition, moveableRadius,
+            yield return StartCoroutine(routine: Pathfinder.FindPath(StepValue, transform.position, _goalPosition, moveableRadius,
                 newPath => _path = newPath));
             if (Vector3.Distance(_goalPosition, _path.Last()) < 1)
             {
