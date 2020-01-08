@@ -356,6 +356,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBall
       objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1706720071}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 534669904}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _antiBlackHole
+      value: 
+      objectReference: {fileID: 2062648002}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _directionForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _rotateSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _jump
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _walk
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _run
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _dash
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7535535187849061473, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -420,51 +465,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _rb
-      value: 
-      objectReference: {fileID: 1706720071}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _camera
-      value: 
-      objectReference: {fileID: 534669904}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _antiBlackHole
-      value: 
-      objectReference: {fileID: 2062648002}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _directionForce
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _rotateSpeed
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _jump
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _walk
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _run
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
-        type: 3}
-      propertyPath: _dash
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 767a8b1d0d71f354ea9aeccf245eb3e5, type: 3}

@@ -6,7 +6,7 @@ namespace Controllers
     public class GravityController : MonoBehaviour
     {
         [SerializeField] private WhiteHole _gravityCentre;
-        [SerializeField] private BouncyBall playerTransform;
+        [SerializeField] private PlayerController playerTransform;
 
         void FixedUpdate()
         {

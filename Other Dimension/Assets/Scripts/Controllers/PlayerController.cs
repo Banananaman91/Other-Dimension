@@ -8,7 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 namespace Controllers
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class BouncyBall : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private float _walk;
@@ -48,15 +48,15 @@ namespace Controllers
             {
                 _walk /= _run;
             }
-            if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
-            {
-                _rb.AddForce(transform.up * _jump, ForceMode.VelocityChange);
-                if (!_jumped) _jumped = true;
-            }
             if (Input.GetKeyDown(KeyCode.Space) && _jumped && !_dashed)
             {
-                _rb.AddForce(transform.forward * _dash, ForceMode.VelocityChange);
+                _rb.AddForce(transform.forward * _dash, ForceMode.Impulse);
                 if (!_dashed) _dashed = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
+            {
+                _rb.AddForce(transform.up * _jump, ForceMode.Impulse);
+                if (!_jumped) _jumped = true;
             }
         }
 

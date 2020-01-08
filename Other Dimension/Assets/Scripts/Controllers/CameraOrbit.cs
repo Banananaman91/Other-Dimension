@@ -14,7 +14,7 @@ namespace Controllers
         private Quaternion _targetQuaternion;
         private Transform TargetTransform => _target.transform;
         private Vector3 _aboveVector3;
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             _targetVector3 = TargetTransform.position - TargetTransform.forward * _backDistance + TargetTransform.up * _upDistance;
             _aboveVector3 = TargetTransform.position + TargetTransform.up * _upDistance;
