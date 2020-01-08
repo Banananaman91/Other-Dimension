@@ -20,7 +20,7 @@ namespace Controllers
 
             if (Vector3.Distance(transform.position, _goalPosition) < 1)
             {
-                _state = AiState.FindingTarget;
+                StateChange.ToFindTargetState(); //_state = AiState.FindingTarget;
                 _isMoving = false;
             }
         }

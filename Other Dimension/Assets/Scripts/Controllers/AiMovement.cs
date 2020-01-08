@@ -8,35 +8,26 @@ using Random = UnityEngine.Random;
 
 namespace Controllers
 {
-    public class AiMovement : Controller
+    public partial class AiMovement : AiMaster
     {
         [SerializeField] protected float moveableRadius;
         [SerializeField, Range(1, 10)] protected int stepValue = 1;
         protected float StepValue => stepValue;
         protected Vector3 _goalPosition;
         protected IEnumerable<Vector3> _path = new List<Vector3>();
-        public bool PathFinderReady => Pathfinder != null;
         protected Coroutine _gdi;
         protected bool _isMoving;
         protected bool _isFindingPath;
-        public AiState _state = AiState.Waiting;
+        //public AiState _state = AiState.Idle;
         protected int _element = 0;
 
 
-        public enum AiState
+        public override void Update()
         {
-            Waiting,
-            Moving,
-            FindingPath,
-            FindingTarget
-        }
-
-        private void Update()
-        {
-            switch (_state)
+            switch (State)
             {
-                case AiState.Waiting:
-                    if (PathFinderReady) _state = AiState.FindingTarget;
+                case AiState.Idle:
+                    if (PathFinderReady) StateChange.ToFindTargetState();  //_state = AiState.FindingTarget;
                     break;
                 case AiState.Moving:
                     if (_gdi != null && !_isMoving)
@@ -62,10 +53,10 @@ namespace Controllers
                     break;
                 case AiState.FindingTarget:
                     _goalPosition = DetermineGoalPosition();
-                    _state = AiState.FindingPath;
+                    StateChange.ToFindPathState();  //_state = AiState.FindingPath;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_state), _state, null);
+                    throw new ArgumentOutOfRangeException(nameof(State), State, null);
             }
         }
 
@@ -76,7 +67,7 @@ namespace Controllers
                 newPath => _path = newPath));
             if (Vector3.Distance(_goalPosition, _path.Last()) < 1)
             {
-                _state = AiState.Moving;
+                StateChange.ToMoveState();  //_state = AiState.Moving;
                 _isFindingPath = false;
             }
         }
@@ -95,7 +86,7 @@ namespace Controllers
 
             if (Vector3.Distance(transform.position, _goalPosition) < 1)
             {
-                _state = AiState.FindingTarget;
+                StateChange.ToFindTargetState(); //_state = AiState.FindingTarget;
                 _isMoving = false;
             }
         }
