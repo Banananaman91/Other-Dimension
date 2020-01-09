@@ -17,12 +17,10 @@ namespace Controllers.Enemies.Flying
             if (Math.Abs(_sphere.radius - moveableRadius) > float.Epsilon) _sphere.radius = moveableRadius;
             if (_others.Count == 0)
             {
-                Debug.Log(name+": Selecting random target");
                 _goalPosition = Random.insideUnitSphere * moveableRadius;
             }
             else
             {
-                Debug.Log(name+": Targets available: "+_others.Count);
                 var num = Random.Range(0, _others.Count);
                 _goalPosition = _others[num].transform.position - _others[num].transform.forward * _stalkDistance;
                 _target = _others[num];

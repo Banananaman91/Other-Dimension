@@ -20,12 +20,15 @@ namespace Controllers
         
         protected float _timer;
 
-        public virtual void Update()
+        public virtual void FixedUpdate()
         {
             if (_attackCooldown)
             {
                 _timer -= Time.deltaTime;
-                if (_timer <= 0) _attackCooldown = false;
+                if (_timer <= 0)
+                {
+                    _attackCooldown = false;
+                }
             }
             switch (State)
             {
@@ -57,7 +60,6 @@ namespace Controllers
                         _gdi = StartCoroutine(VisualisePath());
                     }
                     break;
-
                 default:
                     throw new ArgumentOutOfRangeException();
             }

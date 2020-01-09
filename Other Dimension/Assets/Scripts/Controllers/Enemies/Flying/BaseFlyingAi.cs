@@ -111,33 +111,29 @@ namespace Controllers.Enemies.Flying
             }
             else
             {
-                _isMoving = true;
-                
-                transform.position =
-                    Vector3.MoveTowards(transform.position, _goalPosition, movementSpeed * Time.deltaTime);
-                //transform.position += 0.5f*(_goalPosition - transform.position) * Time.deltaTime;
-                Debug.Log(_goalPosition - transform.position);
-                
-                Vector3 direction = transform.position - _goalPosition;
-                //transform.Rotate(direction, Space.Self);
                 if (canAttack && _target && !_attackCooldown)
                 {
-                    
-                    if (Vector3.Distance(transform.position, _goalPosition) < attackDistance)
+                    if (Vector3.Distance(_rb.position, _target.transform.position) < attackDistance)
                     {
-                        Debug.Log(name+": Changing to Attack state");
                         StateChange.ToAttackState();
                     }
                 }
 
-                if (!(Vector3.Distance(transform.position, _goalPosition) < 1))
+                if (_attackCooldown && _rb.isKinematic == false)
                 {
-                    Debug.Log(name+": Target not reached yet... " + transform.position + " vs " + _goalPosition);
-                    return;
+                    if (_timer <= _attackCooldownTime - 2) _rb.isKinematic = true;
                 }
-                Debug.Log(name+": Switching to FindTargetState");
+
+                if (_rb.isKinematic)
+                {
+                    Vector3 direction = _goalPosition - _rb.position;
+                    _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
+                    //transform.Rotate(direction, Space.Self);
+                }
+
+
+                if (!(Vector3.Distance(_rb.position, _goalPosition) < 1)) return;
                 StateChange.ToFindTargetState();
-                _isMoving = false;
             }
         }
 
@@ -155,23 +151,15 @@ namespace Controllers.Enemies.Flying
 
         protected override void Attack()
         {
+            _rb.isKinematic = false;
             if (_rb)
             {
-                Vector3 direction = _target.transform.position - transform.position;
-                //transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, movementSpeed * attackValue * Time.deltaTime);
-                //_rb.AddForce(direction * (movementSpeed / attackValue), ForceMode.Impulse);
+                Vector3 direction = _target.transform.position - _rb.position;
+                _rb.AddForce(direction * (movementSpeed * attackValue), ForceMode.Acceleration);
             }
-
             _timer = _attackCooldownTime;
             _attackCooldown = true;
-            //transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, movementSpeed * attackValue * Time.deltaTime);
-            Debug.Log(name+": Switch to FindTargetState");
             StateChange.ToFindTargetState();
-        }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            
         }
     }
 }
