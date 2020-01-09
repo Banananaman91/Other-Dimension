@@ -155,7 +155,7 @@ namespace Controllers.Enemies.Flying
             if (_rb)
             {
                 Vector3 direction = _target.transform.position - _rb.position;
-                _rb.AddForce(direction * (movementSpeed * attackValue), ForceMode.Acceleration);
+                _rb.AddForce(direction * (movementSpeed * attackValue), ForceMode.Impulse);
             }
             _timer = _attackCooldownTime;
             _attackCooldown = true;

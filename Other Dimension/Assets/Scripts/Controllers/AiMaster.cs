@@ -14,7 +14,7 @@ namespace Controllers
         protected StateChange StateChange => new StateChange(this);
         protected bool _isFindingPath;
         protected Coroutine _gdi;
-        protected Vector3 _goalPosition;
+        public Vector3 _goalPosition;
         protected bool _usingPath;
         protected bool _attackCooldown;
         
