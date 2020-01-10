@@ -16,7 +16,7 @@ namespace Controllers.Enemies.Flying
 
         public int SeparationDistance => _separationDistance;
         public Rigidbody BoidRigidbody => GetComponent<Rigidbody>();
-        private List<Rigidbody> _neighboursRigidbodies = new List<Rigidbody>();
+        [SerializeField] private List<Rigidbody> _neighboursRigidbodies = new List<Rigidbody>();
         public List<Rigidbody> NeighboursRigidbodies => _neighboursRigidbodies;
 
 
@@ -40,6 +40,7 @@ namespace Controllers.Enemies.Flying
         {
             var flyingBoid = other.GetComponent<Rigidbody>();
             if (!flyingBoid) return;
+            if (_neighboursRigidbodies.Contains(flyingBoid)) return;
             _neighboursRigidbodies.Add(flyingBoid);
         }
 
@@ -47,6 +48,7 @@ namespace Controllers.Enemies.Flying
         {
             var flyingBoid = other.GetComponent<Rigidbody>();
             if (!flyingBoid) return;
+            if (!_neighboursRigidbodies.Contains(flyingBoid)) return;
             _neighboursRigidbodies.Remove(flyingBoid);
         }
         
@@ -61,7 +63,9 @@ namespace Controllers.Enemies.Flying
                 average += neighbour.position;
             }
 
-            _rb.MovePosition(_rb.position += average / _neighboursRigidbodies.Count * _movementSpeed * Time.deltaTime);
+            var direction = average / _neighboursRigidbodies.Count;
+
+            _rb.MovePosition(_rb.position + direction * _movementSpeed * Time.deltaTime);
         }
 
         public void BoidRule2()
@@ -92,7 +96,7 @@ namespace Controllers.Enemies.Flying
         public void BoidRule4()
         {
             var direction = leader.position - _rb.position;
-            if (Vector3.Distance(_rb.position, leader.position) > _neighbourRange) return;
+            if (Vector3.Distance(_rb.position, leader.position) < _neighbourRange) return;
             _rb.MovePosition(_rb.position + direction * _movementSpeed * Time.deltaTime);
         }
     }

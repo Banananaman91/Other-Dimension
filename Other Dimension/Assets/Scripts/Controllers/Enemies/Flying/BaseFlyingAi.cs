@@ -23,51 +23,7 @@ namespace Controllers.Enemies.Flying
         protected int _element;
 
         protected GameObject _target;
-        // public override void Update()
-        // {
-        //     switch (State)
-        //     {
-        //         case AiState.Idle:
-        //             if (PathFinderReady) StateChange.ToFindTargetState();  //_state = AiState.FindingTarget;
-        //             break;
-        //         case AiState.Moving:
-        //             if (_gdi != null && !_isMoving)
-        //             {
-        //                 StopCoroutine(_gdi);
-        //                 _element = 0;
-        //             }
-        //             if (Vector3.Distance(transform.position, _path.ElementAt(_element)) < float.Epsilon)
-        //             {
-        //                 _element++;
-        //             }
-        //             if (_element < _path.Count()) MoveCharacterAcrossPath(_path.ElementAt(_element));
-        //             break;
-        //         case AiState.FindingPath:
-        //             if (_gdi != null && !_isFindingPath)
-        //             {
-        //                 StopCoroutine(_gdi);
-        //             }
-        //             if (!_isFindingPath)
-        //             {
-        //                 _gdi = StartCoroutine(VisualisePath());
-        //             }
-        //             break;
-        //         case AiState.FindingTarget:
-        //             _goalPosition = DetermineGoalPosition();
-        //             StateChange.ToFindPathState();  //_state = AiState.FindingPath;
-        //             break;
-        //         case AiState.Attack:
-        //         case AiState.Capture:
-        //         case AiState.Chase:
-        //         case AiState.Block:
-        //         case AiState.Alert:
-        //         case AiState.Maneuver:
-        //         case AiState.Strike:
-        //             break;
-        //         default:
-        //             throw new ArgumentOutOfRangeException(nameof(State), State, null);
-        //     }
-        // }
+
         protected override void IdleAction()
         {
             if (!PathFinderReady) return;

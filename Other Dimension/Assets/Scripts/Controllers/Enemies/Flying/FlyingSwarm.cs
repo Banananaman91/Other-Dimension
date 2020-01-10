@@ -35,7 +35,7 @@ namespace Controllers.Enemies.Flying
                 }
             }
             
-            if (_boidSwarm.Count == _flockTotal) StateChange.ToMoveState();
+            if (_boidSwarm.Count == _flockTotal) StateChange.ToFindTargetState();
         }
 
         protected override void MoveCharacter()
@@ -57,6 +57,11 @@ namespace Controllers.Enemies.Flying
                 // _boidSwarm[i] = currentBoid;
                 // _boidSwarm[i].transform.position += currentBoid.BoidRigidbody.velocity;
             }
+            
+            Vector3 direction = _goalPosition - _rb.position;
+            _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
+            if (!(Vector3.Distance(_rb.position, _goalPosition) < 1)) return;
+            StateChange.ToFindTargetState();
             /*
              * for int boids
              * currentBoid = boidint
