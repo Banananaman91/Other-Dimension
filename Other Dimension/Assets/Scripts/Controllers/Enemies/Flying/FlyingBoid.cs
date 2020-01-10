@@ -11,6 +11,8 @@ namespace Controllers.Enemies.Flying
         [SerializeField] private SphereCollider _sphere;
         [SerializeField] private int _neighbourRange;
         [SerializeField] private Rigidbody _rb;
+        [SerializeField] private float _movementSpeed;
+        public Rigidbody leader;
 
         public int SeparationDistance => _separationDistance;
         public Rigidbody BoidRigidbody => GetComponent<Rigidbody>();
@@ -48,7 +50,7 @@ namespace Controllers.Enemies.Flying
             _neighboursRigidbodies.Remove(flyingBoid);
         }
         
-        public void boidRule1()
+        public void BoidRule1()
         {
             var average = new Vector3(0, 0, 0);
 
@@ -59,10 +61,10 @@ namespace Controllers.Enemies.Flying
                 average += neighbour.position;
             }
 
-            _rb.velocity += average / _neighboursRigidbodies.Count;
+            _rb.MovePosition(_rb.position += average / _neighboursRigidbodies.Count * _movementSpeed * Time.deltaTime);
         }
 
-        public void boidRule2()
+        public void BoidRule2()
         {
             var separation = new Vector3(0, 0, 0);
 
@@ -72,10 +74,10 @@ namespace Controllers.Enemies.Flying
                 if (Vector3.Distance(_rb.position, neighbour.position) < SeparationDistance) separation -= distanceVector;
             }
 
-            _rb.velocity += -separation;
+            _rb.MovePosition(_rb.position += -separation * _movementSpeed * Time.deltaTime);
         }
 
-        public void boidRule3()
+        public void BoidRule3()
         {
             var averageVelocity = new Vector3(0, 0, 0);
 
@@ -84,31 +86,14 @@ namespace Controllers.Enemies.Flying
                 averageVelocity += neighbour.velocity;
             }
 
-            _rb.velocity += averageVelocity;
+            _rb.MovePosition(_rb.position += averageVelocity * _movementSpeed * Time.deltaTime);
         }
 
-        // protected override void MoveCharacter()
-        // {
-        //
-        //     for (int i = 0; i < _neighbours.Count; i++)
-        //     {
-        //         
-        //     }
-        //     /*
-        //      * for int boids
-        //      * currentBoid = boidint
-        //      * currentBoid.velocity += rule1
-        //      * currentBoid.velocity += rule2
-        //      * currentBoid.velocity += rule3
-        //      * currentBoid.velocity += rule4
-        //      *
-        //      * boidint = currentBoid
-        //      *
-        //      * for int boids
-        //      * boidint position += boidint velocity
-        //      */
-        //     
-        //     base.MoveCharacter();
-        // }
+        public void BoidRule4()
+        {
+            var direction = leader.position - _rb.position;
+            if (Vector3.Distance(_rb.position, leader.position) > _neighbourRange) return;
+            _rb.MovePosition(_rb.position + direction * _movementSpeed * Time.deltaTime);
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Controllers.Enemies.Flying
         [SerializeField] private int _flockTotal;
         [SerializeField] private int _spawnRadius;
         [SerializeField] private SphereCollider _sphere;
-        
+
         private BoidRules boidRule = new BoidRules();
         private List<FlyingBoid> _boidSwarm = new List<FlyingBoid>();
 
@@ -31,6 +31,7 @@ namespace Controllers.Enemies.Flying
                 foreach (var t in _boidSwarm.Where(t => !boid.NeighboursRigidbodies.Contains(t.BoidRigidbody) && t != boid))
                 {
                     boid.AddNeighbour(t.BoidRigidbody);
+                    boid.leader = _rb;
                 }
             }
             
@@ -41,11 +42,12 @@ namespace Controllers.Enemies.Flying
         {
             for (var i = 0; i < _boidSwarm.Count; i++)
             {
-                var currentBoid = _boidSwarm[i];
+                //var currentBoid = _boidSwarm[i];
                 
-                _boidSwarm[i].boidRule1();
-                _boidSwarm[i].boidRule2();
-                _boidSwarm[i].boidRule3();
+                _boidSwarm[i].BoidRule1();
+                _boidSwarm[i].BoidRule2();
+                _boidSwarm[i].BoidRule3();
+                _boidSwarm[i].BoidRule4();
                 
                 // currentBoid.BoidRigidbody.velocity += boidRule.boidRule1(currentBoid.NeighboursRigidbodies);
                 // currentBoid.BoidRigidbody.velocity +=
