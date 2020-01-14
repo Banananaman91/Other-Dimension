@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Controllers.Enemies.Flying
+namespace Controllers.Enemies.Ground
 {
-    [RequireComponent(typeof(Rigidbody), (typeof(SphereCollider)))]
-    public class FlyingBoid : Boid
+    public class GroundBoid : Boid
     {
         private void Awake()
         {

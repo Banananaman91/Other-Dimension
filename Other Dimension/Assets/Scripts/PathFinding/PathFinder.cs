@@ -21,7 +21,7 @@ namespace PathFinding
             List<Location> closedList = new List<Location>();
             Location currentLocation;
             Location startLocation = new Location(startPosition, targetPosition, null);
-            var isObjectMoving = _avoidance.Objects.First(x => x.transform.position == startPosition);
+            //var isObjectMoving = _avoidance.Objects.First(x => x.transform.position == startPosition);
 
             var adjacentSquares = new List<Location>();
             openList.Add(startLocation);
@@ -61,7 +61,7 @@ namespace PathFinding
                 }
 
                 adjacentSquares.Clear();
-                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving, stepValue);
+                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition,  stepValue);
 
                 foreach (var adjacentSquare in adjacentSquares)
                 {
@@ -95,7 +95,7 @@ namespace PathFinding
             onCompletion(_pathToFollow);
         }
 
-        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target, Controller isObjectMoving, float stepValue)
+        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target,  float stepValue)
         {
             List<Location> returnList = new List<Location>();
 
@@ -107,10 +107,11 @@ namespace PathFinding
                     {
                         var adjacentVector = new Location(new Vector3(xIndex, yIndex, zIndex), target,
                             point);
-                        bool isIntersecting = _avoidance.Objects
-                            .Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
-                                        Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
-                        if (!isIntersecting) returnList.Add(adjacentVector);
+//                        bool isIntersecting = _avoidance.Objects
+//                            .Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
+//                                        Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
+//                        if (!isIntersecting) returnList.Add(adjacentVector);
+                        returnList.Add(adjacentVector);
                     }
                 }
             }

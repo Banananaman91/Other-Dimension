@@ -12,7 +12,6 @@ namespace Controllers.Enemies
         [SerializeField] protected float _movementSpeed;
         [SerializeField] protected List<Rigidbody> _neighboursRigidbodies = new List<Rigidbody>();
         protected Rigidbody _leader;
-        protected Vector3 _direction;
         protected BoidRules _boidRules = new BoidRules();
 
         public int SeparationDistance => _separationDistance;

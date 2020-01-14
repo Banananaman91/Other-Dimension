@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public abstract class AiMaster : Controller
+    public abstract class AiMaster : MonoBehaviour
     {
+        [Header("AI Master")]
         [SerializeField] protected float _attackCooldownTime;
         public AiState State = AiState.Idle;
-        public string name;
         protected StateChange StateChange => new StateChange(this);
         protected bool _isFindingPath;
         protected Coroutine _gdi;
-        public Vector3 _goalPosition;
+        protected Vector3 _goalPosition;
         protected bool _usingPath;
         protected bool _attackCooldown;
         

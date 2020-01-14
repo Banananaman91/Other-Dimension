@@ -8,9 +8,11 @@ namespace Controllers
     [RequireComponent(typeof(Renderer))]
     public class Controller : MonoBehaviour, IObjectAvoidanceInitialisable, IObject
     {
+        
         protected IPathfinder Pathfinder;
         protected ObjectAvoidance _avoidance;
         private Renderer _renderBounds;
+        [Header("Controller")]
         [SerializeField] protected float movementSpeed;
         public Renderer RenderBounds => _renderBounds != null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
 

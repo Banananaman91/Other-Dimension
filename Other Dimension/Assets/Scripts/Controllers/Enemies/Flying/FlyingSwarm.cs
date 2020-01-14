@@ -9,8 +9,9 @@ namespace Controllers.Enemies.Flying
     [RequireComponent(typeof(SphereCollider))]
     public class FlyingSwarm : BaseFlyingAi
     {
+        [Header("Swarm")]
         [SerializeField] private GameObject _boid;
-        [SerializeField] private int _flockTotal;
+        [SerializeField, Range(1, 50)] private int _flockTotal;
         [SerializeField] private int _spawnRadius;
         [SerializeField] private SphereCollider _sphere;
 

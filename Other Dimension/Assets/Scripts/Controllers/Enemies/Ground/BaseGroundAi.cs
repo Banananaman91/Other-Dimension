@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using PathFinding;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Controllers.Enemies.Flying
+namespace Controllers.Enemies.Ground
 {
-    public class BaseFlyingAi : AiMaster
+    [RequireComponent(typeof(Rigidbody))]
+    public class BaseGroundAi : AiMaster
     {
-        [Header("Base Flying")] [SerializeField]
+        [Header("Base Ground")] [SerializeField]
         protected int movementSpeed;
-        [SerializeField] protected float moveableRadius;
+        [SerializeField, Range(1, 30)] protected int moveableRadius;
         [SerializeField, Range(1, 10)] protected int stepValue = 1;
         [SerializeField, Range(2, 10)] protected int attackValue = 2;
         [SerializeField] protected int attackDistance;
@@ -48,8 +46,8 @@ namespace Controllers.Enemies.Flying
 
         protected override void DetermineGoalPosition()
         {
-            _goalPosition = Random.insideUnitSphere * moveableRadius;
-            StateChange.ToFindPathState();
+            _goalPosition = new Vector3(Random.Range(transform.localPosition.x - moveableRadius, transform.localPosition.x + moveableRadius), transform.localPosition.y, Random.Range(transform.localPosition.z - moveableRadius, transform.localPosition.z + moveableRadius));
+            StateChange.ToMoveState();
         }
 
         protected override void MoveCharacter()

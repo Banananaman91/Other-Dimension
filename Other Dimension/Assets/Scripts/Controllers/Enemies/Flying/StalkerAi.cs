@@ -8,6 +8,7 @@ namespace Controllers.Enemies.Flying
 {
     public class StalkerAi : BaseFlyingAi
     {
+        [Header("Stalker")]
         [SerializeField] SphereCollider _sphere;
         [SerializeField] int _stalkDistance = 1;
 

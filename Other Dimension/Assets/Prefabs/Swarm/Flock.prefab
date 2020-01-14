@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2974592578710420981
 Transform:
   m_ObjectHideFlags: 0
@@ -83,12 +83,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f07cf7f5ca1baa46842af5ff708ef1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
   _attackCooldownTime: 0
   State: 0
-  name: 
-  _goalPosition: {x: 0, y: 0, z: 0}
-  moveableRadius: 10
+  movementSpeed: 2
+  moveableRadius: 20
   stepValue: 1
   attackValue: 2
   attackDistance: 0
