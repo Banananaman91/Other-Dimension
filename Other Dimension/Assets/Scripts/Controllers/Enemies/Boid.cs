@@ -11,7 +11,7 @@ namespace Controllers.Enemies
         [SerializeField] protected Rigidbody _rb;
         [SerializeField] protected float _movementSpeed;
         [SerializeField] protected List<Rigidbody> _neighboursRigidbodies = new List<Rigidbody>();
-        public Rigidbody leader;
+        protected Rigidbody _leader;
         protected Vector3 _direction;
         protected BoidRules _boidRules = new BoidRules();
 
@@ -22,7 +22,7 @@ namespace Controllers.Enemies
 
         public float MovementSpeed => _movementSpeed;
 
-        public Rigidbody Leader => leader;
+        public Rigidbody Leader => _leader;
 
         public int NeighbourRange => _neighbourRange;
     }

@@ -31,8 +31,8 @@ namespace Controllers.Enemies.Flying
                 foreach (var t in _boidSwarm.Where(t => !boid.NeighboursRigidbodies.Contains(t.BoidRigidbody) && t != boid))
                 {
                     boid.AddNeighbour(t.BoidRigidbody);
-                    boid.leader = _rb;
                 }
+                boid.AddLeader(_rb);
             }
             
             if (_boidSwarm.Count == _flockTotal) StateChange.ToFindTargetState();
@@ -40,41 +40,11 @@ namespace Controllers.Enemies.Flying
 
         protected override void MoveCharacter()
         {
-            for (var i = 0; i < _boidSwarm.Count; i++)
-            {
-                //var currentBoid = _boidSwarm[i];
-                
-//                _boidSwarm[i].BoidRule1();
-//                _boidSwarm[i].BoidRule2();
-//                _boidSwarm[i].BoidRule3();
-//                _boidSwarm[i].BoidRule4();
-                
-                // currentBoid.BoidRigidbody.velocity += boidRule.boidRule1(currentBoid.NeighboursRigidbodies);
-                // currentBoid.BoidRigidbody.velocity +=
-                //     boidRule.boidRule2(currentBoid, currentBoid.NeighboursRigidbodies);
-                // currentBoid.BoidRigidbody.velocity += boidRule.boidRule3(currentBoid.NeighboursRigidbodies);
 
-                // _boidSwarm[i] = currentBoid;
-                // _boidSwarm[i].transform.position += currentBoid.BoidRigidbody.velocity;
-            }
-            
             Vector3 direction = _goalPosition - _rb.position;
             _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
             if (!(Vector3.Distance(_rb.position, _goalPosition) < 1)) return;
             StateChange.ToFindTargetState();
-            /*
-             * for int boids
-             * currentBoid = boidint
-             * currentBoid.velocity += rule1
-             * currentBoid.velocity += rule2
-             * currentBoid.velocity += rule3
-             * currentBoid.velocity += rule4
-             *
-             * boidint = currentBoid
-             *
-             * for int boids
-             * boidint position += boidint velocity
-             */
         }
     }
 }

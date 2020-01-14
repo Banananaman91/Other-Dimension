@@ -863,7 +863,7 @@ PrefabInstance:
     - target: {fileID: 2974592578710420971, guid: dad4b8107b2671a4fba22d72966c8d44,
         type: 3}
       propertyPath: _flockTotal
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad4b8107b2671a4fba22d72966c8d44, type: 3}

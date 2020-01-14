@@ -37,7 +37,7 @@ namespace Controllers.Enemies
          * return velocity
          *
          * boid rule 4
-         * boid tends towards common goal
+         * boid tends towards common goal (leader)
          * pass in goal position and boid
          * return goal position - boid position / 100
          */
@@ -89,6 +89,7 @@ namespace Controllers.Enemies
         public void BoidRule4(Boid boid)
         {
             var direction = boid.Leader.position - boid.BoidRigidbody.position;
+            if (!boid.Leader) return;
             if (Vector3.Distance(boid.BoidRigidbody.position, boid.Leader.position) < boid.NeighbourRange) return;
             boid.BoidRigidbody.MovePosition(boid.BoidRigidbody.position + direction * boid.MovementSpeed * Time.deltaTime);
         }

@@ -26,6 +26,11 @@ namespace Controllers.Enemies.Flying
             _neighboursRigidbodies.Add(neighbour);
         }
 
+        public void AddLeader(Rigidbody leader)
+        {
+            _leader = leader;
+        }
+
         public void MoveMe()
         {
             _rb.MovePosition(_rb.position + _direction * _movementSpeed * Time.deltaTime);
@@ -37,6 +42,10 @@ namespace Controllers.Enemies.Flying
             if (!flyingBoid) return;
             if (_neighboursRigidbodies.Contains(flyingBoid)) return;
             _neighboursRigidbodies.Add(flyingBoid);
+            if (!_leader)
+            {
+                if (other.GetComponent<FlyingSwarm>()) _leader = flyingBoid;
+            }
         }
 
         private void OnTriggerExit(Collider other)
