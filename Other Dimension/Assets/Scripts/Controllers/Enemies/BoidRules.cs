@@ -42,21 +42,24 @@ namespace Controllers.Enemies
          * return goal position - boid position / 100
          */
 
-        public Vector3 boidRule1(List<Rigidbody> neighbours)
+        public void boidRule1(Boid boid, List<Rigidbody> neighbours)
         {
             var average = new Vector3(0, 0, 0);
+            var boidRb = boid.BoidRigidbody;
 
-            if (neighbours.Count == 0) return average;
+            //if (neighbours.Count == 0) return average;
 
             foreach (var neighbour in neighbours)
             {
                 average += neighbour.position;
             }
+            
+            var direction = average;
 
-            return average / neighbours.Count;
+            boidRb.MovePosition(boidRb.position + direction * boid.MovementSpeed * Time.deltaTime);
         }
 
-        public Vector3 boidRule2(FlyingBoid boid, List<Rigidbody> neighbours)
+        public void boidRule2(Boid boid, List<Rigidbody> neighbours)
         {
             var boidRb = boid.BoidRigidbody;
             var separation = new Vector3(0, 0, 0);
@@ -67,19 +70,28 @@ namespace Controllers.Enemies
                 if (Vector3.Distance(boidRb.position, neighbour.position) < boid.SeparationDistance) separation -= distanceVector;
             }
 
-            return -separation;
+            boidRb.MovePosition(boidRb.position += -separation * boid.MovementSpeed * Time.deltaTime);
         }
 
-        public Vector3 boidRule3(List<Rigidbody> neighbours)
+        public void boidRule3(Boid boid, List<Rigidbody> neighbours)
         {
             var averageVelocity = new Vector3(0, 0, 0);
+            var boidRb = boid.BoidRigidbody;
 
             foreach (var neighbour in neighbours)
             {
                 averageVelocity += neighbour.velocity;
             }
 
-            return averageVelocity;
+            boidRb.MovePosition(boidRb.position += averageVelocity * boid.MovementSpeed * Time.deltaTime);
         }
+        
+        public void BoidRule4(Boid boid)
+        {
+            var direction = boid.Leader.position - boid.BoidRigidbody.position;
+            if (Vector3.Distance(boid.BoidRigidbody.position, boid.Leader.position) < boid.NeighbourRange) return;
+            boid.BoidRigidbody.MovePosition(boid.BoidRigidbody.position + direction * boid.MovementSpeed * Time.deltaTime);
+        }
+        
     }
 }

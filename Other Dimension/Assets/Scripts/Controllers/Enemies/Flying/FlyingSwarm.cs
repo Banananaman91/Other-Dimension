@@ -44,10 +44,10 @@ namespace Controllers.Enemies.Flying
             {
                 //var currentBoid = _boidSwarm[i];
                 
-                _boidSwarm[i].BoidRule1();
-                _boidSwarm[i].BoidRule2();
-                _boidSwarm[i].BoidRule3();
-                _boidSwarm[i].BoidRule4();
+//                _boidSwarm[i].BoidRule1();
+//                _boidSwarm[i].BoidRule2();
+//                _boidSwarm[i].BoidRule3();
+//                _boidSwarm[i].BoidRule4();
                 
                 // currentBoid.BoidRigidbody.velocity += boidRule.boidRule1(currentBoid.NeighboursRigidbodies);
                 // currentBoid.BoidRigidbody.velocity +=

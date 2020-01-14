@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 742a27fb6d3f688448c73eabcf6a4680, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,9 +107,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  _attackCooldownTime: 0
+  State: 0
+  name: 
+  _goalPosition: {x: 0, y: 0, z: 0}
   moveableRadius: 50
   stepValue: 10
-  _state: 0
+  attackValue: 2
+  attackDistance: 0
+  canAttack: 0
+  _rb: {fileID: 0}
   _sphere: {fileID: 7489265936151948326}
   _stalkDistance: 5
   _others: []
