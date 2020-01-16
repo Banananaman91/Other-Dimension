@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace Controllers.Enemies.Flying
@@ -29,6 +30,24 @@ namespace Controllers.Enemies.Flying
         public void AddLeader(Rigidbody leader)
         {
             _leader = leader;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var isFlyingBoid = other.GetComponent<FlyingBoid>();
+            var rbObject = other.GetComponent<Rigidbody>();
+            if (isFlyingBoid || !rbObject) return;
+            if (_neighboursRigidbodies.Contains(rbObject)) return;
+            _neighboursRigidbodies.Add(rbObject);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            var isFlyingBoid = other.GetComponent<FlyingBoid>();
+            var rbObject = other.GetComponent<Rigidbody>();
+            if (isFlyingBoid || !rbObject) return;
+            if (!_neighboursRigidbodies.Contains(rbObject)) return;
+            _neighboursRigidbodies.Remove(rbObject);
         }
     }
 }

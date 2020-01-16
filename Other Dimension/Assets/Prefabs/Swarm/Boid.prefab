@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _separationDistance: 5
   _sphere: {fileID: 2400157360297313133}
-  _neighbourRange: 5
+  _neighbourRange: 20
   _rb: {fileID: 4135620201034014016}
   _movementSpeed: 1
   _neighboursRigidbodies: []
