@@ -1,4 +1,6 @@
-﻿namespace Interface
+﻿using Controllers;
+
+namespace Interface
 {
     public interface IAvoider
     {
