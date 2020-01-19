@@ -123,12 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d4a5d8b5b22184fb423d9c931207d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _separationDistance: 5
+  _neighbourSeparationDistance: 5
+  _enemySeparationDistance: 15
+  _leaderDistance: 0.1
   _sphere: {fileID: 2400157360297313133}
   _neighbourRange: 20
   _rb: {fileID: 4135620201034014016}
   _movementSpeed: 1
   _neighboursRigidbodies: []
+  _enemyRigidbodies: []
+  _leader: {fileID: 0}
 --- !u!135 &-7147272358038804115
 SphereCollider:
   m_ObjectHideFlags: 0

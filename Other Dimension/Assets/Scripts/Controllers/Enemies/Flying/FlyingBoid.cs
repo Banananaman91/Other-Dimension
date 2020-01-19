@@ -20,6 +20,7 @@ namespace Controllers.Enemies.Flying
             _boidRules.boidRule2(this, _neighboursRigidbodies);
             _boidRules.boidRule3(this, _neighboursRigidbodies);
             _boidRules.BoidRule4(this);
+            _boidRules.BoidRule6(this, _enemyRigidbodies);
         }
 
         public void AddNeighbour(Rigidbody neighbour)
@@ -37,8 +38,8 @@ namespace Controllers.Enemies.Flying
             var isFlyingBoid = other.GetComponent<FlyingBoid>();
             var rbObject = other.GetComponent<Rigidbody>();
             if (isFlyingBoid || !rbObject) return;
-            if (_neighboursRigidbodies.Contains(rbObject)) return;
-            _neighboursRigidbodies.Add(rbObject);
+            if (_enemyRigidbodies.Contains(rbObject)) return;
+            _enemyRigidbodies.Add(rbObject);
         }
 
         private void OnTriggerExit(Collider other)
@@ -46,8 +47,8 @@ namespace Controllers.Enemies.Flying
             var isFlyingBoid = other.GetComponent<FlyingBoid>();
             var rbObject = other.GetComponent<Rigidbody>();
             if (isFlyingBoid || !rbObject) return;
-            if (!_neighboursRigidbodies.Contains(rbObject)) return;
-            _neighboursRigidbodies.Remove(rbObject);
+            if (!_enemyRigidbodies.Contains(rbObject)) return;
+            _enemyRigidbodies.Remove(rbObject);
         }
     }
 }

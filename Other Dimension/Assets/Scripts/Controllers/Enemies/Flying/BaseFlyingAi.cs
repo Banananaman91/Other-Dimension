@@ -49,7 +49,7 @@ namespace Controllers.Enemies.Flying
         protected override void DetermineGoalPosition()
         {
             _goalPosition = Random.insideUnitSphere * moveableRadius;
-            StateChange.ToFindPathState();
+            StateChange.ToMoveState();
         }
 
         protected override void MoveCharacter()
