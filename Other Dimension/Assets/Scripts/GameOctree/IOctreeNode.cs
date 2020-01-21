@@ -5,6 +5,8 @@ namespace GameOctree
     public interface IOctreeNode
     {
         Bounds BoundingArea { get; set; }
-        BoundingSphere BoundingSphere { get; set; }
+        Bounds Region { get; set; }
+        IOctreeNode[] ChildNodes { get; set; }
+        
     }
 }
