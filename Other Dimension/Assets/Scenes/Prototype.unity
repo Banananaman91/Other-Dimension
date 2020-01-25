@@ -312,6 +312,18 @@ MonoBehaviour:
   _upDistance: 5
   _backDistance: 15
   _trackingSpeed: 10
+--- !u!114 &717479167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2062648003, guid: 082c37d777d65ce4fb635f933a6a7601,
+    type: 3}
+  m_PrefabInstance: {fileID: 1855416572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c74369bb57fb0f4182c519fb8ae2f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &792837233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7535535187849061476, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
@@ -385,6 +397,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 792837234, guid: 767a8b1d0d71f354ea9aeccf245eb3e5, type: 3}
+      propertyPath: _gravityCentre
+      value: 
+      objectReference: {fileID: 717479167}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 767a8b1d0d71f354ea9aeccf245eb3e5, type: 3}
 --- !u!1001 &1855416572
