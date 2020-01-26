@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PathFinding;
+using UnityEngine;
 
 namespace GameMessengerUtilities
 {

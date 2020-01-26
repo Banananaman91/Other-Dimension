@@ -22,7 +22,7 @@ namespace PathFinding
             List<Location> closedList = new List<Location>();
             Location currentLocation;
             Location startLocation = new Location(startPosition, targetPosition, null);
-            var isObjectMoving = _avoidance.Objects.First(x => x.transform.position == startPosition);
+            var isObjectMoving = _avoidance.Objects.First(x => x.transform.position == startPosition).GetComponent<Controller>();
 
             var adjacentSquares = new List<Location>();
             openList.Add(startLocation);
@@ -86,10 +86,10 @@ namespace PathFinding
                     if (Vector3.Distance(point.PositionInWorld, adjacentVector.PositionInWorld) >
                         _2dMaxDistance) continue;
 
-                    bool isIntersecting = _avoidance.Objects
-                        .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
-                                    Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
-                    if (!isIntersecting) returnList.Add(adjacentVector);
+                    // bool isIntersecting = _avoidance.Objects
+                    //     .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
+                    //                 Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
+                    // if (!isIntersecting) returnList.Add(adjacentVector);
                 }
             }
             return returnList;

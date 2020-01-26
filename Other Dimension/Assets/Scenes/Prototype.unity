@@ -120,6 +120,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &97553693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 97553695}
+  - component: {fileID: 97553694}
+  m_Layer: 0
+  m_Name: OctreeComponent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &97553694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97553693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf38a9e309a00104f9888932ad32b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 1969.65
+  depth: 5
+--- !u!4 &97553695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97553693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11, y: 16.831856, z: -8.383195}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,8 +333,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: -0.023097346, y: -0.014994935, z: -0.00033101442, w: 0.99962074}
-  m_LocalPosition: {x: -298.2937, y: -825.5165, z: 245.14107}
+  m_LocalRotation: {x: 0.12352801, y: 0.24441811, z: -0.031418614, w: 0.9612562}
+  m_LocalPosition: {x: -7.246119, y: 21.196835, z: -23.60991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -341,6 +386,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061476, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7535535187849061473, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
         type: 3}
@@ -415,6 +465,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InvertedSphere
       objectReference: {fileID: 0}
+    - target: {fileID: 5591241437136164031, guid: 082c37d777d65ce4fb635f933a6a7601,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8918057098158597804, guid: 082c37d777d65ce4fb635f933a6a7601,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -428,7 +483,7 @@ PrefabInstance:
     - target: {fileID: 8918057098158597804, guid: 082c37d777d65ce4fb635f933a6a7601,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 8918057098158597804, guid: 082c37d777d65ce4fb635f933a6a7601,
         type: 3}

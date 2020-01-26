@@ -1,5 +1,6 @@
 ﻿using GameMessengerUtilities;
 using Interface;
+using PathFinding;
 using UnityEngine;
 
 namespace Controllers
