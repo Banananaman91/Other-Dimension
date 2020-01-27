@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1969.65
-  depth: 5
+  depth: 10
 --- !u!4 &97553695
 Transform:
   m_ObjectHideFlags: 0
@@ -375,6 +375,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1092725493}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &792837241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792837233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f83c4a71f57c414b959bfa7a1708144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _octreeComponent: {fileID: 97553694}
 --- !u!1001 &1092725493
 PrefabInstance:
   m_ObjectHideFlags: 0

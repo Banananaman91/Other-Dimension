@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameOctree
 {
-    public enum OctreeIndex
+    public enum OctreeIndex // unused, but represents binary index for OctreeNode when getting node position index
     {
         LowerLeftFront = 0, //000,
         LowerRightFront = 2, //010,
@@ -23,41 +23,34 @@ namespace GameOctree
         
         public Octree(Vector3 position, float size, int depth)
         {
-            _node = new OctreeNode<T>(position, size, depth);
-            _depth = depth;
+            _node = new OctreeNode<T>(position, size, depth); // create root node
+            _depth = depth; // set depth
         }
 
-        public void Insert(T value, Vector3 position)
+        public OctreeNode<T> Insert(T value, Vector3 position)
         {
-            var leafNode = _node.SubDivide(position, value, _depth);
-            leafNode.Data = value;
+            var leafNode = _node.SubDivide(position, value, _depth); // subdivide nodes based on individual positioning. This is recursive and is also called for each individual object
+            leafNode?.AddData(value); // add object to data list at leaf nodes
+            return leafNode;
         }
 
-        public OctreeNode<T> GetRoot()
+        public OctreeNode<T> NodeCheck(T value, Vector3 position) // used for checking nodes, returns node to be checked
+        {
+            var leafNode = _node.NodeSearch(position, _depth);
+            return leafNode;
+        }
+
+        public IList<T> ObjectCheck(Vector3 position) // searches for leaf node and returns data list for that node
+        {
+            //retrieve objects from leafnode at current position
+            var leafNode = _node.NodeSearch(position, _depth);
+            var data = leafNode.ReturnData();
+            return data;
+        }
+
+        public OctreeNode<T> GetRoot() // used by DrawGizmo in OctreeComponent, only used when debugging Octree visually
         {
             return _node;
         }
-
-        // private void Insert(Octree target, List<Octree> updateList, Vector3 min, Vector3 max)
-        // {
-        //     var bounds = CreateBounds(min, max); // create array of bounding boxes to be checked against
-        //     
-        //     for (int i = 0; i < bounds.Length; i++) // for all the bounds
-        //     {
-        //         foreach (var octreeNode in _childNodes)// check the children of target node
-        //         {
-        //             if (!bounds[i].Contains(octreeNode._region.size)) continue; // if the bounds doesn't contain the child, continue
-        //             octreeNode._region = bounds[i];
-        //             if (octreeNode._childNodes == null) // if the child has no children, it is an end node.
-        //             {
-        //                 updateList.Add(octreeNode);
-        //                 continue;
-        //             }
-        //             
-        //             Insert(octreeNode, updateList, bounds[i].min, bounds[i].max); // Recursive call down through child nodes
-        //         }
-        //     }
-        // }
-
     }
 }
