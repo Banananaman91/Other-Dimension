@@ -12,15 +12,15 @@ namespace Controllers
         
         protected IPathfinder Pathfinder;
         protected ObjectAvoidance _avoidance;
-        private Renderer _renderBounds;
         [Header("Controller")]
+        [SerializeField] protected Renderer _renderBounds;
         [SerializeField] protected GameObject pathFinderTiles;
-        [SerializeField] protected float movementSpeed;
-        [SerializeField] protected float rotationSpeed;
+        // [SerializeField] protected float movementSpeed;
+        // [SerializeField] protected float rotationSpeed;
         public OctreeNode<Controller> CurrentNode { get; set; }
         public Renderer RenderBounds => _renderBounds == null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
 
-        public void Awake()
+        public void Start()
         {
             GetPathfinder();
             AddToObjectAvoidance();

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public abstract class AiMaster : MonoBehaviour
+    public abstract class AiMaster : Controller
     {
         [Header("AI Master")]
         [SerializeField] protected float _attackCooldownTime;
