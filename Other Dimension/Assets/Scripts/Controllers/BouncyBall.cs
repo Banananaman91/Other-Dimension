@@ -10,6 +10,7 @@ namespace Controllers
     [RequireComponent(typeof(Rigidbody))]
     public class BouncyBall : MonoBehaviour
     {
+        [Header("Player")]
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private float _walk;
         [SerializeField, Range(1,5)] private int _run;

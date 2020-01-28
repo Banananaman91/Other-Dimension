@@ -1,5 +1,7 @@
 ﻿using GameMessengerUtilities;
+using GameOctree;
 using Interface;
+using PathFinding;
 using UnityEngine;
 
 namespace Controllers
@@ -10,12 +12,14 @@ namespace Controllers
         protected IPathfinder Pathfinder;
         private ObjectAvoidance _avoidance;
         private Renderer _renderBounds;
+        [Header("Controller")]
         [SerializeField] protected GameObject pathFinderTiles;
         [SerializeField] protected float movementSpeed;
         [SerializeField] protected float rotationSpeed;
+        public OctreeNode<Controller> CurrentNode { get; set; }
         public Renderer RenderBounds => _renderBounds == null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
 
-        public void Start()
+        public void Awake()
         {
             GetPathfinder();
             AddToObjectAvoidance();
