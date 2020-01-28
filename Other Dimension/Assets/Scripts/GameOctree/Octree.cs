@@ -34,7 +34,7 @@ namespace GameOctree
             return leafNode;
         }
 
-        public OctreeNode<T> NodeCheck(T value, Vector3 position) // used for checking nodes, returns node to be checked
+        public OctreeNode<T> NodeCheck(Vector3 position) // used for checking nodes, returns node to be checked
         {
             var leafNode = _node.NodeSearch(position, _depth);
             return leafNode;

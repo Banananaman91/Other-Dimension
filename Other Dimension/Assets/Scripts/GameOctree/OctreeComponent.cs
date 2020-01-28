@@ -24,12 +24,7 @@ namespace GameOctree
         {
             MessageBroker.Instance.RegisterMessageOfType<ObjectRequestMessage>(OnObjectAvoidanceRequestMessage);
             _avoidanceInstance = new ObjectAvoidance();
-        }
-        
-        private void OnObjectAvoidanceRequestMessage(ObjectRequestMessage message) => message.RequestingComponent.ObjectInitialise(_avoidanceInstance);
-        // Start is called before the first frame update
-        void Start()
-        {
+            MessageBroker.Instance.RegisterMessageOfType<OctreeRequestMessage>(OnOctreeRequestMessage);
             _octree = new Octree<Controller>(transform.position, size, depth); // Instantiate Octree, sending in parameters for root node
             if (Points == null) return;
             foreach (var point in Points)
@@ -38,13 +33,16 @@ namespace GameOctree
                 point.CurrentNode =  _octree.Insert(point, position); // insert all objects into Octree
             }
         }
+        
+        private void OnObjectAvoidanceRequestMessage(ObjectRequestMessage message) => message.RequestingComponent.ObjectInitialise(_avoidanceInstance);
+        private void OnOctreeRequestMessage(OctreeRequestMessage message) => message.RequestingComponent.OctreeInitialise(_octree);
 
         private void Update()
         {
             if (Points == null) return;
             foreach (var point in Points)
             {
-                var newNode = _octree.NodeCheck(point, point.transform.position); // check node for each point -- optimise to only check moving points
+                var newNode = _octree.NodeCheck(point.transform.position); // check node for each point -- optimise to only check moving points
                 if (point.CurrentNode == null)
                 {
                     point.CurrentNode = _octree.Insert(point, point.transform.position);
@@ -58,19 +56,19 @@ namespace GameOctree
 
         
         
-        private void OnDrawGizmos()
-        {
-            if (Points != null)
-            {
-                // var octree = new Octree<Controller>(transform.position, size, depth);
-                // foreach (var point in Points)
-                // {
-                //     octree.Insert(point, point.transform.position);
-                // }
-        
-                DrawNode(_octree.GetRoot());
-            }
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     if (Points != null)
+        //     {
+        //         // var octree = new Octree<Controller>(transform.position, size, depth);
+        //         // foreach (var point in Points)
+        //         // {
+        //         //     octree.Insert(point, point.transform.position);
+        //         // }
+        //
+        //         DrawNode(_octree.GetRoot());
+        //     }
+        // }
         
         private void DrawNode(OctreeNode<Controller> node)
         {

@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Controllers;
 using GameMessengerUtilities;
+using GameOctree;
 using Interface;
 using UnityEngine;
 
 namespace PathFinding
 {
-    public class PathFinder : IPathfinder, IObjectAvoidanceInitialisable
+    public class PathFinder : IPathfinder, IObjectAvoidanceInitialisable, IOctreeInitialisable
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
         private float _2dMaxDistance = 1;
         private ObjectAvoidance _avoidance;
+        private List<Controller> _avoidanceObjects;
+        private Octree<Controller> _octree;
 
         public IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition, bool is3d, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {
-            GameMessengerUtilities.MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
+            MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
+            MessageBroker.Instance.SendMessageOfType(new OctreeRequestMessage(this));
             List<Location> openList = new List<Location>();
             List<Location> closedList = new List<Location>();
             Location currentLocation;
@@ -85,11 +89,12 @@ namespace PathFinding
                         new Location(new Vector3(xIndex, point.PositionInWorld.y, zIndex), target, point);
                     if (Vector3.Distance(point.PositionInWorld, adjacentVector.PositionInWorld) >
                         _2dMaxDistance) continue;
-
-                    // bool isIntersecting = _avoidance.Objects
-                    //     .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
-                    //                 Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
-                    // if (!isIntersecting) returnList.Add(adjacentVector);
+                        var octreeNode = _octree.NodeCheck(adjacentVector.PositionInWorld);
+                        _avoidanceObjects = octreeNode.ReturnData();
+                        bool isIntersecting = _avoidanceObjects
+                        .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
+                                    Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
+                    if (!isIntersecting) returnList.Add(adjacentVector);
                 }
             }
             return returnList;
@@ -107,7 +112,9 @@ namespace PathFinding
                     {
                         var adjacentVector = new Location(new Vector3(xIndex, yIndex, zIndex), target,
                             point);
-                        bool isIntersecting = _avoidance.Objects
+                        var octreeNode = _octree.NodeCheck(adjacentVector.PositionInWorld);
+                        _avoidanceObjects = octreeNode.ReturnData();
+                        bool isIntersecting = _avoidanceObjects
                             .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
                                         Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
                         if (!isIntersecting) returnList.Add(adjacentVector);
@@ -121,6 +128,11 @@ namespace PathFinding
         public void ObjectInitialise(ObjectAvoidance objectAvoidance)
         {
             _avoidance = objectAvoidance;
+        }
+
+        public void OctreeInitialise(Octree<Controller> octree)
+        {
+            _octree = octree;
         }
     }
 }
