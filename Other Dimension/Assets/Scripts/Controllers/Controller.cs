@@ -7,10 +7,11 @@ using UnityEngine;
 namespace Controllers
 {
     [RequireComponent(typeof(Renderer))]
-    public class Controller : MonoBehaviour, IObjectAvoidanceInitialisable
+    public class Controller : MonoBehaviour, IObjectAvoidanceInitialisable, IObject
     {
+        
         protected IPathfinder Pathfinder;
-        private ObjectAvoidance _avoidance;
+        protected ObjectAvoidance _avoidance;
         private Renderer _renderBounds;
         [Header("Controller")]
         [SerializeField] protected GameObject pathFinderTiles;
@@ -28,7 +29,7 @@ namespace Controllers
 
         private void GetPathfinder() => MessageBroker.Instance.SendMessageOfType(new PathFinderRequestMessage(this));
 
-        private void AvoidMe() => _avoidance.Objects.Add(this);
+        public void AvoidMe() => _avoidance.Objects.Add(this);
         
         private void AddToObjectAvoidance() => MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
         

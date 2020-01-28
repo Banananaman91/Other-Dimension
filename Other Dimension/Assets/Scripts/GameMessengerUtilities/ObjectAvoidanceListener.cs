@@ -5,7 +5,7 @@ namespace GameMessengerUtilities
 {
     public class ObjectAvoidanceListener : MonoBehaviour
     {
-        private ObjectAvoidance _avoidanceInstance;
+        [SerializeField] private ObjectAvoidance _avoidanceInstance;
 
         private void Awake()
         {

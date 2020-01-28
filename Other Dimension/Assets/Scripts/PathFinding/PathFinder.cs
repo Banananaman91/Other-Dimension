@@ -13,12 +13,11 @@ namespace PathFinding
     public class PathFinder : IPathfinder, IObjectAvoidanceInitialisable, IOctreeInitialisable
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
-        private float _2dMaxDistance = 1;
         private ObjectAvoidance _avoidance;
         private List<Controller> _avoidanceObjects;
         private Octree<Controller> _octree;
 
-        public IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition, bool is3d, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
+        public IEnumerator FindPath(float stepValue, Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {
             MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
             MessageBroker.Instance.SendMessageOfType(new OctreeRequestMessage(this));
@@ -40,13 +39,33 @@ namespace PathFinding
                 closedList.Add(currentLocation);
                 openList.Remove(currentLocation);
 
+                var distance = Vector3.Distance(currentLocation.PositionInWorld, targetPosition);
+
+                if (distance < stepValue || distance < 1)
+                {
+                    if (stepValue > 1)
+                    {
+                        while (distance < stepValue && stepValue > 1)
+                        {
+                            stepValue /= 2;
+                        }
+                        if (distance < 1)
+                        {
+                            targetPosition = currentLocation.PositionInWorld;
+                        }
+                    }
+                    else
+                    {
+                        targetPosition = currentLocation.PositionInWorld;
+                    }
+                }
                 if (closedList.Any(x => x.PositionInWorld == targetPosition))
                 {
                     break;
                 }
 
                 adjacentSquares.Clear();
-                adjacentSquares = !is3d ? GetAdjacentSquares2D(currentLocation, targetPosition, isObjectMoving) : GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving);
+                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition,  stepValue);
 
                 foreach (var adjacentSquare in adjacentSquares)
                 {
@@ -68,8 +87,11 @@ namespace PathFinding
             
             do
             {
-                _pathToFollow.Add(current.Parent.PositionInWorld);
-                current = current.Parent;
+                if (current.Parent.PositionInWorld != null)
+                {
+                    _pathToFollow.Add(current.Parent.PositionInWorld);
+                    current = current.Parent;
+                }
             } while (!_pathToFollow.Contains(startPosition));
 
             _pathToFollow.Reverse();
@@ -77,13 +99,13 @@ namespace PathFinding
             onCompletion(_pathToFollow);
         }
 
-        private List<Location> GetAdjacentSquares2D(Location point, Vector3 target, Controller isObjectMoving)
+        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target,  float stepValue)
         {
             List<Location> returnList = new List<Location>();
 
-            for (float xIndex = point.PositionInWorld.x - 1; xIndex <= point.PositionInWorld.x + 1; xIndex++)
+            for (var xIndex = point.PositionInWorld.x - stepValue; xIndex <= point.PositionInWorld.x + stepValue; xIndex+=stepValue)
             {
-                for (float zIndex = point.PositionInWorld.z - 1; zIndex <= point.PositionInWorld.z + 1; zIndex++)
+                for (var yIndex = point.PositionInWorld.y - stepValue; yIndex <= point.PositionInWorld.y + stepValue; yIndex+=stepValue)
                 {
                     var adjacentVector =
                         new Location(new Vector3(xIndex, point.PositionInWorld.y, zIndex), target, point);
