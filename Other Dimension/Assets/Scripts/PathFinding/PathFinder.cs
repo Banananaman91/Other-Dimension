@@ -10,16 +10,14 @@ using UnityEngine;
 
 namespace PathFinding
 {
-    public class PathFinder : IPathfinder, IObjectAvoidanceInitialisable, IOctreeInitialisable
+    public class PathFinder : IPathfinder, IOctreeInitialisable
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
-        private ObjectAvoidance _avoidance;
         private List<Controller> _avoidanceObjects;
         private Octree<Controller> _octree;
 
         public IEnumerator FindPath(float stepValue, Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {
-            MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
             MessageBroker.Instance.SendMessageOfType(new OctreeRequestMessage(this));
             List<Location> openList = new List<Location>();
             List<Location> closedList = new List<Location>();
@@ -110,7 +108,7 @@ namespace PathFinding
                     for (var zIndex = point.PositionInWorld.z - stepValue; zIndex <= point.PositionInWorld.z + stepValue; zIndex+=stepValue)
                     {
                         var adjacentVector =
-                            new Location(new Vector3(xIndex, point.PositionInWorld.y, zIndex), target, point);
+                            new Location(new Vector3(xIndex, yIndex, zIndex), target, point);
                         var octreeNode = _octree.NodeCheck(adjacentVector.PositionInWorld);
                         _avoidanceObjects = octreeNode.ReturnData();
                         bool isIntersecting = _avoidanceObjects.Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <= Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
@@ -120,11 +118,6 @@ namespace PathFinding
                 }
             }
             return returnList;
-        }
-
-        public void ObjectInitialise(ObjectAvoidance objectAvoidance)
-        {
-            _avoidance = objectAvoidance;
         }
 
         public void OctreeInitialise(Octree<Controller> octree)

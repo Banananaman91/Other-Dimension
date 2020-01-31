@@ -24,7 +24,7 @@ namespace Controllers.Enemies.Flying
             for (int i = 0; i < _flockTotal; i++)
             {
                 GameObject clone = Instantiate(_boid);
-                clone.transform.position = Random.insideUnitSphere * _spawnRadius;
+                clone.transform.position = transform.position + Random.insideUnitSphere * _spawnRadius;
                 _boidSwarm.Add(clone.GetComponent<FlyingBoid>());
             }
             foreach (var boid in _boidSwarm)
@@ -39,13 +39,13 @@ namespace Controllers.Enemies.Flying
             if (_boidSwarm.Count == _flockTotal) StateChange.ToFindTargetState();
         }
 
-        protected override void MoveCharacter()
-        {
-
-            Vector3 direction = _goalPosition - _rb.position;
-            _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
-            if (!(Vector3.Distance(_rb.position, _goalPosition) < 1)) return;
-            StateChange.ToFindTargetState();
-        }
+        // protected override void MoveCharacter()
+        // {
+        //
+        //     Vector3 direction = _goalPosition - _rb.position;
+        //     _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
+        //     if (!(Vector3.Distance(_rb.position, _goalPosition) < 1)) return;
+        //     StateChange.ToFindTargetState();
+        // }
     }
 }

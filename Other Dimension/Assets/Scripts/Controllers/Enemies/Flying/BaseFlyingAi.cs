@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +40,7 @@ namespace Controllers.Enemies.Flying
             yield return StartCoroutine(Pathfinder.FindPath(StepValue, transform.position, _goalPosition,
                 moveableRadius,
                 newPath => _path = newPath));
-            if (!(Vector3.Distance(_goalPosition, _path.Last()) < 1)) yield break;
+            //if (!(Vector3.Distance(_goalPosition, _path.Last()) < 1)) yield break;
             _usingPath = true;
             StateChange.ToMoveState();
             _isFindingPath = false;

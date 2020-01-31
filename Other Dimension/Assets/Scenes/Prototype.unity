@@ -690,7 +690,7 @@ PrefabInstance:
     - target: {fileID: 2974592578710420970, guid: dad4b8107b2671a4fba22d72966c8d44,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2974592578710420981, guid: dad4b8107b2671a4fba22d72966c8d44,
         type: 3}
@@ -700,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 2974592578710420981, guid: dad4b8107b2671a4fba22d72966c8d44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.723773
+      value: -852
       objectReference: {fileID: 0}
     - target: {fileID: 2974592578710420981, guid: dad4b8107b2671a4fba22d72966c8d44,
         type: 3}
@@ -751,6 +751,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _flockTotal
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974592578710420971, guid: dad4b8107b2671a4fba22d72966c8d44,
+        type: 3}
+      propertyPath: stepValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974592578710420971, guid: dad4b8107b2671a4fba22d72966c8d44,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad4b8107b2671a4fba22d72966c8d44, type: 3}
@@ -1031,7 +1041,7 @@ PrefabInstance:
     - target: {fileID: 8481394229851360631, guid: 1df86f7975669f747a2be8cda9a4c4cc,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8481394229851360520, guid: 1df86f7975669f747a2be8cda9a4c4cc,
         type: 3}
