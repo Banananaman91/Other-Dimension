@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BuildingPieces : MonoBehaviour
+namespace Puzzle.Builder
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BuildingPieces : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] protected WallType _wallType;
+        [SerializeField] protected GameObject _objectPoint;
+        [SerializeField] protected GameObject[] _puzzleElements;
+        public Transform ObjectTransform => _objectPoint.transform;
     }
 }
