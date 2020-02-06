@@ -8,5 +8,7 @@ namespace Puzzle.Builder
         [SerializeField] protected GameObject _objectPoint;
         [SerializeField] protected GameObject[] _puzzleElements;
         public Transform ObjectTransform => _objectPoint.transform;
+
+        public WallType WallType => _wallType;
     }
 }
