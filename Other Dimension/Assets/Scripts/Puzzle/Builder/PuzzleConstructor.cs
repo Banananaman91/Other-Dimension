@@ -8,11 +8,13 @@ namespace Puzzle.Builder
     public class PuzzleConstructor : MonoBehaviour
     {
         [SerializeField] private BuildingPieces[] _buildingPieces;
-        [SerializeField] private int _sizeRange;
-        [SerializeField] private int _widthRange;
-        [SerializeField] private int _lengthRange;
+        [SerializeField] private GameObject _goal;
+        [SerializeField, Range(4, 20)] private int _sizeRange;
+        [SerializeField, Range(4, 20)] private int _widthRange;
+        [SerializeField, Range(4, 20)] private int _lengthRange;
         private bool _isSquare;
         private int _distance = 9;
+        private int _minRange = 4;
 
         private void Awake()
         {
@@ -29,11 +31,13 @@ namespace Puzzle.Builder
 
         private void SquarePuzzle()
         {
-            var size = Random.Range(1, _sizeRange);
+            var size = Random.Range(_minRange, _sizeRange);
+            
             while (size % 2 != 0)
             {
-                size = Random.Range(1, _sizeRange);
+                size = Random.Range(_minRange, _sizeRange);
             }
+            var half = size / 2;
             var position = transform.position;
             var xPos = position.x;
             var zPos = position.z;
@@ -44,8 +48,11 @@ namespace Puzzle.Builder
                     var randomPicker = Random.Range(0, _buildingPieces.Length);
                     GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject);
                     go.transform.position = new Vector3(xPos, position.y, zPos);
-
-
+                    if (i == half && j == half)
+                    {
+                        GameObject goal = Instantiate(_goal);
+                        goal.transform.position = new Vector3(xPos, transform.position.y + 1, zPos);
+                    }
                     xPos += _distance;
                 }
 
@@ -56,15 +63,15 @@ namespace Puzzle.Builder
 
         private void RectangularPuzzle()
         {
-            var width = Random.Range(1, _widthRange);
+            var width = Random.Range(_minRange, _widthRange);
             while (width % 2 != 0)
             {
-                width = Random.Range(1, _widthRange);
+                width = Random.Range(_minRange, _widthRange);
             }
-            var length = Random.Range(1, _lengthRange);
+            var length = Random.Range(_minRange, _lengthRange);
             while (length % 2 != 0)
             {
-                length = Random.Range(1, _lengthRange);
+                length = Random.Range(_minRange, _lengthRange);
             }
             var position = transform.position;
             var xPos = position.x;
@@ -76,6 +83,11 @@ namespace Puzzle.Builder
                     var randomPicker = Random.Range(0, _buildingPieces.Length);
                     GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject);
                     go.transform.position = new Vector3(xPos, position.y, zPos);
+                    if (i == length / 2 && j == width / 2)
+                    {
+                        GameObject goal = Instantiate(_goal);
+                        goal.transform.position = new Vector3(xPos, transform.position.y + 1, zPos);
+                    }
                     xPos += _distance;
                 }
 
