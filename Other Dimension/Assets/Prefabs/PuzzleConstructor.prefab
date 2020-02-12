@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3997419589232040552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3997419589232040554}
+  - component: {fileID: 3997419589232040553}
+  m_Layer: 0
+  m_Name: PuzzleConstructor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3997419589232040554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997419589232040552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 180.80283, y: 3.5828667, z: 116.630585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3997419589232040553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997419589232040552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbd799d03360af4a8aab8d614b25433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingPieces:
+  - {fileID: 4212571542192429525, guid: 2131c4e2b47b4954f958151ea681642b, type: 3}
+  - {fileID: 7874677798727639713, guid: c1cb498f8018b6c4395bea08292b774b, type: 3}
+  - {fileID: 1572616809236349619, guid: 0456e72011a705c43ba7f9db4200a89e, type: 3}
+  - {fileID: 4060169618674155282, guid: 385a84f79b5f7484bb98236ed28fdf1f, type: 3}
+  - {fileID: 8286737573175160956, guid: 71d287010be22bf45879386e49981695, type: 3}
+  - {fileID: 7809566720001645678, guid: 65decba6ceb9e434b986e7da10adf8e0, type: 3}
+  - {fileID: 4026922767615360953, guid: 3ae1ad25ed864fd418729f70c6e6d264, type: 3}
+  - {fileID: 5264492688256453961, guid: bf00cc910a6a95b47aa2e953410470c7, type: 3}
+  - {fileID: 6013637824007713781, guid: cc9ccb54f7be40d44ad5cb5f43b6a85f, type: 3}
+  - {fileID: 1411995200252168660, guid: aa1ff81bb8404e447ab3acb3fe3862dc, type: 3}
+  _goal: {fileID: 5147741801784188769, guid: 661c1ca12a7d75e488039887eadfba4e, type: 3}
+  _sizeRange: 16
+  _widthRange: 10
+  _lengthRange: 20
