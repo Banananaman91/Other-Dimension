@@ -201,7 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wallType: 2
   _objectPoint: {fileID: 3800588727920849062}
-  _puzzleElements: []
+  _puzzleElements:
+  - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}
 --- !u!1 &3800588727945065133
 GameObject:
   m_ObjectHideFlags: 0

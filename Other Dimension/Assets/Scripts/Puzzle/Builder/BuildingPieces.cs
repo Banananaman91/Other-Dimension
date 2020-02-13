@@ -15,7 +15,10 @@ namespace Puzzle.Builder
 
         private void Start()
         {
-            _elementChoice = Random.Range(0, _puzzleElements.Length);
+            _elementChoice = Random.Range(0, _puzzleElements.Length - 1);
+            GameObject go = Instantiate(_puzzleElements[_elementChoice]);
+            var position = transform.position;
+            go.transform.position = new Vector3(position.x, position.y + 4.5f, position.z);
         }
     }
 }

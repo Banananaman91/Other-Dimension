@@ -200,4 +200,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wallType: 7
   _objectPoint: {fileID: 1483469789607845274}
-  _puzzleElements: []
+  _puzzleElements:
+  - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}
