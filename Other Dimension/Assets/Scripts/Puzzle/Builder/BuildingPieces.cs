@@ -15,6 +15,8 @@ namespace Puzzle.Builder
 
         private void Start()
         {
+            var elementChange = Random.Range(0.0f, 1.0f);
+            if (!(elementChange >= 0.0f) || !(elementChange <= 0.2f)) return;
             _elementChoice = Random.Range(0, _puzzleElements.Length - 1);
             GameObject go = Instantiate(_puzzleElements[_elementChoice]);
             var position = transform.position;
