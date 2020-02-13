@@ -1,11 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Controllers;
 using Interface;
-using UnityEngine;
+using Terrain;
 
-public class ObjectAvoidance : IAvoider
+namespace PathFinding
 {
-    public List<Controller> Objects => new List<Controller>();
-    public void UpdateSpaces(Controller controller) => Objects.Add(controller);
+    public class ObjectAvoidance : IAvoider
+    {
+        public List<Controller> Objects = new List<Controller>();
+        public AreaRestriction Container;
+        public void UpdateSpaces(Controller controller) => Objects.Add(controller);
+    }
 }
