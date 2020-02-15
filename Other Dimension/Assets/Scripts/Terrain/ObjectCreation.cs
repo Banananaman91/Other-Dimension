@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Numerics;
+using GamePhysics;
+using Puzzle.Builder;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 
@@ -17,7 +19,7 @@ namespace Terrain
         {
             for (var i = 0; i < _objectCount; i++)
             {
-                Instantiate(_feature, _spawnPoint.transform);
+                GameObject go = Instantiate(_feature, _spawnPoint.transform);
             }
         }
     }

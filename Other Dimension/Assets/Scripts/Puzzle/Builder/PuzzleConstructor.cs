@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Controllers;
+using GamePhysics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,14 +15,19 @@ namespace Puzzle.Builder
         [SerializeField, Range(4, 20)] private int _sizeRange;
         [SerializeField, Range(4, 20)] private int _widthRange;
         [SerializeField, Range(4, 20)] private int _lengthRange;
-        private bool _isSquare;
+        [SerializeField] protected GameObject[] _puzzleElements;
+        [SerializeField] protected GravityController _gravityController;
+        [HideInInspector] public Transform Origin;
+        private List<BuildingPieces> _pieces = new List<BuildingPieces>();
+        private bool _isSquare = true;
         private int _distance = 9;
         private int _minRange = 4;
+        private int _elementChoice;
 
-        private void Awake()
+        public void Activate()
         {
-            var style = Random.Range(0, 2);
-            _isSquare = style == 0;
+            //var style = Random.Range(0, 2);
+            //_isSquare = style == 0;
             ConstructPuzzle();
         }
 
@@ -46,12 +54,20 @@ namespace Puzzle.Builder
                 for (int j = 0; j <= size; j++)
                 {
                     var randomPicker = Random.Range(0, _buildingPieces.Length);
-                    GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject);
-                    go.transform.position = new Vector3(xPos, position.y, zPos);
+                    GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject, transform);
+                    go.transform.position = new Vector3(xPos, position.y + 10, zPos);
                     if (i == half && j == half)
                     {
-                        GameObject goal = Instantiate(_goal);
-                        goal.transform.position = new Vector3(xPos, transform.position.y + 1, zPos);
+                        GameObject goal = Instantiate(_goal, transform);
+                        goal.transform.position = new Vector3(xPos, go.transform.position.y + 1, zPos);
+                    }
+                    else
+                    {
+                        GameObject puzzleElement = CreateElements();
+                        if (puzzleElement)
+                        {
+                            puzzleElement.transform.position = new Vector3(xPos, go.transform.position.y + 4.5f, zPos);
+                        }
                     }
                     xPos += _distance;
                 }
@@ -81,12 +97,21 @@ namespace Puzzle.Builder
                 for (int j = 0; j <= width; j++)
                 {
                     var randomPicker = Random.Range(0, _buildingPieces.Length);
-                    GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject);
+                    GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject, transform);
                     go.transform.position = new Vector3(xPos, position.y, zPos);
+                    go.transform.rotation = Quaternion.FromToRotation(-Vector3.up, Origin.localPosition);
                     if (i == length / 2 && j == width / 2)
                     {
-                        GameObject goal = Instantiate(_goal);
+                        GameObject goal = Instantiate(_goal, transform);
                         goal.transform.position = new Vector3(xPos, transform.position.y + 1, zPos);
+                    }
+                    else
+                    {
+                        GameObject puzzleElement = CreateElements();
+                        if (puzzleElement)
+                        {
+                            puzzleElement.transform.position = new Vector3(xPos, transform.position.y + 4.5f, zPos);
+                        }
                     }
                     xPos += _distance;
                 }
@@ -94,6 +119,17 @@ namespace Puzzle.Builder
                 xPos = position.x;
                 zPos += _distance;
             }
+        }
+        
+        public GameObject CreateElements()
+        {
+            var elementChange = Random.Range(0.0f, 1.0f);
+            if (!(elementChange >= 0.0f) || !(elementChange <= 0.2f)) return null;
+            _elementChoice = Random.Range(0, _puzzleElements.Length - 1);
+            var position = transform.position;
+            GameObject go = Instantiate(_puzzleElements[_elementChoice], transform);
+            //go.transform.position = new Vector3(position.x, position.y + 4.5f, position.z);
+            return go;
         }
     }
 }

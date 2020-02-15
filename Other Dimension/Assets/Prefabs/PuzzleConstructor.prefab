@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3997419589232040554}
   - component: {fileID: 3997419589232040553}
+  - component: {fileID: -5256928790163567350}
   m_Layer: 0
   m_Name: PuzzleConstructor
   m_TagString: Untagged
@@ -58,3 +59,18 @@ MonoBehaviour:
   _sizeRange: 16
   _widthRange: 10
   _lengthRange: 20
+  _puzzleElements:
+  - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}
+--- !u!114 &-5256928790163567350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997419589232040552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5d7b8a1ea31fc4fa307fa9d0324fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _puzzleConstructor: {fileID: 3997419589232040553}

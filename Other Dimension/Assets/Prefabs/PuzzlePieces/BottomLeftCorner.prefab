@@ -199,6 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c803e1f74f3ee9f48a6f764ceef0d3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderBounds: {fileID: 0}
+  pathFinderTiles: {fileID: 0}
   _wallType: 3
   _objectPoint: {fileID: 7312486814559763476}
   _puzzleElements:

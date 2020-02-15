@@ -52,7 +52,6 @@ MonoBehaviour:
   State: 0
   _an1: {fileID: 716311615201552294}
   _an2: {fileID: 7672707823669992552}
-  _cubePiece: {fileID: 716311615201552281}
 --- !u!65 &716311614996027926
 BoxCollider:
   m_ObjectHideFlags: 0

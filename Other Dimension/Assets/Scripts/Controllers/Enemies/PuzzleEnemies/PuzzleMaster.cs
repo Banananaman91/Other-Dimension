@@ -12,13 +12,6 @@ namespace Controllers.Enemies.PuzzleEnemies
         protected static readonly int Player = Animator.StringToHash("Player");
         private Collider MyCollider => GetComponent<BoxCollider>();
 
-        private void Awake()
-        {
-            MyCollider.isTrigger = true;
-            var myColliderBounds = MyCollider.bounds;
-            myColliderBounds.size = new Vector3(10, 10, 10);
-        }
-
         protected override void IdleAction()
         {
             if (_anim && _anim.GetBool(Player)) _anim.SetBool(Player, false);
