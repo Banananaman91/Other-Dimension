@@ -14,10 +14,10 @@ namespace Controllers
         private Quaternion _targetQuaternion;
         private Transform TargetTransform => _target.transform;
         private Vector3 _aboveVector3;
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             _targetVector3 = TargetTransform.position - TargetTransform.forward * _backDistance + TargetTransform.up * _upDistance;
-            _aboveVector3 = TargetTransform.position + TargetTransform.up * _upDistance;
+            _aboveVector3 = TargetTransform.position + TargetTransform.up * _heightAbovePlayer;
             transform.position = Vector3.Lerp (transform.position, _targetVector3, _trackingSpeed * Time.deltaTime);
             transform.LookAt(_aboveVector3, TargetTransform.up);
         }

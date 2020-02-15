@@ -17,6 +17,8 @@ namespace Puzzle.Builder
         [SerializeField, Range(4, 20)] private int _lengthRange;
         [SerializeField] protected GameObject[] _puzzleElements;
         [SerializeField] protected GravityController _gravityController;
+        [SerializeField] private GameObject _base;
+        [SerializeField] private int _yOffset;
         [HideInInspector] public Transform Origin;
         private List<BuildingPieces> _pieces = new List<BuildingPieces>();
         private bool _isSquare = true;
@@ -45,17 +47,23 @@ namespace Puzzle.Builder
             {
                 size = Random.Range(_minRange, _sizeRange);
             }
+            _base.transform.localScale = new Vector3(size * _distance + 10, _yOffset, size * _distance + 10);
+            var baseTransformPosition = _base.transform.position;
+            _base.transform.position = new Vector3(baseTransformPosition.x - 5, baseTransformPosition.y, baseTransformPosition.z + size * _distance + 5);
             var half = size / 2;
             var position = transform.position;
             var xPos = position.x;
             var zPos = position.z;
+            var yPos = position.y;
+            int adjust = 1;
             for (int i = 0; i <= size; i++)
             {
                 for (int j = 0; j <= size; j++)
                 {
                     var randomPicker = Random.Range(0, _buildingPieces.Length);
                     GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject, transform);
-                    go.transform.position = new Vector3(xPos, position.y + 10, zPos);
+                    go.transform.position = new Vector3(xPos, yPos + _yOffset, zPos);
+
                     if (i == half && j == half)
                     {
                         GameObject goal = Instantiate(_goal, transform);
@@ -74,6 +82,7 @@ namespace Puzzle.Builder
 
                 xPos = position.x;
                 zPos += _distance;
+                
             }
         }
 

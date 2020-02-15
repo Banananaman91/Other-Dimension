@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1109474742910368679}
   - component: {fileID: 1109474742910368678}
   - component: {fileID: 4026922767615360953}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SquarePiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 1109474743271236012}
   - component: {fileID: 1109474743271236011}
   - component: {fileID: 1109474743271236010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 1109474743405198742}
   - component: {fileID: 1109474743405198741}
   - component: {fileID: 1109474743405198740}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 1109474743791981995}
   - component: {fileID: 1109474743791981994}
   - component: {fileID: 1109474743791981993}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1109474744410395561}
   - component: {fileID: 1109474744410395560}
   - component: {fileID: 1109474744410395559}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

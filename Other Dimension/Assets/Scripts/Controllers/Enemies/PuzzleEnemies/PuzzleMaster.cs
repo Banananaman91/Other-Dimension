@@ -45,7 +45,7 @@ namespace Controllers.Enemies.PuzzleEnemies
 
         private void OnTriggerEnter(Collider other)
         {
-             if (other.gameObject.name == "Sphere") StateChange.ToBlockState();
+             if (other.gameObject.name == "PlayerBall") StateChange.ToBlockState();
         }
 
         private void OnTriggerExit(Collider other)
