@@ -28,6 +28,13 @@ namespace Terrain
         [HideInInspector]
         public bool colourSettingsFoldout;
 
+        private void Awake()
+        {
+            Initialize();
+            GenerateColours();
+            GenerateMesh();
+        }
+
         void Initialize()
         {
             _shapeGenerator.UpdateSettings(_shapeSettings);
@@ -36,6 +43,10 @@ namespace Terrain
             if (_meshFilters == null || _meshFilters.Length == 0)
             {
                 _meshFilters = new MeshFilter[6];
+                foreach (var mesh in _meshFilters)
+                {
+                    mesh.gameObject.AddComponent<MeshCollider>();
+                }
             }
 
             _terrainFaces = new TerrainFace[6];
