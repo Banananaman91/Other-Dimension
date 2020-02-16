@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7535535187849061475}
   - component: {fileID: 7535535187849061474}
   - component: {fileID: 7535535187849061477}
-  - component: {fileID: 9129028566709620450}
+  - component: {fileID: 1680912136837530849}
   - component: {fileID: 792837234}
   m_Layer: 0
   m_Name: PlayerBall
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &9129028566709620450
+--- !u!114 &1680912136837530849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,12 +123,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4b904fdee4d914d81e73f51a0c184f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 0}
-  _walk: 10
+  _rb: {fileID: 7535535187849061477}
+  _walk: 20
   _run: 2
-  _rotateSpeed: 20
-  _jump: 5
-  _dash: 5
+  _rotateSpeed: 40
+  _jump: 20
+  _dash: 20
+  _maxSpeed: 30
 --- !u!114 &792837234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,4 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityCentre: {fileID: 0}
-  playerTransform: {fileID: 9129028566709620450}
+  playerTransform: {fileID: 1680912136837530849}

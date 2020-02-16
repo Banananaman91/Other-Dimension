@@ -692,7 +692,63 @@ PrefabInstance:
     - target: {fileID: 7078468971244010270, guid: 6a77ebb07bfec184d869d528387a1681,
         type: 3}
       propertyPath: m_Name
-      value: WallSegment (5)
+
+      value: Stalker Bot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1706720071}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 534669904}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _antiBlackHole
+      value: 
+      objectReference: {fileID: 2062648002}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _directionForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _rotateSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _jump
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _walk
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _run
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _dash
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061486, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535535187849061473, guid: 767a8b1d0d71f354ea9aeccf245eb3e5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080035273973516557, guid: 6a77ebb07bfec184d869d528387a1681,
         type: 3}
@@ -783,6 +839,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
       objectReference: {fileID: 0}
     - target: {fileID: 6080035273973516557, guid: 6a77ebb07bfec184d869d528387a1681,
         type: 3}
@@ -1630,6 +1687,34 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519917894127680355, guid: 082c37d777d65ce4fb635f933a6a7601,
+        type: 3}
+      propertyPath: _feature.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519917894127680355, guid: 082c37d777d65ce4fb635f933a6a7601,
+        type: 3}
+      propertyPath: _feature.Array.data[0]
+      value: 
+      objectReference: {fileID: 5379847336925907944, guid: db5f922a6e857834d92beba7a92f18ed,
+        type: 3}
+    - target: {fileID: 4519917894127680355, guid: 082c37d777d65ce4fb635f933a6a7601,
+        type: 3}
+      propertyPath: _feature.Array.data[1]
+      value: 
+      objectReference: {fileID: 46566974285736381, guid: a097238a83ec2f84182c1e98ef2d837f,
+        type: 3}
+    - target: {fileID: 4519917894127680355, guid: 082c37d777d65ce4fb635f933a6a7601,
+        type: 3}
+      propertyPath: _feature.Array.data[2]
+      value: 
+      objectReference: {fileID: 5263287854601130431, guid: 7dc1a37bfc2b133489e058e5f2dbf52b,
+        type: 3}
+    - target: {fileID: 4519917894127680355, guid: 082c37d777d65ce4fb635f933a6a7601,
+        type: 3}
+      propertyPath: _objectCount
+      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 082c37d777d65ce4fb635f933a6a7601, type: 3}
