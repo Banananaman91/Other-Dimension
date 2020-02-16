@@ -278,7 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ece10e8f4ff184d8d55871cb7064c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _feature: {fileID: 3997419589232040552, guid: 0423fb86a7185ad4bbc3e2ae40dafac1,
-    type: 3}
+  _feature:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _spawnPoint: {fileID: 4519917894460055574}
   _objectCount: 30
