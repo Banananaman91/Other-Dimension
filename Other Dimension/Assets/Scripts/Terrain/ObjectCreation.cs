@@ -7,7 +7,7 @@ namespace Terrain
 {
     public class ObjectCreation : MonoBehaviour
     {
-        [SerializeField] private GameObject _feature;
+        [SerializeField] private GameObject[] _feature;
         [SerializeField] private GameObject _spawnPoint;
         [SerializeField] private int _objectCount;
         private GameObject _spawnedObject;
@@ -17,7 +17,8 @@ namespace Terrain
         {
             for (var i = 0; i < _objectCount; i++)
             {
-                Instantiate(_feature, _spawnPoint.transform);
+                var itemNumber = UnityEngine.Random.Range(0, _feature.Length);
+                Instantiate(_feature[itemNumber], _spawnPoint.transform);
             }
         }
     }

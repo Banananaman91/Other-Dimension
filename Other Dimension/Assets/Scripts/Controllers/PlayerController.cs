@@ -8,7 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 namespace Controllers
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class BouncyBall : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private float _walk;
@@ -16,6 +16,7 @@ namespace Controllers
         [SerializeField] private int _rotateSpeed;
         [SerializeField] private int _jump;
         [SerializeField] private int _dash;
+        [SerializeField] private float _maxSpeed;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
         private Transform RbTransform => _rb.transform;
@@ -26,6 +27,8 @@ namespace Controllers
 
         private void Update()
         {
+
+
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");
 
@@ -48,20 +51,21 @@ namespace Controllers
             {
                 _walk /= _run;
             }
-            if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
-            {
-                _rb.AddForce(transform.up * _jump, ForceMode.VelocityChange);
-                if (!_jumped) _jumped = true;
-            }
             if (Input.GetKeyDown(KeyCode.Space) && _jumped && !_dashed)
             {
-                _rb.AddForce(transform.forward * _dash, ForceMode.VelocityChange);
+                _rb.velocity = transform.forward * _jump;
                 if (!_dashed) _dashed = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
+            {
+                _rb.velocity = transform.up * _jump;
+                if (!_jumped) _jumped = true;
             }
         }
 
         private void FixedUpdate()
         {
+            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _maxSpeed);
             _directionVector = (RbTransform.right * _moveDirection.x) + (RbTransform.forward * _moveDirection.z);
             _rb.MovePosition(RbTransform.position + _directionVector * _walk * Time.deltaTime);
         }
