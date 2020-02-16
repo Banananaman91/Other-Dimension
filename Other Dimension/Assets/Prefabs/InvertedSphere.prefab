@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 6171271218988064867}
   - component: {fileID: 4519917894127680359}
   - component: {fileID: 4519917894127680355}
-  - component: {fileID: 1334117706}
   m_Layer: 0
   m_Name: InvertedSphere
   m_TagString: Ground
@@ -288,28 +287,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5591241437136164031}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3ece10e8f4ff184d8d55871cb7064c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _feature: {fileID: 5379847336925907944, guid: db5f922a6e857834d92beba7a92f18ed,
-    type: 3}
+  _feature:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _spawnPoint: {fileID: 4519917894460055574}
   _objectCount: 5000
---- !u!114 &1334117706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591241437136164031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f917867f0b96334cb94bb61cf747050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _divisions: 32
-  _size: 5
-  _height: 1
-  _meshFilter: {fileID: 475212298561772698}
