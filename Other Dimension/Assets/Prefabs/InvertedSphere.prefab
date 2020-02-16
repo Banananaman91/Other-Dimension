@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4519917894460055570}
   - component: {fileID: 4519917894460055571}
   - component: {fileID: 4519917894460055572}
-  - component: {fileID: 4519917894460055573}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -58,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 917031297a8eae64092c15db767e05dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,19 +78,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &4519917894460055573
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4519917894460055574}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4519917895336441083
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +183,7 @@ GameObject:
   - component: {fileID: 6171271218988064867}
   - component: {fileID: 4519917894127680359}
   - component: {fileID: 4519917894127680355}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: InvertedSphere
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -213,7 +199,7 @@ Transform:
   m_GameObject: {fileID: 5591241437136164031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 917, z: 0}
-  m_LocalScale: {x: 918.7626, y: 918.7626, z: 918.7626}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_Children:
   - {fileID: 4519917894460055570}
   - {fileID: 4519917895336441082}
@@ -292,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ece10e8f4ff184d8d55871cb7064c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _feature: {fileID: 5379847336925907944, guid: db5f922a6e857834d92beba7a92f18ed,
+  _feature: {fileID: 3997419589232040552, guid: 0423fb86a7185ad4bbc3e2ae40dafac1,
     type: 3}
   _spawnPoint: {fileID: 4519917894460055574}
-  _objectCount: 5000
+  _objectCount: 30

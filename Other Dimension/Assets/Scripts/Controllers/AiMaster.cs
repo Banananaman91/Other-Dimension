@@ -46,6 +46,8 @@ namespace Controllers
                     Attack();
                     break;
                 case AiState.Block:
+                    Block();
+                    break;
                 case AiState.Capture:
                 case AiState.Chase:
                 case AiState.Maneuver:
@@ -70,5 +72,6 @@ namespace Controllers
         protected abstract void MoveCharacter();
         protected abstract IEnumerator VisualisePath();
         protected abstract void Attack();
+        protected abstract void Block();
     }
 }

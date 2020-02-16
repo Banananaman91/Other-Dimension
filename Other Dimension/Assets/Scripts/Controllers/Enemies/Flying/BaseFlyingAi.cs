@@ -121,5 +121,10 @@ namespace Controllers.Enemies.Flying
             _attackCooldown = true;
             StateChange.ToFindTargetState();
         }
+
+        protected override void Block()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -73,7 +73,7 @@ namespace Controllers
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.CompareTag("Ground"))
+            if (other.gameObject.layer == 9)
             {
                 if (_jumped) _jumped = false;
                 if (_dashed) _dashed = false;
