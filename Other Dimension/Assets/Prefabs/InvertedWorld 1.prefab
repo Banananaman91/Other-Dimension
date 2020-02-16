@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4685194589978569909}
   - component: {fileID: 4685194589978569910}
   - component: {fileID: 454094065033674601}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 4685194590297804731}
   - component: {fileID: 4685194590297804708}
   - component: {fileID: 454094064983776347}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 4685194590315036412}
   - component: {fileID: 4685194590315036413}
   - component: {fileID: 454094064967478544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 4685194590495944391}
   - component: {fileID: 4685194590495944384}
   - component: {fileID: 454094064508697895}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +540,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 0
-  m_CookingOptions: -1
+  m_CookingOptions: 14
   m_Mesh: {fileID: 0}
 --- !u!1 &4685194590799757728
 GameObject:
@@ -552,6 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685194590799757734}
   - component: {fileID: 4685194590799757735}
+  - component: {fileID: 685845518}
   m_Layer: 0
   m_Name: InvertedWorld 1
   m_TagString: Untagged
@@ -593,7 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712360bd14fcf9e44aa67b2820195374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 64
+  resolution: 256
   _shapeSettings: {fileID: 11400000, guid: 224adf94028482e4bbc0333cc2a96ae4, type: 2}
   _colourSettings: {fileID: 11400000, guid: 0c0dca17a1c89424e85312be02a63173, type: 2}
   _faceRenderMask: 0
@@ -606,6 +607,22 @@ MonoBehaviour:
   - {fileID: 4685194590297804708}
   shapeSettingsFoldout: 1
   colourSettingsFoldout: 1
+--- !u!114 &685845518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4685194590799757728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ece10e8f4ff184d8d55871cb7064c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _feature:
+  - {fileID: 3997419589232040552, guid: 0423fb86a7185ad4bbc3e2ae40dafac1, type: 3}
+  _spawnPoint: {fileID: 4685194590115318208}
+  _objectCount: 10
 --- !u!1 &4685194591793630944
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +635,7 @@ GameObject:
   - component: {fileID: 4685194591793630950}
   - component: {fileID: 4685194591793630951}
   - component: {fileID: 454094063218466054}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -711,7 +728,7 @@ GameObject:
   - component: {fileID: 4685194591973478481}
   - component: {fileID: 4685194591973478482}
   - component: {fileID: 454094063299838901}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
