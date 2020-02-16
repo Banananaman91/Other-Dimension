@@ -4,25 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using Controllers;
 using GameMessengerUtilities;
+using GameOctree;
 using Interface;
 using UnityEngine;
 
 namespace PathFinding
 {
-    public class PathFinder : IPathfinder, IObjectAvoidanceInitialisable
+    public class PathFinder : IPathfinder, IOctreeInitialisable
     {
         private List<Vector3> _pathToFollow = new List<Vector3>();
-        private float _2dMaxDistance = 1;
-        private ObjectAvoidance _avoidance;
+        private List<Controller> _avoidanceObjects;
+        private Octree<Controller> _octree;
 
-        public IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition, bool is3d, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
+        public IEnumerator FindPath(float stepValue, Vector3 startPosition, Vector3 targetPosition, float movementRadius, Action<IEnumerable<Vector3>> onCompletion)
         {
-            GameMessengerUtilities.MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
+            MessageBroker.Instance.SendMessageOfType(new OctreeRequestMessage(this));
             List<Location> openList = new List<Location>();
             List<Location> closedList = new List<Location>();
             Location currentLocation;
             Location startLocation = new Location(startPosition, targetPosition, null);
-            var isObjectMoving = _avoidance.Objects.First(x => x.transform.position == startPosition);
+            var octreeNode = _octree.NodeCheck(startPosition);
+            _avoidanceObjects = octreeNode.ReturnData();
+            var isObjectMoving = _avoidanceObjects.First(x => x.transform.position == startPosition);
 
             var adjacentSquares = new List<Location>();
             openList.Add(startLocation);
@@ -32,17 +35,36 @@ namespace PathFinding
                 // Find square with lowest F value
                 var lowestFScore = openList.Min(x => x.F);
                 currentLocation = openList.First(x => x.F == lowestFScore);
-
                 closedList.Add(currentLocation);
                 openList.Remove(currentLocation);
 
+                var distance = Vector3.Distance(currentLocation.PositionInWorld, targetPosition);
+
+                if (distance < stepValue || distance < 1)
+                {
+                    if (stepValue > 1)
+                    {
+                        while (distance < stepValue && stepValue > 1)
+                        {
+                            stepValue /= 2;
+                        }
+                        if (distance < 1)
+                        {
+                            targetPosition = currentLocation.PositionInWorld;
+                        }
+                    }
+                    else
+                    {
+                        targetPosition = currentLocation.PositionInWorld;
+                    }
+                }
                 if (closedList.Any(x => x.PositionInWorld == targetPosition))
                 {
                     break;
                 }
 
                 adjacentSquares.Clear();
-                adjacentSquares = !is3d ? GetAdjacentSquares2D(currentLocation, targetPosition, isObjectMoving) : GetAdjacentSquares3D(currentLocation, targetPosition, isObjectMoving);
+                adjacentSquares = GetAdjacentSquares3D(currentLocation, targetPosition,  stepValue, isObjectMoving);
 
                 foreach (var adjacentSquare in adjacentSquares)
                 {
@@ -52,7 +74,6 @@ namespace PathFinding
 
                     else if (adjacentSquare.F < openList.First(x => x.PositionInWorld == adjacentSquare.PositionInWorld).F) openList.First(x => x.PositionInWorld == adjacentSquare.PositionInWorld).Parent = adjacentSquare;
                 }
-
                 yield return null;
             }
 
@@ -64,8 +85,11 @@ namespace PathFinding
             
             do
             {
-                _pathToFollow.Add(current.Parent.PositionInWorld);
-                current = current.Parent;
+                if (current.Parent.PositionInWorld != null)
+                {
+                    _pathToFollow.Add(current.Parent.PositionInWorld);
+                    current = current.Parent;
+                }
             } while (!_pathToFollow.Contains(startPosition));
 
             _pathToFollow.Reverse();
@@ -73,54 +97,32 @@ namespace PathFinding
             onCompletion(_pathToFollow);
         }
 
-        private List<Location> GetAdjacentSquares2D(Location point, Vector3 target, Controller isObjectMoving)
+        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target,  float stepValue, Controller isObjectMoving)
         {
             List<Location> returnList = new List<Location>();
 
-            for (float xIndex = point.PositionInWorld.x - 1; xIndex <= point.PositionInWorld.x + 1; xIndex++)
+            for (var xIndex = point.PositionInWorld.x - stepValue; xIndex <= point.PositionInWorld.x + stepValue; xIndex+=stepValue)
             {
-                for (float zIndex = point.PositionInWorld.z - 1; zIndex <= point.PositionInWorld.z + 1; zIndex++)
+                for (var yIndex = point.PositionInWorld.y - stepValue; yIndex <= point.PositionInWorld.y + stepValue; yIndex+=stepValue)
                 {
-                    var adjacentVector =
-                        new Location(new Vector3(xIndex, point.PositionInWorld.y, zIndex), target, point);
-                    if (Vector3.Distance(point.PositionInWorld, adjacentVector.PositionInWorld) >
-                        _2dMaxDistance) continue;
-
-                    bool isIntersecting = _avoidance.Objects
-                        .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
-                                    Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
-                    if (!isIntersecting) returnList.Add(adjacentVector);
-                }
-            }
-            return returnList;
-        }
-        
-        private List<Location> GetAdjacentSquares3D(Location point, Vector3 target, Controller isObjectMoving)
-        {
-            List<Location> returnList = new List<Location>();
-
-            for (float xIndex = point.PositionInWorld.x - 1; xIndex <= point.PositionInWorld.x + 1; xIndex++)
-            {
-                for (float yIndex = point.PositionInWorld.y - 1; yIndex <= point.PositionInWorld.y + 1; yIndex++)
-                {
-                    for (float zIndex = point.PositionInWorld.z - 1; zIndex <= point.PositionInWorld.z + 1; zIndex++)
+                    for (var zIndex = point.PositionInWorld.z - stepValue; zIndex <= point.PositionInWorld.z + stepValue; zIndex+=stepValue)
                     {
-                        var adjacentVector = new Location(new Vector3(xIndex, yIndex, zIndex), target,
-                            point);
-                        bool isIntersecting = _avoidance.Objects
-                            .Where(x => x!= isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <=
-                                        Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
+                        var adjacentVector =
+                            new Location(new Vector3(xIndex, yIndex, zIndex), target, point);
+                        var octreeNode = _octree.NodeCheck(adjacentVector.PositionInWorld);
+                        _avoidanceObjects = octreeNode.ReturnData();
+                        bool isIntersecting = _avoidanceObjects.Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <= Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
                         if (!isIntersecting) returnList.Add(adjacentVector);
+
                     }
                 }
             }
-
             return returnList;
         }
-        
-        public void ObjectInitialise(ObjectAvoidance objectAvoidance)
+
+        public void OctreeInitialise(Octree<Controller> octree)
         {
-            _avoidance = objectAvoidance;
+            _octree = octree;
         }
     }
 }

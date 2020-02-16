@@ -1,18 +1,23 @@
 ﻿using GameMessengerUtilities;
+using GameOctree;
 using Interface;
+using PathFinding;
 using UnityEngine;
 
 namespace Controllers
 {
     [RequireComponent(typeof(Renderer))]
-    public class Controller : MonoBehaviour, IObjectAvoidanceInitialisable
+    public class Controller : MonoBehaviour, IObjectAvoidanceInitialisable, IObject
     {
+        
         protected IPathfinder Pathfinder;
-        private ObjectAvoidance _avoidance;
-        private Renderer _renderBounds;
+        protected ObjectAvoidance _avoidance;
+        [Header("Controller")]
+        [SerializeField] protected Renderer _renderBounds;
         [SerializeField] protected GameObject pathFinderTiles;
-        [SerializeField] protected float movementSpeed;
-        [SerializeField] protected float rotationSpeed;
+        // [SerializeField] protected float movementSpeed;
+        // [SerializeField] protected float rotationSpeed;
+        public OctreeNode<Controller> CurrentNode { get; set; }
         public Renderer RenderBounds => _renderBounds == null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
 
         public void Start()
@@ -24,7 +29,7 @@ namespace Controllers
 
         private void GetPathfinder() => MessageBroker.Instance.SendMessageOfType(new PathFinderRequestMessage(this));
 
-        private void AvoidMe() => _avoidance.Objects.Add(this);
+        public void AvoidMe() => _avoidance.Objects.Add(this);
         
         private void AddToObjectAvoidance() => MessageBroker.Instance.SendMessageOfType(new ObjectRequestMessage(this));
         

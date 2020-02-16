@@ -7,7 +7,7 @@ namespace GamePhysics
     {
         public float gravity = -12;
 
-        public void Repel(BouncyBall playerTransform)
+        public void Repel(PlayerController playerTransform)
         {
             Vector3 gravityUp = (transform.position - playerTransform.PlayerTransform.position).normalized;
             Vector3 localUp = playerTransform.PlayerTransform.up;

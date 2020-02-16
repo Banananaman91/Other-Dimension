@@ -1,4 +1,5 @@
 ﻿using System;
+using Controllers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,7 @@ namespace Terrain
             var direction = Random.onUnitSphere;
             Physics.Raycast (transform.position, direction * length, out var hit, Mathf.Infinity, 9);
             transform.position = hit.point;
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, _parent.transform.position);
+            transform.rotation = Quaternion.FromToRotation(-Vector3.up, _parent.transform.position);
         }
     }
 }
