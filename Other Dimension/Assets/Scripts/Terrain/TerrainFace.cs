@@ -67,6 +67,7 @@ namespace Terrain
             _mesh.triangles = _triangles;
             _mesh.RecalculateNormals();
             _mesh.uv = uv;
+            InvertNormals();
         }
 
         public void UpdateUVs(ColourGenerator colourGenerator)
@@ -86,8 +87,29 @@ namespace Terrain
                     uv[i] = new Vector2(colourGenerator.BiomePercentFromPoint(pointOnUnitSphere), 0);
                 }
             }
-
             _mesh.uv = uv;
+        }
+
+        private void InvertNormals()
+        {
+            Vector3[] normals = _mesh.normals;
+            for (int i = 0; i < normals.Length; i++)
+                normals[i] = -normals[i];
+            _mesh.normals = normals;
+
+            for (int m = 0; m < _mesh.subMeshCount; m++)
+            {
+                int[] triangles = _mesh.GetTriangles(m);
+                for (int i = 0; i < triangles.Length; i += 3)
+                {
+                    int temp = triangles[i + 0];
+                    triangles[i + 0] = triangles[i + 1];
+                    triangles[i + 1] = temp;
+                }
+
+                _mesh.SetTriangles(triangles, m);
+            }
+
         }
     }
 }
