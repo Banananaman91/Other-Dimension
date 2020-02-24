@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using Puzzle.Laser;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayDeflector : MonoBehaviour
+public class RayDeflector : MonoBehaviour, IRayReceiver
 {
-    // Start is called before the first frame update
-    void Start()
+    public Color LaserColour { get; set; }
+
+    public void HitWithRay()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void NotHitWithRay()
     {
-        
+        throw new System.NotImplementedException();
     }
 }
