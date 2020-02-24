@@ -371,6 +371,8 @@ MonoBehaviour:
   _lengthRange: 20
   _puzzleElements:
   - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}
+  - {fileID: 6771331979102769294, guid: 1871b4e58f4ff7441b902937b47cc686, type: 3}
+  - {fileID: 5485204600136815408, guid: 614ccd5322a15e6449ffc43caa8e469e, type: 3}
   _gravityController: {fileID: 0}
   _base: {fileID: 974478041}
   _yOffset: 20

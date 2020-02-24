@@ -3,17 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayDeflector : MonoBehaviour, IRayReceiver
+public class RayDeflector : RayMaster, IRayReceiver
 {
-    public Color LaserColour { get; set; }
+    [SerializeField] private CubeColour _colourType;
+    [SerializeField] private Material _material;
+    private Color _laserColour;
+    private bool _userLaserColourProperty;
 
-    public void HitWithRay()
+    private void Start()
     {
-        throw new System.NotImplementedException();
+        switch (_colourType)
+        {
+            case CubeColour.Blue:
+                _laserColour = Color.blue;
+                _material.color = _laserColour;
+                break;
+            case CubeColour.Green:
+                _laserColour = Color.green;
+                _material.color = _laserColour;
+                break;
+            case CubeColour.Red:
+                _laserColour = Color.red;
+                _material.color = _laserColour;
+                break;
+            case CubeColour.White:
+                _userLaserColourProperty = true;
+                break;
+
+        }
     }
-
-    public void NotHitWithRay()
+    public new void HitWithRay()
     {
-        throw new System.NotImplementedException();
+        if (_userLaserColourProperty) _laserColour = LaserColour;
+        _hitWithRay = true;
+        _rayRunOutTime = Time.time + _hitByRayRefreshTime;
+        _laserVisual.startColor = _laserColour;
+        _laserVisual.endColor = _laserColour;
+        var laserParticleMain = _laserParticle.main;
+        laserParticleMain.startColor = _laserColour;
     }
 }

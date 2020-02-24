@@ -134,7 +134,7 @@ namespace Puzzle.Builder
         {
             var elementChange = Random.Range(0.0f, 1.0f);
             if (!(elementChange >= 0.0f) || !(elementChange <= 0.2f)) return null;
-            _elementChoice = Random.Range(0, _puzzleElements.Length - 1);
+            _elementChoice = Random.Range(0, _puzzleElements.Length);
             var position = transform.position;
             GameObject go = Instantiate(_puzzleElements[_elementChoice], transform);
             //go.transform.position = new Vector3(position.x, position.y + 4.5f, position.z);
