@@ -20,7 +20,7 @@ MonoBehaviour:
       _filterType: 0
       _simpleNoiseSettings:
         _strength: -0.01
-        _numberOfLayers: 4
+        _numberOfLayers: 6
         _baseRoughness: 0.96
         _roughness: 0.98
         _persistance: 0.34

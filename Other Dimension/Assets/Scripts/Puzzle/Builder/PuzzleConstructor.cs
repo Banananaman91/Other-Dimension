@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Controllers;
 using GamePhysics;
+using Puzzle.Laser;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -117,9 +118,11 @@ namespace Puzzle.Builder
                     else
                     {
                         GameObject puzzleElement = CreateElements();
+                        var puzzleElementComponent = puzzleElement.GetComponent<IRayReceiver>();
                         if (puzzleElement)
                         {
-                            puzzleElement.transform.position = new Vector3(xPos, transform.position.y + 4.5f, zPos);
+                            if (puzzleElementComponent == null) puzzleElement.transform.position = new Vector3(xPos, transform.position.y + 4.5f, zPos);
+                            else puzzleElement.transform.position = new Vector3(xPos, transform.position.y + 3f, zPos);
                         }
                     }
                     xPos += _distance;
