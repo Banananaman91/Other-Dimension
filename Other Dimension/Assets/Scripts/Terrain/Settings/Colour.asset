@@ -43,7 +43,7 @@ MonoBehaviour:
         m_Mode: 0
         m_NumColorKeys: 7
         m_NumAlphaKeys: 2
-      _tint: {r: 1, g: 0.0141509175, b: 0.0141509175, a: 0}
+      _tint: {r: 0, g: 0, b: 0, a: 0}
       _startHeight: 0
       _tintPercent: 0
     _noiseSettings:
@@ -51,11 +51,11 @@ MonoBehaviour:
       _simpleNoiseSettings:
         _strength: 1.6
         _numberOfLayers: 5
-        _baseRoughness: 1
-        _roughness: 2
-        _persistance: 1.16
+        _baseRoughness: -0.38
+        _roughness: 0.26
+        _persistance: 0.38
         _centre: {x: 0, y: 0, z: 0}
-        _minValue: 0
+        _minValue: -0.01
       _ridgidNoiseSettings:
         _strength: 1
         _numberOfLayers: 1
@@ -65,5 +65,5 @@ MonoBehaviour:
         _centre: {x: 0, y: 0, z: 0}
         _minValue: 0
         _weightMultiplier: 0.8
-    _blendAmount: 0
+    _blendAmount: 0.354
   _planetMaterial: {fileID: 2100000, guid: 14eb743e515e7424d883a7ee67c28136, type: 2}
