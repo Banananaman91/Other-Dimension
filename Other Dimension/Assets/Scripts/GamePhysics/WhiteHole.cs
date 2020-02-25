@@ -2,22 +2,36 @@
 using Puzzle.Laser;
 using System.Collections.Generic;
 using UnityEngine;
+using Ray = Puzzle.Laser.Ray;
 
 namespace GamePhysics
 {
     public class WhiteHole : MonoBehaviour, IRayReceiver
     {
         public float gravity = -12;
-        private List<Color> _colours;
+        private List<Color> _colours = new List<Color>();
+        private List<Ray> _lasers = new List<Ray>();
         private int _colourCount;
         private int _currentColour;
         private Color[] _colourChoices = { Color.red, Color.blue, Color.green, Color.red + Color.blue, Color.red + Color.green, Color.blue + Color.green };
 
         public Color LaserColour { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-        public void HitWithRay()
+        private void CheckRay(int rayCount)
         {
-            throw new System.NotImplementedException();
+            Debug.Log(_lasers[rayCount].LaserVisual.startColor != _colours[rayCount]
+                ? "You're a failure"
+                : "Pretty good");
+            _currentColour++;
+        }
+        
+        public void HitWithRay(Ray ray)
+        {
+            if (!_lasers.Contains(ray))
+            {
+                _lasers.Add(ray);
+                CheckRay(_currentColour);
+            }
         }
 
         public void NotHitWithRay()

@@ -6,7 +6,7 @@ namespace Puzzle.Laser
     public interface IRayReceiver
     {
         Color LaserColour { get; set; }
-        void HitWithRay();
+        void HitWithRay(Ray ray = null);
         void NotHitWithRay();
     }
 }

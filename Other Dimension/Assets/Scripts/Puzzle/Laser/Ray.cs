@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GamePhysics;
+using UnityEngine;
 
 namespace Puzzle.Laser
 {
@@ -7,14 +8,17 @@ namespace Puzzle.Laser
         [SerializeField] protected LineRenderer _laserVisual;
         [SerializeField] protected ParticleSystem _laserParticle;
         [SerializeField] protected Direction _directionType;
+        protected Vector3 _whiteHole = new Vector3(0, 0, 0);
         protected Vector3 _transformDirection;
         protected float _distance = 100;
-        protected RaycastHit _hit;
+        public RaycastHit _hit;
         protected bool _hitWithRay;
         protected float _rayRunOutTime;
         protected float _hitByRayRefreshTime = 1f;
-        protected Color[] _startColours = new Color[] {Color.red, Color.green, Color.blue, };
+        protected Color[] _startColours = {Color.red, Color.green, Color.blue, };
         protected IRayReceiver _rayReceiver;
         protected bool _addedColour;
+
+        public LineRenderer LaserVisual => _laserVisual;
     }
 }
