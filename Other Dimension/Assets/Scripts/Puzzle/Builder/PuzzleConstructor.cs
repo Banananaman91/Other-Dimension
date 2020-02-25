@@ -6,6 +6,7 @@ using GamePhysics;
 using Puzzle.Laser;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Ray = Puzzle.Laser.Ray;
 
 namespace Puzzle.Builder
 {
@@ -23,7 +24,7 @@ namespace Puzzle.Builder
         [HideInInspector] public Transform Origin;
         private List<BuildingPieces> _pieces = new List<BuildingPieces>();
         private bool _isSquare = true;
-        private int _distance = 9;
+        private int _distance = 20;
         private int _minRange = 4;
         private int _elementChoice;
 
@@ -75,7 +76,8 @@ namespace Puzzle.Builder
                         GameObject puzzleElement = CreateElements();
                         if (puzzleElement)
                         {
-                            puzzleElement.transform.position = new Vector3(xPos, go.transform.position.y + 4.5f, zPos);
+                            var puzzleElementComponent = puzzleElement.GetComponent<Ray>();
+                            puzzleElement.transform.position = puzzleElementComponent == null ? new Vector3(xPos, transform.position.y + 4.5f + _yOffset, zPos) : new Vector3(xPos, transform.position.y + 3 + _yOffset, zPos);
                         }
                     }
                     xPos += _distance;
@@ -113,16 +115,15 @@ namespace Puzzle.Builder
                     if (i == length / 2 && j == width / 2)
                     {
                         GameObject goal = Instantiate(_goal, transform);
-                        goal.transform.position = new Vector3(xPos, transform.position.y + 1, zPos);
+                        goal.transform.position = new Vector3(xPos, transform.position.y + 3, zPos);
                     }
                     else
                     {
                         GameObject puzzleElement = CreateElements();
-                        var puzzleElementComponent = puzzleElement.GetComponent<IRayReceiver>();
                         if (puzzleElement)
                         {
-                            if (puzzleElementComponent == null) puzzleElement.transform.position = new Vector3(xPos, transform.position.y + 4.5f, zPos);
-                            else puzzleElement.transform.position = new Vector3(xPos, transform.position.y + 3f, zPos);
+                            var puzzleElementComponent = puzzleElement.GetComponent<IRayReceiver>();
+                            puzzleElement.transform.position = puzzleElementComponent == null ? new Vector3(xPos, transform.position.y + 4.5f, zPos) : new Vector3(xPos, transform.position.y + 3, zPos);
                         }
                     }
                     xPos += _distance;

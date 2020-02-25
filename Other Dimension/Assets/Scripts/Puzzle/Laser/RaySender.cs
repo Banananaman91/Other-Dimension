@@ -4,16 +4,8 @@ using Random = UnityEngine.Random;
 
 namespace Puzzle.Laser
 {
-    public class RaySender : MonoBehaviour
+    public class RaySender : Ray
     {
-        [SerializeField] private LineRenderer _laserVisual;
-        [SerializeField] private ParticleSystem _laserParticle;
-        private Color[] _startColours = new Color[] {Color.red, Color.green, Color.blue, };
-        private float _distance = 100;
-        private IRayReceiver _rayReceiver;
-        private RaycastHit _hit;
-        private bool _addedColour;
-
         private void Awake()
         {
             var colourChoice = Random.Range(0, _startColours.Length);
