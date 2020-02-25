@@ -12,12 +12,11 @@ namespace Terrain
         private Transform Parent => GetComponentInParent<Transform>();
         private void Awake()
         {
-            _puzzleConstructor.Origin = Parent;
             var length = 1000;
             var direction = Random.onUnitSphere;
             Physics.Raycast (transform.position, direction * length, out var hit, Mathf.Infinity);
             transform.position = hit.point;
-            _puzzleConstructor.Activate();
+            _puzzleConstructor.ConstructPuzzle();
             transform.rotation = Quaternion.FromToRotation(-Vector3.up, Parent.transform.localPosition);
         }
     }

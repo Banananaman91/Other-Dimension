@@ -15,30 +15,17 @@ namespace Puzzle.Builder
         [SerializeField] private BuildingPieces[] _buildingPieces;
         [SerializeField] private GameObject _goal;
         [SerializeField, Range(4, 20)] private int _sizeRange;
-        [SerializeField, Range(4, 20)] private int _widthRange;
-        [SerializeField, Range(4, 20)] private int _lengthRange;
         [SerializeField] protected GameObject[] _puzzleElements;
-        [SerializeField] protected GravityController _gravityController;
         [SerializeField] private GameObject _base;
         [SerializeField] private int _yOffset;
-        [HideInInspector] public Transform Origin;
         private List<BuildingPieces> _pieces = new List<BuildingPieces>();
-        private bool _isSquare = true;
         private int _distance = 20;
         private int _minRange = 4;
         private int _elementChoice;
 
-        public void Activate()
+        public void ConstructPuzzle()
         {
-            //var style = Random.Range(0, 2);
-            //_isSquare = style == 0;
-            ConstructPuzzle();
-        }
-
-        private void ConstructPuzzle()
-        {
-            if (_isSquare) SquarePuzzle();
-            else RectangularPuzzle();
+            SquarePuzzle();
         }
 
         private void SquarePuzzle()
@@ -89,51 +76,6 @@ namespace Puzzle.Builder
             }
         }
 
-        private void RectangularPuzzle()
-        {
-            var width = Random.Range(_minRange, _widthRange);
-            while (width % 2 != 0)
-            {
-                width = Random.Range(_minRange, _widthRange);
-            }
-            var length = Random.Range(_minRange, _lengthRange);
-            while (length % 2 != 0)
-            {
-                length = Random.Range(_minRange, _lengthRange);
-            }
-            var position = transform.position;
-            var xPos = position.x;
-            var zPos = position.z;
-            for (int i = 0; i <= length; i++)
-            {
-                for (int j = 0; j <= width; j++)
-                {
-                    var randomPicker = Random.Range(0, _buildingPieces.Length);
-                    GameObject go = Instantiate(_buildingPieces[randomPicker].gameObject, transform);
-                    go.transform.position = new Vector3(xPos, position.y, zPos);
-                    go.transform.rotation = Quaternion.FromToRotation(-Vector3.up, Origin.localPosition);
-                    if (i == length / 2 && j == width / 2)
-                    {
-                        GameObject goal = Instantiate(_goal, transform);
-                        goal.transform.position = new Vector3(xPos, transform.position.y + 3, zPos);
-                    }
-                    else
-                    {
-                        GameObject puzzleElement = CreateElements();
-                        if (puzzleElement)
-                        {
-                            var puzzleElementComponent = puzzleElement.GetComponent<IRayReceiver>();
-                            puzzleElement.transform.position = puzzleElementComponent == null ? new Vector3(xPos, transform.position.y + 4.5f, zPos) : new Vector3(xPos, transform.position.y + 3, zPos);
-                        }
-                    }
-                    xPos += _distance;
-                }
-
-                xPos = position.x;
-                zPos += _distance;
-            }
-        }
-        
         public GameObject CreateElements()
         {
             var elementChange = Random.Range(0.0f, 1.0f);
