@@ -8,7 +8,6 @@ namespace Puzzle.Laser
         [SerializeField] protected LineRenderer _laserVisual;
         [SerializeField] protected ParticleSystem _laserParticle;
         [SerializeField] protected Direction _directionType;
-        protected Vector3 _whiteHole = new Vector3(0, 0, 0);
         protected Vector3 _transformDirection;
         protected float _distance = 100;
         public RaycastHit _hit;

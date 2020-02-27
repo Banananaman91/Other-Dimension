@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Controllers;
 using Puzzle.Builder;
 using UnityEngine;
@@ -9,13 +10,23 @@ namespace Terrain
     public class ObjectPlacer : MonoBehaviour
     {
         [SerializeField] private PuzzleConstructor _puzzleConstructor;
+        private RaycastHit _hit;
         private Transform Parent => GetComponentInParent<Transform>();
         private void Awake()
         {
             var length = 1000;
-            var direction = Random.onUnitSphere;
-            Physics.Raycast (transform.position, direction * length, out var hit, Mathf.Infinity);
-            transform.position = hit.point;
+            
+            while (!_hit.collider)
+            {
+                var direction = Random.onUnitSphere;
+                Physics.Raycast (transform.position, direction * length, out _hit, Mathf.Infinity, -9);
+            }
+            transform.position = _hit.point;
+            //transform.rotation = Quaternion.FromToRotation(-Vector3.up, Parent.transform.localPosition);
+        }
+
+        private void Start()
+        {
             _puzzleConstructor.ConstructPuzzle();
             transform.rotation = Quaternion.FromToRotation(-Vector3.up, Parent.transform.localPosition);
         }
