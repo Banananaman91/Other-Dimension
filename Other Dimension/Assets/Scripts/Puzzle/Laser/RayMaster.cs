@@ -4,7 +4,7 @@ namespace Puzzle.Laser
 {
     public class RayMaster : Ray, IRayReceiver
     {
-        [SerializeField] private Transform _parentTransform;
+        private Transform Transform => transform;
         public Color LaserColour { get; set; }
 
         private void Awake()
@@ -12,17 +12,19 @@ namespace Puzzle.Laser
             switch (_directionType)
             {
                 case Direction.Forward:
-                    _transformDirection = transform.forward;
+                    _transformDirection = Transform.forward;
                     break;
                 case Direction.Up:
-                    _transformDirection = Vector3.zero - transform.position;
+                    _transformDirection = Vector3.zero - Transform.position;
                     break;
             }
             _laserVisual.startColor = Color.black;
             _laserVisual.endColor = Color.black;
             var laserParticleMain = _laserParticle.main;
             laserParticleMain.startColor = Color.black;
-            _laserVisual.SetPosition(1, new Vector3(0, 0, 0));
+            var position = Transform.position;
+            _laserVisual.SetPosition(0, position);
+            _laserVisual.SetPosition(1, position);
         }
 
         public void HitWithRay(Ray ray)
@@ -41,7 +43,7 @@ namespace Puzzle.Laser
             _laserVisual.endColor = Color.black;
             var laserParticleMain = _laserParticle.main;
             laserParticleMain.startColor = Color.black;
-            _laserVisual.SetPosition(1, new Vector3(0, 0, 0));
+            _laserVisual.SetPosition(1, Transform.position);
         }
 
         private void FixedUpdate()
@@ -51,22 +53,28 @@ namespace Puzzle.Laser
                 _hitWithRay = false;
                 NotHitWithRay();
             }
-            if (!_hitWithRay) return;
+            var position = Transform.position;
+            if (!_hitWithRay)
+            {
+                _laserVisual.SetPosition(0, position);
+                _laserVisual.SetPosition(1, position);
+                return;
+            }
             switch (_directionType)
             {
                 case Direction.Forward:
                     _transformDirection = transform.forward;
                     break;
                 case Direction.Up:
-                    _transformDirection = Vector3.zero - transform.position;
+                    _transformDirection = Vector3.zero - Transform.position;
                     break;
             }
-            Physics.Raycast(transform.position, _transformDirection, out _hit, Mathf.Infinity);
-            Debug.DrawRay(transform.position, _transformDirection, Color.green);
-            //_laserVisual.SetPosition(1, _transformDirection * _distance);
+            _laserVisual.SetPosition(0, position);
+            _laserVisual.SetPosition(1, position);
+            Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity);
+            if (_directionType == Direction.Forward) _laserVisual.SetPosition(1, _hit.point);
             if (!_hit.collider) return;
-            var distance = Vector3.Distance(transform.position, _hit.point);
-            _laserVisual.SetPosition(1, _transformDirection);
+            _laserVisual.SetPosition(1, _hit.point);
             var rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
             rayReceiver?.HitWithRay(this);
         }

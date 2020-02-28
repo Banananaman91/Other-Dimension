@@ -74,7 +74,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5048,7 +5048,6 @@ MonoBehaviour:
   _laserVisual: {fileID: 23716048}
   _laserParticle: {fileID: 1591925772}
   _directionType: 1
-  _parentTransform: {fileID: 2686634227522412657}
   _currentState: 0
 --- !u!1 &5147741801784188769
 GameObject:
