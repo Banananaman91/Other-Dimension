@@ -67,7 +67,6 @@ namespace Puzzle.Laser
             if (!_hit.collider) return;
             var distance = Vector3.Distance(transform.position, _hit.point);
             _laserVisual.SetPosition(1, _transformDirection);
-            if (gameObject.name == "Sphere") Debug.Log(_hit.collider.gameObject.name + ": " + _hit.point);
             var rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
             rayReceiver?.HitWithRay(this);
         }
