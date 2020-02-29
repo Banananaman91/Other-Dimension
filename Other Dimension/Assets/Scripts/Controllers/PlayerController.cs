@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Puzzle.Laser;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
@@ -18,6 +19,7 @@ namespace Controllers
         [SerializeField] private int _jump;
         [SerializeField] private int _dash;
         [SerializeField] private float _maxSpeed;
+        [SerializeField] private int _interactDistance;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
         private Transform RbTransform => _rb.transform;
@@ -28,8 +30,6 @@ namespace Controllers
 
         private void Update()
         {
-
-
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");
 
@@ -61,6 +61,15 @@ namespace Controllers
             {
                 _rb.velocity = transform.up * _jump;
                 if (!_jumped) _jumped = true;
+            }
+            if (Input.GetKey(KeyCode.F))
+            {
+                Debug.Log("Pressed");
+                Physics.Raycast(transform.position, transform.forward, out var hit, _interactDistance);
+                if (!hit.collider) return;
+                Debug.Log("Hit: " + hit.collider.gameObject.name);
+                var rayInteract = hit.collider.gameObject.GetComponent<IRayInteract>();
+                rayInteract?.RayInteraction(this);
             }
         }
 

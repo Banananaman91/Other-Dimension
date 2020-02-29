@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Controllers;
 using UnityEngine;
 
 namespace Puzzle.Laser
 {
-    public class RayGoal : RayMaster
+    public class RayGoal : RayMaster, IRayInteract
     {
         [SerializeField] private GoalState _currentState;
         private Color _finalColour;
@@ -32,7 +33,12 @@ namespace Puzzle.Laser
             _laserVisual.endColor = _finalColour;
             var laserParticleMain = _laserParticle.main;
             laserParticleMain.startColor = _finalColour;
-            _laserVisual.SetPosition(1, _transformDirection * _distance);
+        }
+
+        public void RayInteraction(PlayerController player)
+        {
+            _goalActive = true;
+            _currentState = GoalState.Fired;
         }
     }
 }

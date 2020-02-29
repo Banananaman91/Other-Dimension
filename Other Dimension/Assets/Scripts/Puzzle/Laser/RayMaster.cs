@@ -5,6 +5,7 @@ namespace Puzzle.Laser
     public class RayMaster : Ray, IRayReceiver
     {
         private Transform Transform => transform;
+        protected bool _goalActive;
         public Color LaserColour { get; set; }
 
         private void Awake()
@@ -64,19 +65,25 @@ namespace Puzzle.Laser
             {
                 case Direction.Forward:
                     _transformDirection = transform.forward;
+                    position = Transform.position;
+                    _laserVisual.SetPosition(0, position);
+                    _laserVisual.SetPosition(1, position);
+                    Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity);
+                    if (!_hit.collider) return;
+                    _laserVisual.SetPosition(1, _hit.point);
+                    var rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
+                    rayReceiver?.HitWithRay(this);
                     break;
                 case Direction.Up:
                     _transformDirection = Vector3.zero - Transform.position;
+                    if (_goalActive) return;
+                    Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity);
+                    if (!_hit.collider) return;
+                    _laserVisual.SetPosition(1, _hit.point);
+                    rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
+                    rayReceiver?.HitWithRay(this);
                     break;
             }
-            _laserVisual.SetPosition(0, position);
-            _laserVisual.SetPosition(1, position);
-            Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity);
-            if (_directionType == Direction.Forward) _laserVisual.SetPosition(1, _hit.point);
-            if (!_hit.collider) return;
-            _laserVisual.SetPosition(1, _hit.point);
-            var rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
-            rayReceiver?.HitWithRay(this);
         }
     }
 }

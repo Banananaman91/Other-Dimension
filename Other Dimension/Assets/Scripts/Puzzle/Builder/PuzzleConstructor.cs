@@ -58,6 +58,12 @@ namespace Puzzle.Builder
                         GameObject goal = Instantiate(_goal, transform);
                         goal.transform.position = new Vector3(xPos, go.transform.position.y + 1, zPos);
                     }
+                    else if ((i == 0 && j == 0) || (i == size && j == size) || (i == 0 && j == size) ||
+                             (i == size && j == 0))
+                    {
+                        GameObject newElement = Instantiate(_puzzleElements[1], transform);
+                        newElement.transform.position = new Vector3(xPos, transform.position.y + 3 + _yOffset, zPos);
+                    }
                     else
                     {
                         GameObject puzzleElement = CreateElements();
@@ -80,11 +86,15 @@ namespace Puzzle.Builder
         {
             var elementChange = Random.Range(0.0f, 1.0f);
             if (!(elementChange >= 0.0f) || !(elementChange <= 0.2f)) return null;
-            _elementChoice = Random.Range(0, _puzzleElements.Length);
-            var position = transform.position;
-            GameObject go = Instantiate(_puzzleElements[_elementChoice], transform);
-            //go.transform.position = new Vector3(position.x, position.y + 4.5f, position.z);
-            return go;
+            var elementChoice = Random.Range(0.0f, 1.0f);
+            GameObject go;
+            if (elementChoice >= 0.0f && elementChoice <= 0.7f) go = Instantiate(_puzzleElements[0], transform);
+            else
+            {
+                _elementChoice = Random.Range(2, _puzzleElements.Length);
+                go = Instantiate(_puzzleElements[_elementChoice], transform);
+            }
+            return !go ? null : go;
         }
     }
 }
