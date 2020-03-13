@@ -22,7 +22,6 @@ namespace Puzzle.Laser
             if (!_hit.collider)
             {
                 if (_rayReceiver == null) return;
-                Debug.Log(_rayReceiver.LaserColour);
                 _rayReceiver.LaserColour -= _laserVisual.startColor;
                 _rayReceiver = null;
                 _addedColour = false;

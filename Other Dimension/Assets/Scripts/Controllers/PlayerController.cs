@@ -3,6 +3,7 @@ using System.Numerics;
 using Puzzle.Laser;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -20,6 +21,8 @@ namespace Controllers
         [SerializeField] private int _dash;
         [SerializeField] private float _maxSpeed;
         [SerializeField] private int _interactDistance;
+        [SerializeField] private SphereCollider _triggerSphere;
+        private RayDeflector _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
         private Transform RbTransform => _rb.transform;
@@ -28,20 +31,19 @@ namespace Controllers
         private bool _jumped;
         private bool _dashed;
 
+        private void Awake()
+        {
+            _triggerSphere.radius = _interactDistance;
+            Cursor.visible = false;
+        }
+
         private void Update()
         {
+            if (Input.GetKey(KeyCode.Escape)) Cursor.visible = true;
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");
-
-            if(Input.GetKey (KeyCode.E))
-            {
-                transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
-            }
-
-            if(Input.GetKey (KeyCode.Q))
-            {
-                transform.Rotate(-Vector3.up * _rotateSpeed * Time.deltaTime);
-            }
+            float moveRotation = Input.GetAxis("Mouse X") * _rotateSpeed;
+            transform.Rotate(0, moveRotation, 0);
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -64,12 +66,7 @@ namespace Controllers
             }
             if (Input.GetKey(KeyCode.F))
             {
-                Debug.Log("Pressed");
-                Physics.Raycast(transform.position, transform.forward, out var hit, _interactDistance);
-                if (!hit.collider) return;
-                Debug.Log("Hit: " + hit.collider.gameObject.name);
-                var rayInteract = hit.collider.gameObject.GetComponent<IRayInteract>();
-                rayInteract?.RayInteraction(this);
+                _rayCube.RayInteraction(this);
             }
         }
 
@@ -87,6 +84,14 @@ namespace Controllers
                 if (_jumped) _jumped = false;
                 if (_dashed) _dashed = false;
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var rayComponent = other.GetComponent<RayDeflector>();
+            if (!rayComponent) return;
+            if (_rayCube && _rayCube._followPlayer) return;
+            _rayCube = rayComponent;
         }
     }
 }

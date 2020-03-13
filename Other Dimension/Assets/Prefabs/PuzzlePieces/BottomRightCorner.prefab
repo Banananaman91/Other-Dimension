@@ -109,10 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderBounds: {fileID: 0}
   pathFinderTiles: {fileID: 0}
-  _wallType: 4
-  _objectPoint: {fileID: 6134505893352175757}
-  _puzzleElements:
-  - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}
+  _walls:
+  - {fileID: 6134505894283744082}
+  - {fileID: 6134505894545867575}
 --- !u!1 &6134505894283744082
 GameObject:
   m_ObjectHideFlags: 0

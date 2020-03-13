@@ -22,12 +22,14 @@ namespace Terrain
                 Physics.Raycast (transform.position, direction * length, out _hit, Mathf.Infinity, -9);
             }
             transform.position = _hit.point;
-            //transform.rotation = Quaternion.FromToRotation(-Vector3.up, Parent.transform.localPosition);
         }
 
         private void Start()
         {
-            _puzzleConstructor.ConstructPuzzle();
+            if (_puzzleConstructor)
+            {
+                _puzzleConstructor.ConstructPuzzle();
+            }
             transform.rotation = Quaternion.FromToRotation(-Vector3.up, Parent.transform.localPosition);
         }
     }

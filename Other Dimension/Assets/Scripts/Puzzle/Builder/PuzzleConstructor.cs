@@ -56,6 +56,20 @@ namespace Puzzle.Builder
                     if (i == half && j == half)
                     {
                         GameObject goal = Instantiate(_goal, transform);
+                        List<GameObject> children = new List<GameObject>();
+                        for (int k = 0; k < go.transform.childCount; k++)
+                        {
+                            children.Add(go.transform.GetChild(k).gameObject);
+                        }
+                        if (children.Count != 0)
+                        {
+                            foreach (var child in children)
+                            {
+                                if (child.GetComponent<RayDestructable>()) continue;
+                                child.AddComponent<RayDestructable>();
+                            }
+                        }
+
                         goal.transform.position = new Vector3(xPos, go.transform.position.y + 1, zPos);
                     }
                     else if ((i == 0 && j == 0) || (i == size && j == size) || (i == 0 && j == size) ||
@@ -63,6 +77,19 @@ namespace Puzzle.Builder
                     {
                         GameObject newElement = Instantiate(_puzzleElements[1], transform);
                         newElement.transform.position = new Vector3(xPos, transform.position.y + 3 + _yOffset, zPos);
+                        List<GameObject> children = new List<GameObject>();
+                        for (int k = 0; k < go.transform.childCount; k++)
+                        {
+                            children.Add(go.transform.GetChild(k).gameObject);
+                        }
+                        if (children.Count != 0)
+                        {
+                            foreach (var child in children)
+                            {
+                                if (child.GetComponent<RayDestructable>()) continue;
+                                child.AddComponent<RayDestructable>();
+                            }
+                        }
                     }
                     else
                     {
@@ -82,7 +109,7 @@ namespace Puzzle.Builder
             }
         }
 
-        public GameObject CreateElements()
+        private GameObject CreateElements()
         {
             var elementChange = Random.Range(0.0f, 1.0f);
             if (!(elementChange >= 0.0f) || !(elementChange <= 0.2f)) return null;

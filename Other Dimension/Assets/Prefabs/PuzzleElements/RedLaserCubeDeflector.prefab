@@ -113,7 +113,8 @@ MonoBehaviour:
   _colourType: 0
   _material: {fileID: 2100000, guid: cd0cefadd97e80d40a4d100a71cb0e48, type: 2}
   _distanceFromPlayer: 4
-  _followSpeed: 5
+  _followSpeed: 10
+  _rotateSpeed: 50
 --- !u!1 &5485204600222726133
 GameObject:
   m_ObjectHideFlags: 0
