@@ -30,6 +30,12 @@ namespace Terrain
             {
                 _puzzleConstructor.ConstructPuzzle();
             }
+
+            if (!_puzzleConstructor)
+            {
+                var scale = Random.Range(1, 20);
+                transform.localScale = new Vector3(scale, scale, scale);
+            }
             transform.rotation = Quaternion.FromToRotation(-Vector3.up, Parent.transform.localPosition);
         }
     }

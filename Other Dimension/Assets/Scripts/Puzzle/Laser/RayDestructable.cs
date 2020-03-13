@@ -30,7 +30,7 @@ namespace Puzzle.Laser
         public void NotHitWithRay()
         {
             WallMaterial.color = Color.Lerp(TargetColour, WallColour, _t);
-            if (_t > 0) _t += Time.deltaTime / _speed;
+            if (_t > 0) _t -= Time.deltaTime / _speed;
         }
     }
 }

@@ -1661,7 +1661,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 14eb743e515e7424d883a7ee67c28136, type: 2}
     - target: {fileID: 685845518, guid: 096d6f12f6623544cb345c95b229b27d, type: 3}
       propertyPath: _terrainObjects.Array.size
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 685845518, guid: 096d6f12f6623544cb345c95b229b27d, type: 3}
       propertyPath: _terrainObjects.Array.data[0]
@@ -1695,11 +1695,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 685845518, guid: 096d6f12f6623544cb345c95b229b27d, type: 3}
       propertyPath: _puzzleCount
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 685845518, guid: 096d6f12f6623544cb345c95b229b27d, type: 3}
       propertyPath: _objectCount
-      value: 150
+      value: 3000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 096d6f12f6623544cb345c95b229b27d, type: 3}

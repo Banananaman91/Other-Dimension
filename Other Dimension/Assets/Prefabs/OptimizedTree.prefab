@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5392559186269741441}
   - component: {fileID: 4544347277405189367}
   - component: {fileID: 7031003969254666660}
+  - component: {fileID: 3220148307488066158}
   - component: {fileID: 3272460333996565863}
   m_Layer: 0
   m_Name: OptimizedTree
@@ -69,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1622669492693940412, guid: 396c663448c578f439677598b0adf904, type: 3}
+  - {fileID: 2100000, guid: 891102bdc39231a438a79eb9f2cf8dbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +83,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -90,6 +91,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3220148307488066158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46566974285736381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8014f0c6a7b2e449ba0176791f0e41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3272460333996565863
 MonoBehaviour:
   m_ObjectHideFlags: 0
