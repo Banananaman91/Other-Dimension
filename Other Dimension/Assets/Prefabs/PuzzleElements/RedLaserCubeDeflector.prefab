@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5485204600136815422}
   - component: {fileID: 5485204600136815409}
   - component: {fileID: 5485204600136815421}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RedLaserCubeDeflector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,7 @@ MonoBehaviour:
   _distanceFromPlayer: 4
   _followSpeed: 10
   _rotateSpeed: 50
+  _followPlayer: 0
 --- !u!1 &5485204600222726133
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +127,7 @@ GameObject:
   - component: {fileID: 5485204600222726128}
   - component: {fileID: 5485204600222726130}
   - component: {fileID: 5485204600222726131}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4936,7 +4937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5485204600609064223}
   - component: {fileID: 5485204600609064222}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}

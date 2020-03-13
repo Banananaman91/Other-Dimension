@@ -17,7 +17,7 @@ namespace Puzzle.Laser
 
         private void FixedUpdate()
         {
-            Physics.Raycast(transform.position, transform.forward, out _hit, _distance);
+            Physics.Raycast(transform.position, transform.forward, out _hit, _distance, -10);
             _laserVisual.SetPosition(1, new Vector3(0, 0, _distance));
             if (!_hit.collider)
             {

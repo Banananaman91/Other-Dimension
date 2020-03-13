@@ -74,6 +74,8 @@ namespace Puzzle.Laser
             laserParticleMain.startColor = _finalColour;
         }
 
+        public bool FollowPlayer { get; set; }
+
         public void RayInteraction(PlayerController player)
         {
             _goalActive = true;

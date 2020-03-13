@@ -22,7 +22,7 @@ namespace Controllers
         [SerializeField] private float _maxSpeed;
         [SerializeField] private int _interactDistance;
         [SerializeField] private SphereCollider _triggerSphere;
-        private RayDeflector _rayCube;
+        private IRayInteract _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
         private Transform RbTransform => _rb.transform;
@@ -88,9 +88,9 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            var rayComponent = other.GetComponent<RayDeflector>();
-            if (!rayComponent) return;
-            if (_rayCube && _rayCube._followPlayer) return;
+            var rayComponent = other.GetComponent<IRayInteract>();
+            if (rayComponent == null) return;
+            if (_rayCube != null && _rayCube.FollowPlayer) return;
             _rayCube = rayComponent;
         }
     }

@@ -11,7 +11,11 @@ namespace Terrain.Settings
         [Range(0, 1), SerializeField] private float _startHeight;
         [Range(0, 1), SerializeField] private float _tintPercent;
 
-        public Gradient Gradient => _gradient;
+        public Gradient Gradient
+        {
+            get => _gradient;
+            set => _gradient = value;
+        }
 
         public Color Tint => _tint;
 

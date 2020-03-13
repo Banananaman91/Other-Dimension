@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Controllers;
+using UnityEngine;
 
 namespace Puzzle.Laser
 {
     public class RayMaster : Ray
     {
+        
         protected Transform Transform => transform;
         protected bool _goalActive;
         public Color LaserColour { get; set; }

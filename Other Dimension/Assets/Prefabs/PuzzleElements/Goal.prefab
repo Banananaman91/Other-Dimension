@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23716047}
   - component: {fileID: 23716048}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 1591925770}
   - component: {fileID: 1591925772}
   - component: {fileID: 1591925771}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4951,7 +4951,7 @@ GameObject:
   - component: {fileID: 6582740563193589138}
   - component: {fileID: 3996962319593643218}
   - component: {fileID: 723749057}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,7 +5061,7 @@ GameObject:
   - component: {fileID: 3479763343744513708}
   - component: {fileID: 8450679148830622616}
   - component: {fileID: 7792644430206248876}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

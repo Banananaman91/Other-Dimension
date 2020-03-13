@@ -10,8 +10,7 @@ namespace Terrain
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
         private Material TreeMaterial => GetComponent<MeshRenderer>().material;
 
-        private Color[] ColoursArray = new[]
-            { Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.white, Color.yellow};
+        private Color[] ColoursArray = { Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.white, Color.yellow};
 
         private int _colour1;
         private int _colour2;

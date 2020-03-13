@@ -106,7 +106,7 @@ namespace Terrain
             _colourGenerator.UpdateElevation(_shapeGenerator.ElevationMinMax);
         }
 
-        void GenerateColours()
+        private void GenerateColours()
         {
             _colourGenerator.UpdateColours();
             for (int i = 0; i < 6; i++)

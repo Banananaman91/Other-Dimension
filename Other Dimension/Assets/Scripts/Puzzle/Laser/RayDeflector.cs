@@ -13,11 +13,10 @@ namespace Puzzle.Laser
         [SerializeField] private int _rotateSpeed;
         private float _scrollScale = 1;
         private Vector3 _targetVector3;
-        [HideInInspector] public bool _followPlayer;
         private Color _laserColour;
         private bool _userLaserColourProperty;
         private PlayerController _player;
-        private float _upDistance = 0;
+        private float _upDistance;
 
 
         private void Start()
@@ -54,38 +53,64 @@ namespace Puzzle.Laser
             switch (_directionType)
             {
                 case Direction.Forward:
+                    
                     _transformDirection = transform.forward;
                     position = Transform.position;
                     _laserVisual.SetPosition(0, position);
                     _laserVisual.SetPosition(1, position);
+                    
                     if (!_hitWithRay)
                     {
                         break;
                     }
-                    Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity);
-                    if (!_hit.collider) return;
+                    
+                    Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity, -10);
+                    
+                    if (!_hit.collider)
+                    {
+                        if (_rayReceiver == null) return;
+                        _rayReceiver.LaserColour -= _laserVisual.startColor;
+                        _rayReceiver = null;
+                        _addedColour = false;
+                        return;
+                    }
+                    
                     _laserVisual.SetPosition(1, _hit.point);
-                    var rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
-                    rayReceiver?.HitWithRay(this);
+                    _rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
+                    if (_rayReceiver == null) break;
+                    _rayReceiver.HitWithRay(this);
+                    
+                    if (!_addedColour)
+                    {
+                        _rayReceiver.LaserColour += _laserVisual.startColor;
+                        _addedColour = true;
+                    }
+                    
                     break;
                 case Direction.Up:
+                    
                     _transformDirection = Vector3.zero - Transform.position;
+                    
                     if (_goalActive) return;
-                    Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity);
+                    
+                    Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity -10);
+                    
                     if (!_hit.collider) return;
+                    
                     _laserVisual.SetPosition(1, _hit.point);
-                    rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
-                    rayReceiver?.HitWithRay(this);
+                    _rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
+                    _rayReceiver?.HitWithRay(this);
+                    
                     break;
             }
-            if (!_followPlayer || !_player) return;
+            
+            if (!FollowPlayer || !_player) return;
+            
             var transform1 = _player.transform;
             var mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-            if (mouseScroll > 0) _upDistance++;
-            else if (mouseScroll < 0) _upDistance--;
+            if (mouseScroll > 0) _upDistance += mouseScroll;
+            else if (mouseScroll < 0) _upDistance += mouseScroll;
             _targetVector3 = transform1.position + transform1.forward * _distanceFromPlayer + transform1.up * _upDistance;
-
-            Debug.Log(_targetVector3);
             transform.position = Vector3.Lerp (transform.position, _targetVector3, _followSpeed * Time.deltaTime);
             
             if(Input.GetKey (KeyCode.E))
@@ -119,12 +144,14 @@ namespace Puzzle.Laser
             _laserVisual.SetPosition(1, Transform.position);
         }
 
+        public bool FollowPlayer { get; set; }
+
         public void RayInteraction(PlayerController player)
         {
             Debug.Log("Interacted");
             _player = player;
-            if (!_followPlayer) _followPlayer = true;
-            else if (_followPlayer) _followPlayer = false;
+            if (!FollowPlayer) FollowPlayer = true;
+            else if (FollowPlayer) FollowPlayer = false;
         }
     }
 }

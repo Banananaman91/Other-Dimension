@@ -16,7 +16,6 @@ namespace Terrain
         [SerializeField] private Collider _whiteHoleCollider;
         private GameObject _spawnedObject;
         
-
         private void Start()
         { 
             StartCoroutine(CreateObjects());
