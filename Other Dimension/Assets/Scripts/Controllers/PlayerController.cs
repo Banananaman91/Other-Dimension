@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
+using GamePhysics;
+using Puzzle.Laser;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -18,50 +23,61 @@ namespace Controllers
         [SerializeField] private int _jump;
         [SerializeField] private int _dash;
         [SerializeField] private float _maxSpeed;
+        [SerializeField] private int _interactDistance;
+        [SerializeField] private SphereCollider _triggerSphere;
+        private IRayInteract _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
+        private Material Material => GetComponent<MeshRenderer>().material;
         private Transform RbTransform => _rb.transform;
         public Transform PlayerTransform => transform;
         public Rigidbody Rb => _rb;
         private bool _jumped;
         private bool _dashed;
 
+        private void Awake()
+        {
+            _triggerSphere.radius = _interactDistance;
+            Cursor.visible = false;
+        }
+
         private void Update()
         {
-
-
+            if (Input.GetKey(KeyCode.Escape)) Cursor.visible = true;
+            
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");
-
-            if(Input.GetKey (KeyCode.E))
-            {
-                transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
-            }
-
-            if(Input.GetKey (KeyCode.Q))
-            {
-                transform.Rotate(-Vector3.up * _rotateSpeed * Time.deltaTime);
-            }
-
+            float moveRotation = Input.GetAxis("Mouse X") * _rotateSpeed;
+            transform.Rotate(0, moveRotation, 0);
+            
+            //Run
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _walk *= _run;
             }
-
+            //Stop running
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 _walk /= _run;
             }
+            //Dash
             if (Input.GetKeyDown(KeyCode.Space) && _jumped && !_dashed)
             {
                 _rb.velocity = transform.forward * _jump;
                 if (!_dashed) _dashed = true;
             }
+            //Jump
             if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
             {
                 _rb.velocity = transform.up * _jump;
                 if (!_jumped) _jumped = true;
             }
+            //Interact with cubes
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                _rayCube?.RayInteraction(this);
+            }
+
         }
 
         private void FixedUpdate()
@@ -78,6 +94,26 @@ namespace Controllers
                 if (_jumped) _jumped = false;
                 if (_dashed) _dashed = false;
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var rayComponent = other.GetComponent<IRayInteract>();
+            if (rayComponent == null) return;
+            if (_rayCube != null && _rayCube.FollowPlayer) return;
+            _rayCube = rayComponent;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            var rayComponent = other.GetComponent<IRayInteract>();
+            if (rayComponent == null) return;
+            if (_rayCube == rayComponent) _rayCube = null;
+        }
+
+        public void DisplayColour(WhiteHole whiteHole, int current)
+        {
+            Material.SetColor("_BaseColor", whiteHole._colours[current]);
         }
     }
 }

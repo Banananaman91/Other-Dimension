@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1109474742910368677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 160, y: 7.4999995, z: 120}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 20, y: 1, z: 20}
   m_Children:
   - {fileID: 1109474743271236009}
   - {fileID: 1109474744410395558}
@@ -111,10 +111,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderBounds: {fileID: 0}
   pathFinderTiles: {fileID: 0}
-  _wallType: 0
-  _objectPoint: {fileID: 1109474742910368677}
-  _puzzleElements:
-  - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}
+  _walls:
+  - {fileID: 1109474743271236008}
+  - {fileID: 1109474744410395557}
+  - {fileID: 1109474743405198738}
+  - {fileID: 1109474743791981991}
 --- !u!1 &1109474743271236008
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 //Original version of the ConditionalHideAttribute created by Brecht Lecluyse (www.brechtos.com)
 //Modified by: Sebastian Lague
-
+#if UNITY_EDITOR
 namespace Terrain.TerrainEditor
 {
     [CustomPropertyDrawer(typeof(ConditionalHideAttribute))]
@@ -84,3 +84,4 @@ namespace Terrain.TerrainEditor
         }
     }
 }
+#endif
