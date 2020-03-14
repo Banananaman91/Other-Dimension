@@ -13,6 +13,7 @@ namespace Puzzle.Laser
         private Color CurrentColour => WallMaterial.GetColor(BaseColor);
         private Color WallColour;
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+        private Ray _ray;
 
         private void Awake()
         {
@@ -22,8 +23,13 @@ namespace Puzzle.Laser
 
         public void HitWithRay(Ray ray = null)
         {
+            _ray = ray;
             WallMaterial.SetColor(BaseColor, Color.Lerp(WallColour, TargetColour, _t));
-            if (CurrentColour == TargetColour) Destroy(gameObject);
+            if (CurrentColour == TargetColour)
+            {
+                if(_ray) ray._addedColour = false;
+                Destroy(gameObject);
+            }
             if (_t < 1) _t += Time.deltaTime / _speed;
         }
 

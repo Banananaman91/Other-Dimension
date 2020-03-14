@@ -1,47 +1,26 @@
-﻿using System;
-using Controllers;
+﻿using Controllers;
 using UnityEngine;
 
 namespace Puzzle.Laser
 {
-    public class RayDeflector : RayMaster, IRayReceiver, IRayInteract
+    public class RayWhite : RayMaster, IRayReceiver, IRayInteract
     {
-        [SerializeField] private CubeColour _colourType;
         [SerializeField, Range(1, 10)] private int _distanceFromPlayer;
         [SerializeField] private int _followSpeed;
         [SerializeField] private int _rotateSpeed;
         private float _scrollScale = 1;
         private Vector3 _targetVector3;
-        public Color _laserColour;
         private bool _userLaserColourProperty;
         private PlayerController _player;
         private float _upDistance;
-        private Ray _ray;
         public Color LaserColour { get; set; }
+        public bool FollowPlayer { get; set; }
         public Transform Transform => transform;
-
-
-        private void Start()
-        {
-            switch (_colourType)
-            {
-                case CubeColour.Blue:
-                    _laserColour = Color.blue;
-                    break;
-                case CubeColour.Green:
-                    _laserColour = Color.green;
-                    break;
-                case CubeColour.Red:
-                    _laserColour = Color.red;
-                    break;
-            }
-        }
 
         private void FixedUpdate()
         {
             if (FollowPlayer && _player)
             {
-
                 var transform1 = _player.transform;
                 var mouseScroll = Input.GetAxis("Mouse ScrollWheel");
                 if (mouseScroll > 0) _upDistance += mouseScroll;
@@ -80,6 +59,7 @@ namespace Puzzle.Laser
 
             Physics.Raycast(position, _transformDirection, out _hit, Mathf.Infinity, -10);
             _laserVisual.SetPosition(1, position + _transformDirection * _distance);
+
             if (!_hit.collider)
             {
                 if (_rayReceiver == null) return;
@@ -91,42 +71,35 @@ namespace Puzzle.Laser
 
             _laserVisual.SetPosition(1, _hit.point);
             _rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
-            _rayReceiver?.HitWithRay(this);
+            if (_rayReceiver == null) return;
+            _rayReceiver.HitWithRay(this);
 
-            if (_rayReceiver != null && !_addedColour)
+            if (!_addedColour)
             {
                 _rayReceiver.LaserColour += _laserVisual.startColor;
                 _addedColour = true;
             }
         }
 
-
-
-        public void HitWithRay(Ray ray)
+        public void HitWithRay(Ray ray = null)
         {
-            _ray = ray;
             _hitWithRay = true;
             _rayRunOutTime = Time.time + _hitByRayRefreshTime;
-            _laserVisual.startColor = _laserColour;
-            _laserVisual.endColor = _laserColour;
+            _laserVisual.startColor = LaserColour;
+            _laserVisual.endColor = LaserColour;
             var laserParticleMain = _laserParticle.main;
-            laserParticleMain.startColor = _laserColour;
+            laserParticleMain.startColor = LaserColour;
         }
 
         public void NotHitWithRay()
         {
-            if(_ray) _ray._addedColour = false;
             _laserVisual.startColor = Color.black;
             _laserVisual.endColor = Color.black;
             var laserParticleMain = _laserParticle.main;
             laserParticleMain.startColor = Color.black;
             _laserVisual.SetPosition(1, Transform.position);
         }
-
-        public bool FollowPlayer { get; set; }
-
         
-
         public void RayInteraction(PlayerController player)
         {
             _player = player;

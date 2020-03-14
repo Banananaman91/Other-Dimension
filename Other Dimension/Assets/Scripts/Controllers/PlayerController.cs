@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
+using GamePhysics;
 using Puzzle.Laser;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -25,6 +28,7 @@ namespace Controllers
         private IRayInteract _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
+        private Material Material => GetComponent<MeshRenderer>().material;
         private Transform RbTransform => _rb.transform;
         public Transform PlayerTransform => transform;
         public Rigidbody Rb => _rb;
@@ -40,34 +44,40 @@ namespace Controllers
         private void Update()
         {
             if (Input.GetKey(KeyCode.Escape)) Cursor.visible = true;
+            
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");
             float moveRotation = Input.GetAxis("Mouse X") * _rotateSpeed;
             transform.Rotate(0, moveRotation, 0);
-
+            
+            //Run
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _walk *= _run;
             }
-
+            //Stop running
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 _walk /= _run;
             }
+            //Dash
             if (Input.GetKeyDown(KeyCode.Space) && _jumped && !_dashed)
             {
                 _rb.velocity = transform.forward * _jump;
                 if (!_dashed) _dashed = true;
             }
+            //Jump
             if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
             {
                 _rb.velocity = transform.up * _jump;
                 if (!_jumped) _jumped = true;
             }
-            if (Input.GetKey(KeyCode.F))
+            //Interact with cubes
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                _rayCube.RayInteraction(this);
+                _rayCube?.RayInteraction(this);
             }
+
         }
 
         private void FixedUpdate()
@@ -92,6 +102,18 @@ namespace Controllers
             if (rayComponent == null) return;
             if (_rayCube != null && _rayCube.FollowPlayer) return;
             _rayCube = rayComponent;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            var rayComponent = other.GetComponent<IRayInteract>();
+            if (rayComponent == null) return;
+            if (_rayCube == rayComponent) _rayCube = null;
+        }
+
+        public void DisplayColour(WhiteHole whiteHole, int current)
+        {
+            Material.SetColor("_BaseColor", whiteHole._colours[current]);
         }
     }
 }

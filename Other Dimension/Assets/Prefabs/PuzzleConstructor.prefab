@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 974478044}
   - component: {fileID: 974478043}
   - component: {fileID: 974478042}
+  - component: {fileID: 4532541106180329093}
+  - component: {fileID: 5589369501704330349}
   m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
@@ -309,6 +311,30 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
+--- !u!114 &4532541106180329093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974478041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d426e3f0b29acb41964cd7843a42789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5589369501704330349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974478041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8037a86f70b844a959f09ba5125e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3997419589232040552
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +391,7 @@ MonoBehaviour:
   - {fileID: 5264492688256453961, guid: bf00cc910a6a95b47aa2e953410470c7, type: 3}
   - {fileID: 6013637824007713781, guid: cc9ccb54f7be40d44ad5cb5f43b6a85f, type: 3}
   - {fileID: 1411995200252168660, guid: aa1ff81bb8404e447ab3acb3fe3862dc, type: 3}
-  _goal: {fileID: 5147741801784188769, guid: 661c1ca12a7d75e488039887eadfba4e, type: 3}
+  _goal: {fileID: 6989794381025227264, guid: 661c1ca12a7d75e488039887eadfba4e, type: 3}
   _sizeRange: 16
   _puzzleElements:
   - {fileID: 716311614996027913, guid: 0e05cd6ba4dfb164081a9425539cdc77, type: 3}

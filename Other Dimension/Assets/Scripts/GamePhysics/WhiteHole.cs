@@ -3,6 +3,7 @@ using Controllers;
 using Puzzle.Laser;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Ray = Puzzle.Laser.Ray;
 
@@ -10,6 +11,8 @@ namespace GamePhysics
 {
     public class WhiteHole : MonoBehaviour, IRayReceiver
     {
+        [SerializeField] private PlayerController _player;
+        [SerializeField] private Text _levelText;
         public float gravity = -12;
         public List<Color> _colours = new List<Color>();
         private List<Ray> _lasers = new List<Ray>();
@@ -22,13 +25,14 @@ namespace GamePhysics
         private void Awake()
         {
             ColourSequence();
+            _levelText.text = "Level: " + _colourCount;
+            _levelText.color = _colours[_currentColour];
         }
 
         private void CheckRay(int rayCount)
         {
-            Debug.Log(_lasers[rayCount].LaserVisual.startColor != _colours[rayCount]
-                ? "You're a failure"
-                : "Pretty good");
+            if (_lasers[rayCount].LaserVisual.startColor != _colours[rayCount]) ResetColours();
+            else ColourSequence();
             _currentColour++;
         }
         
@@ -57,6 +61,15 @@ namespace GamePhysics
                 _colours.Add(newColour);
             }
             _colourCount++;
+            _levelText.color = _colours[_currentColour];
+            _levelText.text = "Level: " + _colourCount;
+            _player.DisplayColour(this, _currentColour);
+        }
+
+        private void ResetColours()
+        {
+            _colourCount = 0;
+            ColourSequence();
         }
 
         public void Repel(PlayerController playerTransform)

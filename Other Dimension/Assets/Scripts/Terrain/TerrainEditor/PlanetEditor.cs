@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEditor;
 using Object = UnityEngine.Object;
-
+#if UNITY_EDITOR
 namespace Terrain.TerrainEditor
 {
     [CustomEditor(typeof(Planet))]
@@ -56,3 +56,4 @@ namespace Terrain.TerrainEditor
         }
     }
 }
+#endif

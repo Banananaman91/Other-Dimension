@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Controllers;
 using GamePhysics;
+using Puzzle.Elements;
 using Puzzle.Laser;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,7 +19,7 @@ namespace Puzzle.Builder
         [SerializeField] protected GameObject[] _puzzleElements;
         [SerializeField] private GameObject _base;
         [SerializeField] private int _yOffset;
-        private List<BuildingPieces> _pieces = new List<BuildingPieces>();
+
         private int _distance = 20;
         private int _minRange = 4;
         private int _elementChoice;
@@ -70,7 +71,7 @@ namespace Puzzle.Builder
                             }
                         }
 
-                        goal.transform.position = new Vector3(xPos, go.transform.position.y + 1, zPos);
+                        goal.transform.position = new Vector3(xPos, go.transform.position.y + 3, zPos);
                     }
                     else if ((i == 0 && j == 0) || (i == size && j == size) || (i == 0 && j == size) ||
                              (i == size && j == 0))
@@ -115,7 +116,10 @@ namespace Puzzle.Builder
             if (!(elementChange >= 0.0f) || !(elementChange <= 0.2f)) return null;
             var elementChoice = Random.Range(0.0f, 1.0f);
             GameObject go;
-            if (elementChoice >= 0.0f && elementChoice <= 0.7f) go = Instantiate(_puzzleElements[0], transform);
+            if (elementChoice >= 0.0f && elementChoice <= 0.4f)
+            {
+                go = Instantiate(_puzzleElements[0], transform);
+            }
             else
             {
                 _elementChoice = Random.Range(2, _puzzleElements.Length);

@@ -17,8 +17,12 @@ namespace Puzzle.Laser
 
         private void FixedUpdate()
         {
+            _transformDirection = transform.forward;
+            var position = transform.position;
+            _laserVisual.SetPosition(0, position);
+            _laserVisual.SetPosition(1, position);
             Physics.Raycast(transform.position, transform.forward, out _hit, _distance, -10);
-            _laserVisual.SetPosition(1, new Vector3(0, 0, _distance));
+            _laserVisual.SetPosition(1, position + _transformDirection * _distance);
             if (!_hit.collider)
             {
                 if (_rayReceiver == null) return;
@@ -27,16 +31,15 @@ namespace Puzzle.Laser
                 _addedColour = false;
                 return;
             }
-            var distance = Vector3.Distance(transform.position, _hit.point);
-            _laserVisual.SetPosition(1, new Vector3(0, 0, distance * 2));
             _rayReceiver = _hit.collider.gameObject.GetComponent<IRayReceiver>();
+            _laserVisual.SetPosition(1, _hit.point);
             if (_rayReceiver == null) return;
             if (!_addedColour)
             {
                 _rayReceiver.LaserColour += _laserVisual.startColor;
                 _addedColour = true;
             }
-            _rayReceiver.HitWithRay();
+            _rayReceiver.HitWithRay(this);
         }
     }
 }

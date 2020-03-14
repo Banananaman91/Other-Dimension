@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum CubeColour
+﻿namespace Puzzle.Laser
 {
-    Red,
-    Blue,
-    Green,
-    White
+    public enum CubeColour
+    {
+        Red,
+        Blue,
+        Green
+    }
 }

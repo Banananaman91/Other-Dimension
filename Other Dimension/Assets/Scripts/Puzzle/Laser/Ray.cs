@@ -14,9 +14,9 @@ namespace Puzzle.Laser
         protected bool _hitWithRay;
         protected float _rayRunOutTime;
         protected float _hitByRayRefreshTime = 1f;
-        protected Color[] _startColours = {Color.red, Color.green, Color.blue, };
+        protected Color[] _startColours = { Color.red, Color.green, Color.blue, };
         protected IRayReceiver _rayReceiver;
-        protected bool _addedColour;
+        public bool _addedColour;
 
         public LineRenderer LaserVisual => _laserVisual;
     }
