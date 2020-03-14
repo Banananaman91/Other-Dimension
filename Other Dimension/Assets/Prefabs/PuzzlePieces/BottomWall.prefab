@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 7658834007032732297}
   - component: {fileID: 7658834007032732294}
   - component: {fileID: 1572616809236349619}
-  - component: {fileID: -5472500666143391727}
   m_Layer: 9
   m_Name: BottomWall
   m_TagString: Untagged
@@ -203,15 +202,3 @@ MonoBehaviour:
   pathFinderTiles: {fileID: 0}
   _walls:
   - {fileID: 7658834004988055228}
---- !u!114 &-5472500666143391727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7658834007032732295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d426e3f0b29acb41964cd7843a42789, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

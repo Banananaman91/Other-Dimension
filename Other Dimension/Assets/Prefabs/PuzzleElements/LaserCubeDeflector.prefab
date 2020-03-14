@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5485204600136815422}
   - component: {fileID: 5485204600136815409}
   - component: {fileID: 5615166980278538493}
-  - component: {fileID: -8585849870397252961}
   m_Layer: 10
   m_Name: LaserCubeDeflector
   m_TagString: Untagged
@@ -112,21 +111,9 @@ MonoBehaviour:
   _laserParticle: {fileID: 5485204600222726130}
   _directionType: 0
   _addedColour: 0
-  _distanceFromPlayer: 0
-  _followSpeed: 0
-  _rotateSpeed: 0
---- !u!114 &-8585849870397252961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5485204600136815408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d426e3f0b29acb41964cd7843a42789, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _distanceFromPlayer: 4
+  _followSpeed: 10
+  _rotateSpeed: 50
 --- !u!1 &5485204600222726133
 GameObject:
   m_ObjectHideFlags: 0

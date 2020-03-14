@@ -14,7 +14,7 @@ namespace Puzzle.Elements
         private int _colour1;
         private int _colour2;
         private float _t;
-        private int _speed = 2;
+        private int _speed = 5;
         private bool _countUp;
         private bool _complete;
         
