@@ -118,6 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2351999e750644347bf1abe443236059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderBounds: {fileID: 6396936935300647231}
   pathFinderTiles: {fileID: 0}
-  movementSpeed: 0
-  rotationSpeed: 0

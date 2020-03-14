@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public abstract class AiMaster : MonoBehaviour
+    public abstract class AiMaster : Controller
     {
         [Header("AI Master")]
         [SerializeField] protected float _attackCooldownTime;
@@ -46,6 +46,8 @@ namespace Controllers
                     Attack();
                     break;
                 case AiState.Block:
+                    Block();
+                    break;
                 case AiState.Capture:
                 case AiState.Chase:
                 case AiState.Maneuver:
@@ -70,5 +72,6 @@ namespace Controllers
         protected abstract void MoveCharacter();
         protected abstract IEnumerator VisualisePath();
         protected abstract void Attack();
+        protected abstract void Block();
     }
 }

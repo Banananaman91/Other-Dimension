@@ -119,5 +119,10 @@ namespace Controllers.Enemies.Ground
             _attackCooldown = true;
             StateChange.ToFindTargetState();
         }
+
+        protected override void Block()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

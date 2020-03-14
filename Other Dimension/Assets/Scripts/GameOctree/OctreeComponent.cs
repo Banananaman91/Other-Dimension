@@ -26,16 +26,20 @@ namespace GameOctree
             _avoidanceInstance = new ObjectAvoidance();
             MessageBroker.Instance.RegisterMessageOfType<OctreeRequestMessage>(OnOctreeRequestMessage);
             _octree = new Octree<Controller>(transform.position, size, depth); // Instantiate Octree, sending in parameters for root node
-            if (Points == null) return;
-            foreach (var point in Points)
-            {
-                var position = point.transform.position;
-                point.CurrentNode =  _octree.Insert(point, position); // insert all objects into Octree
-            }
         }
         
         private void OnObjectAvoidanceRequestMessage(ObjectRequestMessage message) => message.RequestingComponent.ObjectInitialise(_avoidanceInstance);
         private void OnOctreeRequestMessage(OctreeRequestMessage message) => message.RequestingComponent.OctreeInitialise(_octree);
+
+        private void Start()
+        {
+            if (Points == null) return;
+            foreach (var point in Points)
+            {
+                var position = point.transform.position;
+                point.CurrentNode = _octree.Insert(point, position); // insert all objects into Octree
+            }
+        }
 
         private void Update()
         {

@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +40,7 @@ namespace Controllers.Enemies.Flying
             yield return StartCoroutine(Pathfinder.FindPath(StepValue, transform.position, _goalPosition,
                 moveableRadius,
                 newPath => _path = newPath));
-            if (!(Vector3.Distance(_goalPosition, _path.Last()) < 1)) yield break;
+            //if (!(Vector3.Distance(_goalPosition, _path.Last()) < 1)) yield break;
             _usingPath = true;
             StateChange.ToMoveState();
             _isFindingPath = false;
@@ -48,8 +48,8 @@ namespace Controllers.Enemies.Flying
 
         protected override void DetermineGoalPosition()
         {
-            _goalPosition = Random.insideUnitSphere * moveableRadius;
-            StateChange.ToMoveState();
+            _goalPosition = transform.position + Random.insideUnitSphere * moveableRadius;
+            StateChange.ToFindPathState();
         }
 
         protected override void MoveCharacter()
@@ -120,6 +120,11 @@ namespace Controllers.Enemies.Flying
             _timer = _attackCooldownTime;
             _attackCooldown = true;
             StateChange.ToFindTargetState();
+        }
+
+        protected override void Block()
+        {
+            throw new NotImplementedException();
         }
     }
 }
