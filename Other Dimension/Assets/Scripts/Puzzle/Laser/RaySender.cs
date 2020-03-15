@@ -6,6 +6,7 @@ namespace Puzzle.Laser
 {
     public class RaySender : Ray
     {
+        [SerializeField] private AudioSource _audio;
         private void Awake()
         {
             var colourChoice = Random.Range(0, _startColours.Length);
@@ -17,6 +18,7 @@ namespace Puzzle.Laser
 
         private void FixedUpdate()
         {
+            if (!_audio.isPlaying) _audio.Play();
             _transformDirection = transform.forward;
             var position = transform.position;
             _laserVisual.SetPosition(0, position);

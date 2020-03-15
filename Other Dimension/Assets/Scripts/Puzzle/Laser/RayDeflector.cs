@@ -10,6 +10,7 @@ namespace Puzzle.Laser
         [SerializeField, Range(1, 10)] private int _distanceFromPlayer;
         [SerializeField] private int _followSpeed;
         [SerializeField] private int _rotateSpeed;
+        [SerializeField] private AudioSource _audio;
         private float _scrollScale = 1;
         private Vector3 _targetVector3;
         public Color _laserColour;
@@ -23,6 +24,7 @@ namespace Puzzle.Laser
 
         private void Start()
         {
+            _audio.Stop();
             switch (_colourType)
             {
                 case CubeColour.Blue:
@@ -64,6 +66,7 @@ namespace Puzzle.Laser
             {
                 _hitWithRay = false;
                 NotHitWithRay();
+                if (_audio.isPlaying) _audio.Stop();
             }
 
             var position = Transform.position;
@@ -104,6 +107,7 @@ namespace Puzzle.Laser
 
         public void HitWithRay(Ray ray)
         {
+            if (!_audio.isPlaying) _audio.Play();
             _ray = ray;
             _hitWithRay = true;
             _rayRunOutTime = Time.time + _hitByRayRefreshTime;

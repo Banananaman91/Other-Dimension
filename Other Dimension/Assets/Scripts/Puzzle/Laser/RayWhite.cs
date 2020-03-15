@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using System;
+using Controllers;
 using UnityEngine;
 
 namespace Puzzle.Laser
@@ -8,6 +9,7 @@ namespace Puzzle.Laser
         [SerializeField, Range(1, 10)] private int _distanceFromPlayer;
         [SerializeField] private int _followSpeed;
         [SerializeField] private int _rotateSpeed;
+        [SerializeField] private AudioSource _audio;
         private float _scrollScale = 1;
         private Vector3 _targetVector3;
         private bool _userLaserColourProperty;
@@ -16,6 +18,11 @@ namespace Puzzle.Laser
         public Color LaserColour { get; set; }
         public bool FollowPlayer { get; set; }
         public Transform Transform => transform;
+
+        private void Start()
+        {
+            _audio.Stop();
+        }
 
         private void FixedUpdate()
         {
@@ -43,6 +50,7 @@ namespace Puzzle.Laser
             {
                 _hitWithRay = false;
                 NotHitWithRay();
+                if (_audio.isPlaying) _audio.Stop();
             }
 
             var position = Transform.position;
@@ -83,6 +91,7 @@ namespace Puzzle.Laser
 
         public void HitWithRay(Ray ray = null)
         {
+            if (!_audio.isPlaying) _audio.Play();
             _hitWithRay = true;
             _rayRunOutTime = Time.time + _hitByRayRefreshTime;
             _laserVisual.startColor = LaserColour;

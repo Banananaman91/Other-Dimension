@@ -25,6 +25,9 @@ namespace Controllers
         [SerializeField] private float _maxSpeed;
         [SerializeField] private int _interactDistance;
         [SerializeField] private SphereCollider _triggerSphere;
+        [SerializeField] private AudioSource _jumpAudio;
+        [SerializeField] private AudioSource _dashAudio;
+        [SerializeField] private AudioSource _bubbleAudio;
         private IRayInteract _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
@@ -64,12 +67,14 @@ namespace Controllers
             if (Input.GetKeyDown(KeyCode.Space) && _jumped && !_dashed)
             {
                 _rb.velocity = transform.forward * _jump;
+                _dashAudio.Play();
                 if (!_dashed) _dashed = true;
             }
             //Jump
             if (Input.GetKeyDown(KeyCode.Space) && !_jumped)
             {
                 _rb.velocity = transform.up * _jump;
+                _jumpAudio.Play();
                 if (!_jumped) _jumped = true;
             }
             //Interact with cubes
@@ -89,6 +94,7 @@ namespace Controllers
 
         private void OnCollisionEnter(Collision other)
         {
+            _bubbleAudio.Play();
             if (other.gameObject.layer == 9)
             {
                 if (_jumped) _jumped = false;
