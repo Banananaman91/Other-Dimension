@@ -9,6 +9,7 @@ namespace Puzzle.Laser
     public class RayGoal : RayMaster, IRayInteract, IRayReceiver
     {
         [SerializeField] private GoalState _currentState;
+        [SerializeField] private AudioSource _audio;
         private Color _finalColour;
         private bool _freezeColour;
         private Ray _ray;
@@ -21,6 +22,7 @@ namespace Puzzle.Laser
             switch (_currentState)
             {
                 case GoalState.Awaiting:
+                    if (_audio.isPlaying) _audio.Stop();
                     break;
                 case GoalState.Fired:
                     Fired();
@@ -57,6 +59,7 @@ namespace Puzzle.Laser
 
         private void Fired()
         {
+            if (!_audio.isPlaying) _audio.Play();
             if (!_freezeColour && _finalColour != LaserColour) {
                 _finalColour = LaserColour;
                 _freezeColour = true;
