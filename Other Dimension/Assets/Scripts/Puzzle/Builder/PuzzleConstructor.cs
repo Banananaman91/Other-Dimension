@@ -15,13 +15,13 @@ namespace Puzzle.Builder
     {
         [SerializeField] private BuildingPieces[] _buildingPieces;
         [SerializeField] private GameObject _goal;
-        [SerializeField, Range(4, 20)] private int _sizeRange;
+        [SerializeField, Range(8, 20)] private int _sizeRange;
         [SerializeField] protected GameObject[] _puzzleElements;
         [SerializeField] private GameObject _base;
         [SerializeField] private int _yOffset;
 
         private int _distance = 20;
-        private int _minRange = 4;
+        private int _minRange = 8;
         private int _elementChoice;
 
         public void ConstructPuzzle()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,25 +16,23 @@ namespace Terrain
         [SerializeField] private int _objectCount;
         [SerializeField] private Collider _whiteHoleCollider;
         private GameObject _spawnedObject;
-        
-        private void Start()
-        { 
-            StartCoroutine(CreateObjects());
-        }
+        private List<GameObject> _objects = new List<GameObject>(); 
 
-        private IEnumerator CreateObjects()
+        public IEnumerator CreateObjects()
         {
             if (_whiteHoleCollider.enabled) _whiteHoleCollider.enabled = false;
             for (var i = 0; i < _puzzleCount; i++)
             {
                 var itemNumber = Random.Range(0, _feature.Length);
-                Instantiate(_feature[itemNumber], _spawnPoint.transform);
+                var go = Instantiate(_feature[itemNumber], _spawnPoint.transform);
+                _objects.Add(go);
             }
 
             for (int i = 0; i < _objectCount; i++)
             {
                 var itemNumber = Random.Range(0, _terrainObjects.Length);
-                Instantiate(_terrainObjects[itemNumber]);
+                var go = Instantiate(_terrainObjects[itemNumber]);
+                _objects.Add(go);
             }
 
             if (!_whiteHoleCollider.enabled) _whiteHoleCollider.enabled = true;

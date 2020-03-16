@@ -20,7 +20,7 @@ namespace Controllers.Enemies.Flying
             _boidRules.boidRule2(this, _neighboursRigidbodies);
             _boidRules.boidRule3(this, _neighboursRigidbodies);
             _boidRules.BoidRule4(this);
-            _boidRules.BoidRule6(this, _enemyRigidbodies);
+            if (_enemyRigidbodies.Count > 0) _boidRules.BoidRule6(this, _enemyRigidbodies);
         }
 
         public void AddNeighbour(Rigidbody neighbour)

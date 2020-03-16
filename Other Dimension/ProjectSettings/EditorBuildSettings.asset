@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Terrain.unity
     guid: 1cf9a78ada5d51e44b9ae62eff764ed9
+  - enabled: 1
+    path: Assets/Scenes/AiDemo.unity
+    guid: ff526cfa370fccb40b796e3f245fae72
   m_configObjects: {}

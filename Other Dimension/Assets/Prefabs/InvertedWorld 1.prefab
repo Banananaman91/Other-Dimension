@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c74369bb57fb0f4182c519fb8ae2f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _levelText: {fileID: 0}
   gravity: -9.08
   _colours: []
 --- !u!54 &999453683
@@ -653,8 +655,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _feature:
   - {fileID: 3997419589232040552, guid: 0423fb86a7185ad4bbc3e2ae40dafac1, type: 3}
+  _terrainObjects:
+  - {fileID: 46566974285736381, guid: a097238a83ec2f84182c1e98ef2d837f, type: 3}
   _spawnPoint: {fileID: 4685194590115318208}
-  _objectCount: 10
+  _puzzleCount: 20
+  _objectCount: 10000
   _whiteHoleCollider: {fileID: 999453686}
 --- !u!1 &4685194591793630944
 GameObject:

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using GamePhysics;
+using Menu;
 using Puzzle.Laser;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,6 +29,8 @@ namespace Controllers
         [SerializeField] private AudioSource _jumpAudio;
         [SerializeField] private AudioSource _dashAudio;
         [SerializeField] private AudioSource _bubbleAudio;
+        [SerializeField] private Canvas _pauseMenu;
+        [SerializeField] private MenuBehaviour _menuBehaviour;
         private IRayInteract _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
@@ -41,12 +44,16 @@ namespace Controllers
         private void Awake()
         {
             _triggerSphere.radius = _interactDistance;
-            Cursor.visible = false;
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.Escape)) Cursor.visible = true;
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Cursor.visible = true;
+                _pauseMenu.enabled = true;
+                _menuBehaviour.PauseGame();
+            }
             
             _moveDirection.x = Input.GetAxis("Horizontal");
             _moveDirection.z = Input.GetAxis("Vertical");

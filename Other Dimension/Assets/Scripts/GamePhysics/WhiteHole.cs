@@ -25,8 +25,11 @@ namespace GamePhysics
         private void Awake()
         {
             ColourSequence();
-            _levelText.text = "Level: " + _colourCount;
-            _levelText.color = _colours[_currentColour];
+            if (_levelText)
+            {
+                _levelText.text = "Level: " + _colourCount;
+                _levelText.color = _colours[_currentColour];
+            }
         }
 
         private void CheckRay(int rayCount)
@@ -61,8 +64,12 @@ namespace GamePhysics
                 _colours.Add(newColour);
             }
             _colourCount++;
-            _levelText.color = _colours[_currentColour];
-            _levelText.text = "Level: " + _colourCount;
+            if (_levelText)
+            {
+                _levelText.color = _colours[_currentColour];
+                _levelText.text = "Level: " + _colourCount;
+            }
+
             _player.DisplayColour(this, _currentColour);
         }
 

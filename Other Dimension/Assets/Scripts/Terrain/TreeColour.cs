@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Controllers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Terrain
 {
-    public class TreeColour : MonoBehaviour
+    public class TreeColour : Controller
     {
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
         private Material TreeMaterial => GetComponent<MeshRenderer>().material;
@@ -19,8 +20,6 @@ namespace Terrain
         private bool _countUp;
         private bool _complete;
         
-        
-
         private void Awake()
         {
             _colour1 = Random.Range(0, ColoursArray.Length);

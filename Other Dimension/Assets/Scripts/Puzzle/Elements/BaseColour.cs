@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using UnityEngine;
 
 namespace Puzzle.Elements
 {
-    public class BaseColour : MonoBehaviour
+    public class BaseColour : Controller
     {
         private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
         private Material TreeMaterial => GetComponent<MeshRenderer>().material;

@@ -1,9 +1,10 @@
-﻿using GamePhysics;
+﻿using Controllers;
+using GamePhysics;
 using UnityEngine;
 
 namespace Puzzle.Laser
 {
-    public class Ray : MonoBehaviour
+    public class Ray : Controller
     {
         [SerializeField] protected LineRenderer _laserVisual;
         [SerializeField] protected ParticleSystem _laserParticle;

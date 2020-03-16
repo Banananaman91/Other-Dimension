@@ -103,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8014f0c6a7b2e449ba0176791f0e41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderBounds: {fileID: 7031003969254666660}
+  pathFinderTiles: {fileID: 0}
 --- !u!114 &3272460333996565863
 MonoBehaviour:
   m_ObjectHideFlags: 0

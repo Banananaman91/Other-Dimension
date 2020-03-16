@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Puzzle.Laser
 {
-    public class RayDestructable : MonoBehaviour, IRayReceiver
+    public class RayDestructable : Ray, IRayReceiver
     {
         private float _t;
         private int _speed = 10;
@@ -28,6 +28,7 @@ namespace Puzzle.Laser
             if (CurrentColour == TargetColour)
             {
                 if(_ray) ray._addedColour = false;
+                _avoidance.Objects.Remove(this);
                 Destroy(gameObject);
             }
             if (_t < 1) _t += Time.deltaTime / _speed;

@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _neighbourSeparationDistance: 5
-  _enemySeparationDistance: 15
+  _enemySeparationDistance: 20
   _leaderDistance: 0.1
   _sphere: {fileID: 2400157360297313133}
   _neighbourRange: 20
