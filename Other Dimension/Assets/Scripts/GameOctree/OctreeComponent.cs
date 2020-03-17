@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Controllers;
 using GameMessengerUtilities;
@@ -17,6 +18,7 @@ namespace GameOctree
 
         private Octree<Controller> _octree;
         private ObjectAvoidance _avoidanceInstance = new ObjectAvoidance();
+        private bool finishOctree;
 
         private void Awake()
         {
@@ -38,44 +40,73 @@ namespace GameOctree
                 var position = point.transform.position;
                 point.CurrentNode = _octree.Insert(point, position); // insert all objects into Octree
             }
+
+            StartCoroutine(UpdateOctree());
         }
 
-        private void Update()
+        private IEnumerator UpdateOctree()
         {
-            if (Points == null) return;
-            foreach (var point in Points)
+            while (!finishOctree)
             {
-                if (point == null) continue;
-                var newNode =
-                    _octree.NodeCheck(point.transform
-                        .position); // check node for each point -- optimise to only check moving points
-                if (point.CurrentNode == null)
+                if (Points == null) yield return null;
+                foreach (var point in Points)
                 {
-                    point.CurrentNode = _octree.Insert(point, point.transform.position);
-                    continue;
+                    if (point == null) continue;
+                    var newNode =
+                        _octree.NodeCheck(point.transform
+                            .position); // check node for each point -- optimise to only check moving points
+                    if (point.CurrentNode == null)
+                    {
+                        point.CurrentNode = _octree.Insert(point, point.transform.position);
+                        continue;
+                    }
+
+                    if (newNode == point.CurrentNode) continue; //if it is still in the same node then continue
+                    point.CurrentNode.RemoveData(point); // if it is a new node, remove self from nodes data
+                    point.CurrentNode =
+                        _octree.Insert(point, point.transform.position); // set current node to the new node
                 }
 
-                if (newNode == point.CurrentNode) continue; //if it is still in the same node then continue
-                point.CurrentNode.RemoveData(point); // if it is a new node, remove self from nodes data
-                point.CurrentNode =
-                    _octree.Insert(point, point.transform.position); // set current node to the new node
-            }
-            //_octree.RemoveNode();
-        }
-        
-        private void OnDrawGizmos()
-        {
-            if (Points != null && _octree != null)
-            {
-                // var octree = new Octree<Controller>(transform.position, size, depth);
-                // foreach (var point in Points)
-                // {
-                //     octree.Insert(point, point.transform.position);
-                // }
-        
-                DrawNode(_octree.GetRoot());
+                yield return null;
             }
         }
+
+        // private void Update()
+        // {
+        //     if (Points == null) return;
+        //     foreach (var point in Points)
+        //     {
+        //         if (point == null) continue;
+        //         var newNode =
+        //             _octree.NodeCheck(point.transform
+        //                 .position); // check node for each point -- optimise to only check moving points
+        //         if (point.CurrentNode == null)
+        //         {
+        //             point.CurrentNode = _octree.Insert(point, point.transform.position);
+        //             continue;
+        //         }
+        //
+        //         if (newNode == point.CurrentNode) continue; //if it is still in the same node then continue
+        //         point.CurrentNode.RemoveData(point); // if it is a new node, remove self from nodes data
+        //         point.CurrentNode =
+        //             _octree.Insert(point, point.transform.position); // set current node to the new node
+        //     }
+        //     //_octree.RemoveNode();
+        // }
+        
+        // private void OnDrawGizmos()
+        // {
+        //     if (Points != null && _octree != null)
+        //     {
+        //         // var octree = new Octree<Controller>(transform.position, size, depth);
+        //         // foreach (var point in Points)
+        //         // {
+        //         //     octree.Insert(point, point.transform.position);
+        //         // }
+        //
+        //         DrawNode(_octree.GetRoot());
+        //     }
+        // }
         
         private void DrawNode(OctreeNode<Controller> node)
         {
