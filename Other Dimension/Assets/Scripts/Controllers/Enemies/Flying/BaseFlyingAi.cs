@@ -18,7 +18,6 @@ namespace Controllers.Enemies.Flying
         [SerializeField, Range(2, 10)] protected int attackValue = 2;
         [SerializeField] protected int attackDistance;
         [SerializeField] protected bool canAttack;
-        [SerializeField] protected Rigidbody _rb;
         protected float StepValue => stepValue;
         protected IEnumerable<Vector3> _path = new List<Vector3>();
         protected PathFinder Pathfinder = new PathFinder();

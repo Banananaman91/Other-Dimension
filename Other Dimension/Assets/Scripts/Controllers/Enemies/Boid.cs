@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace Controllers.Enemies
 {
-    public class Boid : MonoBehaviour
+    public class Boid : Controller
     {
         [SerializeField] protected int _neighbourSeparationDistance;
         [SerializeField] protected int _enemySeparationDistance;
         [SerializeField, Range(0.1f, 1)] protected float _leaderDistance;
         [SerializeField] protected SphereCollider _sphere;
         [SerializeField] protected int _neighbourRange;
-        [SerializeField] protected Rigidbody _rb;
         [SerializeField] protected float _movementSpeed;
         [SerializeField] protected List<Rigidbody> _neighboursRigidbodies = new List<Rigidbody>();
         [SerializeField] protected List<Rigidbody> _enemyRigidbodies = new List<Rigidbody>();

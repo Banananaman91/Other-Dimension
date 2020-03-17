@@ -111,7 +111,7 @@ namespace PathFinding
                             new Location(new Vector3(xIndex, yIndex, zIndex), target, point);
                         var octreeNode = _octree.NodeCheck(adjacentVector.PositionInWorld);
                         _avoidanceObjects = octreeNode.ReturnData();
-                        bool isIntersecting = _avoidanceObjects.Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <= Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
+                        bool isIntersecting = _avoidanceObjects.Where(x => x != isObjectMoving && Vector3.Distance(x.transform.position, adjacentVector.PositionInWorld) <= Vector3.Distance(point.PositionInWorld, target)).Any(x => x.RenderBounds != null && x.RenderBounds.bounds.Contains(adjacentVector.PositionInWorld));
                         if (!isIntersecting) returnList.Add(adjacentVector);
 
                     }

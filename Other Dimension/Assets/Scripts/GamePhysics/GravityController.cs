@@ -1,12 +1,12 @@
-﻿using GamePhysics;
+﻿using Controllers;
 using UnityEngine;
 
-namespace Controllers
+namespace GamePhysics
 {
     public class GravityController : MonoBehaviour
     {
         [SerializeField] private WhiteHole _gravityCentre;
-        [SerializeField] private PlayerController playerTransform;
+        [SerializeField] private Controller playerTransform;
 
         void FixedUpdate()
         {

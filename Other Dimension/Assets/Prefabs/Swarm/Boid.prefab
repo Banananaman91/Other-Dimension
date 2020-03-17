@@ -107,7 +107,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -123,13 +123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d4a5d8b5b22184fb423d9c931207d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _neighbourSeparationDistance: 5
+  _renderBounds: {fileID: 2400157360297313130}
+  pathFinderTiles: {fileID: 0}
+  _neighbourSeparationDistance: 10
   _enemySeparationDistance: 20
   _leaderDistance: 0.1
   _sphere: {fileID: 2400157360297313133}
   _neighbourRange: 20
   _rb: {fileID: 4135620201034014016}
-  _movementSpeed: 1
+  _movementSpeed: 30
   _neighboursRigidbodies: []
   _enemyRigidbodies: []
   _leader: {fileID: 0}

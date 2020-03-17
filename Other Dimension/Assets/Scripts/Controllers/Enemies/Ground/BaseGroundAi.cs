@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PathFinding;
+using Puzzle.Builder;
 using UnityEngine;
 
 namespace Controllers.Enemies.Ground
@@ -16,7 +17,7 @@ namespace Controllers.Enemies.Ground
         [SerializeField, Range(2, 10)] protected int attackValue = 2;
         [SerializeField] protected int attackDistance;
         [SerializeField] protected bool canAttack;
-        [SerializeField] protected Rigidbody _rb;
+        [SerializeField] protected PuzzleConstructor _goal;
         protected float StepValue => stepValue;
         protected IEnumerable<Vector3> _path = new List<Vector3>();
         protected PathFinder Pathfinder = new PathFinder();
@@ -46,8 +47,11 @@ namespace Controllers.Enemies.Ground
 
         protected override void DetermineGoalPosition()
         {
-            _goalPosition = new Vector3(Random.Range(transform.localPosition.x - moveableRadius, transform.localPosition.x + moveableRadius), transform.localPosition.y, Random.Range(transform.localPosition.z - moveableRadius, transform.localPosition.z + moveableRadius));
-            StateChange.ToMoveState();
+            var localPosition = transform.localPosition;
+            _goalPosition = _goal ? _goal.Goal.transform.position : new Vector3(Random.Range(localPosition.x - moveableRadius, localPosition.x + moveableRadius), localPosition.y, Random.Range(localPosition.z - moveableRadius, localPosition.z + moveableRadius));
+            Debug.Log(_goalPosition);
+            if (!_goal) StateChange.ToMoveState();
+            else StateChange.ToFindPathState();
         }
 
         protected override void MoveCharacter()
@@ -82,10 +86,11 @@ namespace Controllers.Enemies.Ground
                     if (_timer <= _attackCooldownTime - 2) _rb.isKinematic = true;
                 }
 
-                if (_rb.isKinematic)
+                if (!_rb.isKinematic)
                 {
                     Vector3 direction = _goalPosition - _rb.position;
-                    _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
+                    //BoidRigidbody.velocity = Vector3.ClampMagnitude(BoidRigidbody.velocity, MovementSpeed);
+                    _rb.AddForce(direction.normalized * (movementSpeed * Time.deltaTime), ForceMode.VelocityChange);
                     //transform.Rotate(direction, Space.Self);
                 }
 
@@ -98,9 +103,9 @@ namespace Controllers.Enemies.Ground
         private void MoveAcrossPath(Vector3 location)
         {
             _isMoving = true;
-
-            transform.position =
-                Vector3.MoveTowards(transform.position, location, movementSpeed * Time.deltaTime);
+            var direction = location - _rb.position;
+            _rb.AddForce(direction.normalized * (movementSpeed * Time.deltaTime), ForceMode.VelocityChange);
+            //transform.position = Vector3.MoveTowards(transform.position, location, movementSpeed * Time.deltaTime);
             if (!(Vector3.Distance(transform.position, _goalPosition) < 1)) return;
             _usingPath = false;
             StateChange.ToFindTargetState();

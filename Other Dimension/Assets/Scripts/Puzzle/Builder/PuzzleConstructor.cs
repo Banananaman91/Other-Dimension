@@ -20,6 +20,8 @@ namespace Puzzle.Builder
         [SerializeField] private GameObject _base;
         [SerializeField] private int _yOffset;
 
+        public GameObject Goal { get; set; }
+
         private int _distance = 20;
         private int _minRange = 8;
         private int _elementChoice;
@@ -57,6 +59,7 @@ namespace Puzzle.Builder
                     if (i == half && j == half)
                     {
                         GameObject goal = Instantiate(_goal, transform);
+                        Goal = goal;
                         List<GameObject> children = new List<GameObject>();
                         for (int k = 0; k < go.transform.childCount; k++)
                         {

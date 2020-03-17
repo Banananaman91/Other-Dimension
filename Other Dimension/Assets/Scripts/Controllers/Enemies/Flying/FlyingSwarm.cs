@@ -32,8 +32,10 @@ namespace Controllers.Enemies.Flying
                 foreach (var t in _boidSwarm.Where(t => !boid.NeighboursRigidbodies.Contains(t.BoidRigidbody) && t != boid))
                 {
                     boid.AddNeighbour(t.BoidRigidbody);
+                    
                 }
                 boid.AddLeader(_rb);
+                boid.AddNeighbour(_rb);
             }
             
             if (_boidSwarm.Count == _flockTotal) StateChange.ToFindTargetState();

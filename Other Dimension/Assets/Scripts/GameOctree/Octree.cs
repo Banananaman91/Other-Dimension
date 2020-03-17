@@ -40,6 +40,15 @@ namespace GameOctree
             return leafNode;
         }
 
+        public void RemoveNode()
+        {
+            foreach (var node in _node.Nodes)
+            {
+                node.RemoveNodes(_depth);
+            }
+
+        }
+
         public IList<T> ObjectCheck(Vector3 position) // searches for leaf node and returns data list for that node
         {
             //retrieve objects from leafnode at current position

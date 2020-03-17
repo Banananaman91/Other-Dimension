@@ -9,22 +9,22 @@ namespace Menu
     {
         [SerializeField] private ObjectCreation _objectCreator;
         [SerializeField] private Camera _mainCamera;
-        [SerializeField] private Canvas _mainMenu;
-        [SerializeField] private Canvas _pauseMenu;
+        [SerializeField] private GameObject _mainMenu;
+        [SerializeField] private GameObject _pauseMenu;
         public bool GameActive { get; set; }
 
         private void Awake()
         {
-            _pauseMenu.enabled = false;
-            _mainMenu.enabled = true;
+            _pauseMenu.SetActive(false);
+            _mainMenu.SetActive(true);
             Time.timeScale = 1f;
             _mainCamera.farClipPlane = 10000;
         }
 
         public void BeginGame()
         {
-            Cursor.visible = false;
-            _mainMenu.enabled = false;
+            //Cursor.visible = false;
+            _mainMenu.SetActive(false);
             GameActive = true;
             _mainCamera.farClipPlane = 4000;
             if (_objectCreator) StartCoroutine(_objectCreator.CreateObjects());
@@ -43,13 +43,13 @@ namespace Menu
         public void PauseGame()
         {
             Time.timeScale = 0f;
-            _pauseMenu.enabled = true;
+            _pauseMenu.SetActive(true);
         }
 
         public void ResumeGame()
         {
             Time.timeScale = 1f;
-            _pauseMenu.enabled = false;
+            _pauseMenu.SetActive(false);
         }
 
         public void QuitToMenu()

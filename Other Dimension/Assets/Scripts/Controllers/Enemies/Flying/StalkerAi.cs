@@ -33,6 +33,7 @@ namespace Controllers.Enemies.Flying
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<StalkerAi>()) return;
+            if (!other.GetComponent<BaseFlyingAi>() && !other.GetComponent<FlyingBoid>()) return;
             if (!_others.Contains(other.gameObject)) _others.Add(other.gameObject);
         }
 

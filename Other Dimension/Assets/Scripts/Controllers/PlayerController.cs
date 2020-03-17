@@ -14,10 +14,10 @@ using Vector3 = UnityEngine.Vector3;
 namespace Controllers
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Controller
     {
         [Header("Player")]
-        [SerializeField] private Rigidbody _rb;
+        
         [SerializeField] private float _walk;
         [SerializeField, Range(1,5)] private int _run;
         [SerializeField] private int _rotateSpeed;
@@ -29,15 +29,15 @@ namespace Controllers
         [SerializeField] private AudioSource _jumpAudio;
         [SerializeField] private AudioSource _dashAudio;
         [SerializeField] private AudioSource _bubbleAudio;
-        [SerializeField] private Canvas _pauseMenu;
+        [SerializeField] private GameObject _pauseMenu;
         [SerializeField] private MenuBehaviour _menuBehaviour;
         private IRayInteract _rayCube;
         private Vector3 _moveDirection = Vector3.zero;
         private Vector3 _directionVector = Vector3.zero;
         private Material Material => GetComponent<MeshRenderer>().material;
-        private Transform RbTransform => _rb.transform;
+        
         public Transform PlayerTransform => transform;
-        public Rigidbody Rb => _rb;
+        
         private bool _jumped;
         private bool _dashed;
 
@@ -51,7 +51,7 @@ namespace Controllers
             if (Input.GetKey(KeyCode.Escape))
             {
                 Cursor.visible = true;
-                _pauseMenu.enabled = true;
+                _pauseMenu.SetActive(true);
                 _menuBehaviour.PauseGame();
             }
             

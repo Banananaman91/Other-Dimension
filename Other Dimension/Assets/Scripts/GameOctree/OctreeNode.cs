@@ -7,7 +7,7 @@ namespace GameOctree
 {
     public class OctreeNode<T>
     {
-        private OctreeNode<T> ParentNode { get; set; }
+        public OctreeNode<T> ParentNode { get; set; }
         private OctreeNode<T>[] _subNodes;
         List<T> _data = new List<T>();
         private Vector3 _position;
@@ -26,6 +26,8 @@ namespace GameOctree
         public Vector3 Position => _position;
         public float Size => _size;
 
+        public List<T> Data => _data;
+
         public void AddData(T data) // add data object to list for storing in node, used later for retrieval
         {
             _data.Add(data);
@@ -34,6 +36,14 @@ namespace GameOctree
         public void RemoveData(T data) // removes data from node, used when data object has left the node (moving objects)
         {
             _data.Remove(data);
+        }
+
+        public void RemoveNode(OctreeNode<T> target)
+        {
+            for (int i = 0; i < _subNodes.Length; i++)
+            {
+                if (_subNodes[i] == target) _subNodes[i] = null;
+            }
         }
 
         public List<T> ReturnData() // returns the data list
@@ -45,7 +55,14 @@ namespace GameOctree
         {
             if (depth == 0) return this; // if we have reached the lowest depth, return as leaf node
             var indexPosition = GetIndexOfPosition(targetPosition, _position); // find index of position, represented by enum index
-            if (_subNodes == null)
+            bool any = false;
+
+            if (_subNodes != null)
+            {
+                any = _subNodes.Any(node => node == null);
+            }
+
+            if (_subNodes == null || any)
             {
                 _subNodes = new OctreeNode<T>[8];
 
@@ -94,8 +111,20 @@ namespace GameOctree
             if (_subNodes == null) return this;
 
             var indexPosition = GetIndexOfPosition(targetPosition, _position);
-            return _subNodes?[indexPosition].NodeSearch(targetPosition, depth - 1);
-            
+            return _subNodes[indexPosition] == null ? this : _subNodes?[indexPosition].NodeSearch(targetPosition, depth - 1);
+        }
+
+        public void RemoveNodes(int depth = 0)
+        {
+            if (depth == 0 && _data.Count == 0) ParentNode.RemoveNode(this);
+            else if (_subNodes == null && _data.Count == 0) ParentNode.RemoveNode(this);
+            else
+            {
+                foreach (var subNode in _subNodes)
+                {
+                    RemoveNodes(depth - 1);
+                }
+            }
         }
 
         public bool IsLeaf() // used by OctreeComponent when drawing nodes, checks only for lowest depth leafs

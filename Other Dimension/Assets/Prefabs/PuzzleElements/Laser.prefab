@@ -151,6 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e3de72172359f64597b60560c0b726b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderBounds: {fileID: 7445270486836738306}
+  pathFinderTiles: {fileID: 0}
+  _rb: {fileID: 0}
   _laserVisual: {fileID: 7445270486836738306}
   _laserParticle: {fileID: 4440655468135772362}
   _directionType: 0

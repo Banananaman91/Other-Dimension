@@ -79,15 +79,18 @@ namespace GamePhysics
             ColourSequence();
         }
 
-        public void Repel(PlayerController playerTransform)
+        public void Repel(Controller playerTransform)
         {
-            Vector3 gravityUp = (transform.position - playerTransform.PlayerTransform.position).normalized;
-            Vector3 localUp = playerTransform.PlayerTransform.up;
+            var transform1 = playerTransform.transform;
+            Vector3 gravityUp = (transform.position - transform1.position).normalized;
+            Vector3 localUp = transform1.up;
 
             playerTransform.Rb.AddForce(gravityUp * gravity);
 
-            Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * playerTransform.PlayerTransform.rotation;
-            playerTransform.PlayerTransform.rotation = Quaternion.Slerp(playerTransform.PlayerTransform.rotation, targetRotation, 50f * Time.deltaTime);
+            var rotation = playerTransform.transform.rotation;
+            Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * rotation;
+            rotation = Quaternion.Slerp(rotation, targetRotation, 50f * Time.deltaTime);
+            playerTransform.transform.rotation = rotation;
         }
     }
 }

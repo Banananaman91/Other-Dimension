@@ -5046,6 +5046,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25dab4fb33ceb1a4483b8d93fd89d4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderBounds: {fileID: 9035551792113499397}
+  pathFinderTiles: {fileID: 0}
+  _rb: {fileID: 0}
   _laserVisual: {fileID: 3705777008678870296}
   _laserParticle: {fileID: 7960806666332887662}
   _directionType: 1

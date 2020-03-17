@@ -15,10 +15,13 @@ namespace Controllers
         [Header("Controller")]
         [SerializeField] protected Renderer _renderBounds;
         [SerializeField] protected GameObject pathFinderTiles;
+        [SerializeField] protected Rigidbody _rb;
         // [SerializeField] protected float movementSpeed;
         // [SerializeField] protected float rotationSpeed;
         public OctreeNode<Controller> CurrentNode { get; set; }
         public Renderer RenderBounds => _renderBounds == null ? _renderBounds : _renderBounds = GetComponent<Renderer>();
+        public Rigidbody Rb => _rb == null ? _rb : _rb = GetComponent<Rigidbody>();
+        public Transform RbTransform => _rb.transform;
 
         public void Start()
         {

@@ -14,13 +14,18 @@ namespace Controllers.Enemies.Flying
             if (!_sphere.isTrigger) _sphere.isTrigger = true;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            _boidRules.boidRule1(this, _neighboursRigidbodies);
-            _boidRules.boidRule2(this, _neighboursRigidbodies);
-            _boidRules.boidRule3(this, _neighboursRigidbodies);
-            _boidRules.BoidRule4(this);
-            if (_enemyRigidbodies.Count > 0) _boidRules.BoidRule6(this, _enemyRigidbodies);
+            var direction = new Vector3(0, 0, 0);
+            direction += _boidRules.boidRule1(this, _neighboursRigidbodies);
+            direction += _boidRules.boidRule2(this, _neighboursRigidbodies);
+            direction += _boidRules.boidRule3(this, _neighboursRigidbodies);
+            direction += _boidRules.BoidRule4(this);
+            if (_enemyRigidbodies.Count > 0) direction += _boidRules.BoidRule6(this, _enemyRigidbodies);
+            
+            BoidRigidbody.velocity = Vector3.ClampMagnitude(BoidRigidbody.velocity, MovementSpeed);
+            BoidRigidbody.AddForce(direction.normalized * (MovementSpeed * Time.deltaTime), ForceMode.Impulse);
+            //BoidRigidbody.MovePosition(BoidRigidbody.position + transform.forward * (2 * Time.deltaTime));
         }
 
         public void AddNeighbour(Rigidbody neighbour)
