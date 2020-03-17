@@ -40,14 +40,6 @@ namespace Controllers.Enemies.Flying
             
             if (_boidSwarm.Count == _flockTotal) StateChange.ToFindTargetState();
         }
-
-        // protected override void MoveCharacter()
-        // {
-        //
-        //     Vector3 direction = _goalPosition - _rb.position;
-        //     _rb.MovePosition(_rb.position + direction * movementSpeed * Time.deltaTime);
-        //     if (!(Vector3.Distance(_rb.position, _goalPosition) < 1)) return;
-        //     StateChange.ToFindTargetState();
-        // }
+        
     }
 }

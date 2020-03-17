@@ -79,13 +79,14 @@ namespace GamePhysics
             ColourSequence();
         }
 
-        public void Repel(Controller playerTransform)
+        public void Repel(Controller playerTransform, int additive = 0)
         {
             var transform1 = playerTransform.transform;
             Vector3 gravityUp = (transform.position - transform1.position).normalized;
             Vector3 localUp = transform1.up;
 
-            playerTransform.Rb.AddForce(gravityUp * gravity);
+            if (additive == 0) playerTransform.Rb.AddForce(gravityUp * gravity);
+            else playerTransform.Rb.AddForce(gravityUp * (gravity + additive));
 
             var rotation = playerTransform.transform.rotation;
             Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * rotation;

@@ -18,6 +18,7 @@ namespace Controllers.Enemies.Ground
         [SerializeField] protected int attackDistance;
         [SerializeField] protected bool canAttack;
         [SerializeField] protected PuzzleConstructor _goal;
+        protected float _minDistance;
         protected float StepValue => stepValue;
         protected IEnumerable<Vector3> _path = new List<Vector3>();
         protected PathFinder Pathfinder = new PathFinder();
@@ -41,6 +42,7 @@ namespace Controllers.Enemies.Ground
                 newPath => _path = newPath));
             if (!(Vector3.Distance(_goalPosition, _path.Last()) < 1)) yield break;
             _usingPath = true;
+            
             StateChange.ToMoveState();
             _isFindingPath = false;
         }
@@ -50,6 +52,7 @@ namespace Controllers.Enemies.Ground
             var localPosition = transform.localPosition;
             _goalPosition = _goal ? _goal.Goal.transform.position : new Vector3(Random.Range(localPosition.x - moveableRadius, localPosition.x + moveableRadius), localPosition.y, Random.Range(localPosition.z - moveableRadius, localPosition.z + moveableRadius));
             Debug.Log(_goalPosition);
+            _minDistance = Vector3.Distance(transform.position, _goalPosition);
             if (!_goal) StateChange.ToMoveState();
             else StateChange.ToFindPathState();
         }
@@ -64,10 +67,24 @@ namespace Controllers.Enemies.Ground
                     _element = 0;
                 }
 
-                if (Vector3.Distance(transform.position, _path.ElementAt(_element)) < float.Epsilon)
+                if (_element >= _path.Count() - 1)
+                {
+                    StateChange.ToFindTargetState();
+                    return;
+                }
+
+                var distance = Vector3.Distance(transform.position, _path.ElementAt(_element));
+                
+                if (distance < _minDistance) _minDistance = distance;
+
+                else if (distance > _minDistance)
                 {
                     _element++;
+                    _minDistance = Vector3.Distance(transform.position, _path.ElementAt(_element));
                 }
+                Debug.DrawLine(transform.position, _path.ElementAt(_element));
+
+                Debug.Log("Element: " + _element);
 
                 if (_element < _path.Count()) MoveAcrossPath(_path.ElementAt(_element));
             }
@@ -89,7 +106,7 @@ namespace Controllers.Enemies.Ground
                 if (!_rb.isKinematic)
                 {
                     Vector3 direction = _goalPosition - _rb.position;
-                    //BoidRigidbody.velocity = Vector3.ClampMagnitude(BoidRigidbody.velocity, MovementSpeed);
+                    _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, movementSpeed);
                     _rb.AddForce(direction.normalized * (movementSpeed * Time.deltaTime), ForceMode.VelocityChange);
                     //transform.Rotate(direction, Space.Self);
                 }
@@ -102,10 +119,12 @@ namespace Controllers.Enemies.Ground
 
         private void MoveAcrossPath(Vector3 location)
         {
+            Debug.Log("Location: " + location);
+            
             _isMoving = true;
             var direction = location - _rb.position;
+            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, movementSpeed);
             _rb.AddForce(direction.normalized * (movementSpeed * Time.deltaTime), ForceMode.VelocityChange);
-            //transform.position = Vector3.MoveTowards(transform.position, location, movementSpeed * Time.deltaTime);
             if (!(Vector3.Distance(transform.position, _goalPosition) < 1)) return;
             _usingPath = false;
             StateChange.ToFindTargetState();
