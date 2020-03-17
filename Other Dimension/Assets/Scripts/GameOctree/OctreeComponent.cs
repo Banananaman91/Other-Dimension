@@ -63,19 +63,19 @@ namespace GameOctree
             //_octree.RemoveNode();
         }
         
-        // private void OnDrawGizmos()
-        // {
-        //     if (Points != null && _octree != null)
-        //     {
-        //         // var octree = new Octree<Controller>(transform.position, size, depth);
-        //         // foreach (var point in Points)
-        //         // {
-        //         //     octree.Insert(point, point.transform.position);
-        //         // }
-        //
-        //         DrawNode(_octree.GetRoot());
-        //     }
-        // }
+        private void OnDrawGizmos()
+        {
+            if (Points != null && _octree != null)
+            {
+                // var octree = new Octree<Controller>(transform.position, size, depth);
+                // foreach (var point in Points)
+                // {
+                //     octree.Insert(point, point.transform.position);
+                // }
+        
+                DrawNode(_octree.GetRoot());
+            }
+        }
         
         private void DrawNode(OctreeNode<Controller> node)
         {
